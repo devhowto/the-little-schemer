@@ -110,8 +110,34 @@
       (cons (car (car l))
             (firsts (cdr l)))))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; insertR ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Atom Atom (list-of Atom)
+;; Produce list with 'new added to the right of the first occurence of 'old.
+
+(test-group "`insertR':"
+            (test "should add 'jalapeño to the right of 'and"
+                  '(tacos tamales and jalapeño salsa)
+                  (insertR
+                   'jalapeño
+                   'and
+                   '(tacos tamales and salsa)))
+
+            (test "should add 'e to the right of 'd'"
+                  '(a b c d e f g h)
+                  (insertR 'e 'd '(a b c d f g h))))
+
+(define insertR
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons (car lat)
+            (cons new
+                  (cdr lat))))
+     (else
+      (cons (car lat) (insertR new old (cdr lat)))))))
+
 
 
 

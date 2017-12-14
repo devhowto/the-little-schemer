@@ -1,0 +1,66 @@
+== 2. Do it Again and Again
+
+=== function: `lat?'
+
+[source,scheme,lineos]
+----
+;; (list-of Atom) -> Bool
+;; Produce #t if l is a list of atoms, #f otherwise.
+
+(test-group "`lat?'"
+            (test "list with only atoms should be #t"
+                  #t
+                  (lat? '(a b c)))
+            (test "list with lists inside should not be #t"
+                  #f
+                  (lat? '(a (b) c))))
+
+(define lat?
+  (lambda (l)
+    (cond
+     ((null? l) #t)
+     ((atom? (car l)) (lat? (cdr l)))
+     (else #f))))
+----
+
+- `(cond ...)` asks questions
+- `(lambda ...)` creates a function; and
+- `(define ...)` gives the function a name.
+
+If the value of `(atom? (car l))` is `#t`, then the value of the entire function is `(lat? (cdr l))`.
+
+`(lat? (cdr l))` asks if the rest of the list is composed only of atoms, invoking the function with a new argument.
+
+=== function: `member?'
+
+[source,scheme,lineos]
+----
+;; Atom (list-of Atom) -> Bool
+;; Produce #t if the atom a exists in lat.
+
+(test-group "`member?':"
+            (test "element should be in the list of atoms"
+                  #t
+                  (member? 'force '(may the force be with you)))
+            (test "element should not be in the list"
+                  #f
+                  (member? 'nix '(windows nah sorry))))
+
+(define member?
+  (lambda (a lat)
+    (cond
+     ((null? lat) #f)
+     (else
+
+      (or (eq? (car lat) a)
+          (member? a (cdr lat)))))))
+----
+
+
+=== The First Commandment
+
+[NOTE,caption=COMMANDMENT]
+====
+Always ask `null?` as the first question in expressing any function.
+====
+

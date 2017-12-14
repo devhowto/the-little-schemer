@@ -1,0 +1,156 @@
+== 1. Toys
+
+These are all atoms because they are strings of characters that do not start with `(` or `)`:
+
+foo  u  1492  *abc$
+
+All atoms are S-expressions.
+
+All lists are S-expressions.
+
+=== '() is an atom?, not a pair, but still a list
+
+`()` can be both an atom and a (null/empty) list, depending on the context. A list is a pair where there is a car field, and a cdr field, and the cdr field is a list. The empty/null list is not a pair because its length is zero and it doesn't have the car and cdr fields. The null list can be returned as the cdr of a list, though.
+
+----
+atom? '()
+;; →  #t
+pair? '()
+;; →  #f
+null? '()
+;; →  #t
+----
+
+How come‽ So, `'()` is an atom, not a pair, and still, an empty list. It is those three things.
+
+`pair?` produces `#t` if it receives a `cons`, and `'()` is *not* a cons.
+
+`atom?` is anything that is not a `cons`.
+
+So, `'()` is both an atom, an empty list, and although being a list, it is not a pair!
+
+A list is a sequence of cons, and not a concrete type. A list is a pair whose ‘cdr’ is a any list (empty or non-empty).
+
+`(cons 'x 'y) ~ '(x . y)` (`~` means “more or less like”).
+
+[, didi at #lisp-br on freenode]
+""
+`(cons 'x 'y)` is created dynamically, whereas `(x . y)` is probably created during reading.
+""
+
+(eq? (cons 'x 'y) '(x . y)) => #f em Guile.
+(equal? (cons 'x 'y) '(x . y)) => #t.
+
+`eq?`, `eqv?` and `equal?` have differente semântics. Even `(eq? (cons 'x 'y) (cons 'x 'y))` produces `#f`.
+
+
+(cons 'x '()) ; <1>
+;; →  (x)
+
+'(x . ()) ; <2>
+;; →  (x)
+
+(cons 'x ()) ; <3>
+;; ERROR
+
+('x . ()) ; <4>
+;; ERROR
+
+('x . '()) ; <5>
+;; ERROR
+
+'(x . '())
+;; →  (x quote ()) ; <6>
+
+1. Using `cons` and quoting each element individually.
+2. Using dot notation to create a pair. Quoting the entire list instead of quoting each element individually. That is why `()` is not immediately preceded by `'`. Actually, the outer `'` quotes both `x` and `()`.
+3. Consing `'x` (which is fine) into `()` (not quoted) is an error because `()` is not data, it is an empty list of code, but there is no operator/function and code to execute inside it.
+4. Error because `('x ...)` is not something that can be invoked. It is seem as code, just that it is not a real operator/function invocation.
+5. Same as above.
+6. We are quoting `x` once, and `()` twice, therefore the output as shown.
+
+
+=== The Law of car
+
+The primitive `car` is defined only for non-empty lists.
+
+- You cannot ask for the `car` or an atom.
+- You cannot ask for the `car` of an empty list.
+
+
+=== The Law of cdr
+
+The primitive `cdr` is defined only for non-empty lists. The `cdr` of any non-empty list is always another list.
+
+- You cannot ask for the `cdr` of an atom.
+- You cannot ask for the `cdr` of an empty list.
+
+[source,scheme,lineos]
+----
+(define l '(x y))
+(car l) ; 'x, an atom.
+(cdr l) ; (y), a list with one element inside it.
+----
+
+CDR *always always produces a list*.
+
+Both `car` and `cdr` take non-empty lists as argument. Anything else is an error.
+
+
+=== The Law of cons
+
+[NOTE,caption=LAW]
+====
+The primitive `cons` takes two arguments. The second argument to `cons`
+must be a list. The result is a list.
+
+- `cons` adds an S-expression to the front of the list.
+- `cons` takes an S-expression and a list as arguments.
+====
+
+=== The Law of null?
+
+[NOTE,caption=LAW]
+====
+The primitive `null?` is defined only for lists.
+====
+
+In theory, you cannot ask `null?` of an atom. In practice, `null?` is `#f` for  everything, except the empty list. So, you don't get an error if you do `null? 'foo` or `null? 13`.
+
+
+----
+(atom? (cdr '(yoda)))
+;; →  #t
+
+(null? (cdr '(yoda)))
+;; →  #t
+----
+
+`null?` is only true for empty lists. `atom?` is only true fro atoms. Yet, when `cdr` produces an empty list, that empty list is both an atom and a (null/empty) list.
+
+NOTE: On the book, page 11, they say `(atom? (cdr '(Harry)))` is `#f` because `()` is a list. Still, some implementations consider the `()` returned by `cdr` as an atom as well.
+
+Also, the Chicken implementation of scheme says `'()` is an atom. The one from The Little Schemer does not.
+
+=== The Law of eq?
+
+[NOTE,caption=LAW]
+====
+The primitive `eq?` takes two arguments. Each must be a non-numeric atom.
+====
+
+// TODO: verify that this is indeed true.
+Note, it doesn't compare “references” in memory. `(eq? 'x 'x)` is `#t` even if they are not the same object in memory.
+
+According to the book you can't use `eq?` on non-atom sexps, but empirical observation on a real Chicken Scheme implementation allowed it. There is a note on the book about this, actually.
+
+In practice, `eq?` can take ints and floats as arguments, but:
+
+[source,scheme,lineos]
+----
+(eq? 5 5)     ; →  #t
+(eq? 5.5 5.5) ; →  #f, oops.
+----
+
+`'()` is a list of atoms because there are no lists inside it.
+

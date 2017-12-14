@@ -531,6 +531,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_the_second_commandment">The Second Commandment</a></li>
 <li><a href="#_function_firsts">function: `firsts'</a></li>
 <li><a href="#_the_third_commandment">The Third Commandment</a></li>
+<li><a href="#_function_insertr">function: `insertR'</a></li>
 </ul>
 </li>
 </ul>
@@ -742,10 +743,15 @@ null? '()
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>(define l '(x y))
-(car l) ; 'x, an atom.
-(cdr l) ; (y), a list with one element inside it.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="scheme"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3</div></td><td class="code"><span></span><span class="tok-p">(</span><span class="tok-k">define </span><span class="tok-nv">l</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span><span class="tok-p">))</span>
+<span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">l</span><span class="tok-p">)</span> <span class="tok-c1">; &#39;x, an atom.</span>
+<span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">l</span><span class="tok-p">)</span> <span class="tok-c1">; (y), a list with one element inside it.</span>
+</td></tr></table></code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>CDR <strong>always always produces a list</strong>.</p>
@@ -1032,23 +1038,23 @@ On the book, page 11, they say <code>(atom? (cdr '(Harry)))</code> is <code>#f</
 <span class="tok-c1">;; If `a&#39; doesn&#39;t exist in `lat&#39;, produce the unmodified list.</span>
 
 <span class="tok-p">(</span><span class="tok-nf">test-group</span> <span class="tok-s">&quot;`rember&#39;:&quot;</span>
-            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from beginning of lat&quot;</span>
-                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">y</span> <span class="tok-nv">z</span> <span class="tok-nv">x</span><span class="tok-p">)</span>
-                  <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;x</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span> <span class="tok-nv">z</span> <span class="tok-nv">x</span><span class="tok-p">)))</span>
-            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from middle of lat&quot;</span>
-                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">z</span><span class="tok-p">)</span>
-                  <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;y</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">z</span><span class="tok-p">)))</span>
-            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from end of lat&quot;</span>
-                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span><span class="tok-p">)</span>
-                  <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;z</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span> <span class="tok-nv">z</span><span class="tok-p">))))</span>
+        <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from beginning of lat&quot;</span>
+              <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">y</span> <span class="tok-nv">z</span> <span class="tok-nv">x</span><span class="tok-p">)</span>
+              <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;x</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span> <span class="tok-nv">z</span> <span class="tok-nv">x</span><span class="tok-p">)))</span>
+        <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from middle of lat&quot;</span>
+              <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">z</span><span class="tok-p">)</span>
+              <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;y</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">z</span><span class="tok-p">)))</span>
+        <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from end of lat&quot;</span>
+              <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span><span class="tok-p">)</span>
+              <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;z</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span> <span class="tok-nv">z</span><span class="tok-p">))))</span>
 
 <span class="tok-p">(</span><span class="tok-k">define </span><span class="tok-nv">rember</span>
-  <span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">a</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
-    <span class="tok-p">(</span><span class="tok-nf">cond</span>
-     <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
-     <span class="tok-p">((</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">a</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">))</span> <span class="tok-c1">; </span><b class="conum">(1)</b>
-     <span class="tok-p">(</span><span class="tok-nf">else</span>
-      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-nv">a</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))</span> <span class="tok-c1">; </span><b class="conum">(2)</b>
+<span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">a</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
+<span class="tok-p">(</span><span class="tok-nf">cond</span>
+ <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
+ <span class="tok-p">((</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">a</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">))</span> <span class="tok-c1">; </span><b class="conum">(1)</b>
+ <span class="tok-p">(</span><span class="tok-nf">else</span>
+  <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-nv">a</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))</span> <span class="tok-c1">; </span><b class="conum">(2)</b>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -1102,11 +1108,11 @@ On the book, page 11, they say <code>(atom? (cdr '(Harry)))</code> is <code>#f</
 <span class="tok-p">(</span><span class="tok-k">define </span><span class="tok-nv">rember</span>
 <span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">a</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
 <span class="tok-p">(</span><span class="tok-nf">cond</span>
- <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
- <span class="tok-p">(</span><span class="tok-k">else </span><span class="tok-p">(</span><span class="tok-nf">cond</span>
-        <span class="tok-p">((</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">a</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">))</span>
-        <b class="conum">(1)</b>
-        <span class="tok-p">(</span><span class="tok-k">else </span><span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-nv">a</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))))</span>
+<span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
+<span class="tok-p">(</span><span class="tok-k">else </span><span class="tok-p">(</span><span class="tok-nf">cond</span>
+    <span class="tok-p">((</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">a</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">))</span>
+    <b class="conum">(1)</b>
+    <span class="tok-p">(</span><span class="tok-k">else </span><span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-nv">a</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))))</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -1152,23 +1158,23 @@ On the book, page 11, they say <code>(atom? (cdr '(Harry)))</code> is <code>#f</
 <span class="tok-c1">;; If `a&#39; doesn&#39;t exist in `lat&#39;, produce the unmodified list.</span>
 
 <span class="tok-p">(</span><span class="tok-nf">test-group</span> <span class="tok-s">&quot;`rember&#39;:&quot;</span>
-            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from beginning of lat&quot;</span>
-                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">y</span> <span class="tok-nv">z</span> <span class="tok-nv">x</span><span class="tok-p">)</span>
-                  <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;x</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span> <span class="tok-nv">z</span> <span class="tok-nv">x</span><span class="tok-p">)))</span>
-            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from middle of lat&quot;</span>
-                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">z</span><span class="tok-p">)</span>
-                  <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;y</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">z</span><span class="tok-p">)))</span>
-            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from end of lat&quot;</span>
-                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span><span class="tok-p">)</span>
-                  <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;z</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span> <span class="tok-nv">z</span><span class="tok-p">))))</span>
+        <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from beginning of lat&quot;</span>
+              <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">y</span> <span class="tok-nv">z</span> <span class="tok-nv">x</span><span class="tok-p">)</span>
+              <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;x</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span> <span class="tok-nv">z</span> <span class="tok-nv">x</span><span class="tok-p">)))</span>
+        <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from middle of lat&quot;</span>
+              <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">z</span><span class="tok-p">)</span>
+              <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;y</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">z</span><span class="tok-p">)))</span>
+        <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;element should be removed from end of lat&quot;</span>
+              <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span><span class="tok-p">)</span>
+              <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-ss">&#39;z</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">x</span> <span class="tok-nv">y</span> <span class="tok-nv">z</span><span class="tok-p">))))</span>
 
 <span class="tok-p">(</span><span class="tok-k">define </span><span class="tok-nv">rember</span>
-  <span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">a</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
-    <span class="tok-p">(</span><span class="tok-nf">cond</span>
-     <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
-     <span class="tok-p">((</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">a</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">))</span>
-     <span class="tok-p">(</span><span class="tok-nf">else</span>
-      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-nv">a</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))</span>
+<span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">a</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
+<span class="tok-p">(</span><span class="tok-nf">cond</span>
+ <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
+ <span class="tok-p">((</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">a</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">))</span>
+ <span class="tok-p">(</span><span class="tok-nf">else</span>
+  <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">rember</span> <span class="tok-nv">a</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -1219,21 +1225,21 @@ On the book, page 11, they say <code>(atom? (cdr '(Harry)))</code> is <code>#f</
 <span class="tok-c1">;; ASSUME: input list can be empty or contain only</span>
 <span class="tok-c1">;;         non-empty lists.</span>
 <span class="tok-p">(</span><span class="tok-nf">test-group</span> <span class="tok-s">&quot;`firsts&#39;:&quot;</span>
-            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;should produce &#39;()&quot;</span>
-                  <span class="tok-o">&#39;</span><span class="tok-p">()</span>
-                  <span class="tok-p">(</span><span class="tok-nf">firsts</span> <span class="tok-o">&#39;</span><span class="tok-p">()))</span>
+        <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;should produce &#39;()&quot;</span>
+              <span class="tok-o">&#39;</span><span class="tok-p">()</span>
+              <span class="tok-p">(</span><span class="tok-nf">firsts</span> <span class="tok-o">&#39;</span><span class="tok-p">()))</span>
 
-            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;should get firsts&quot;</span>
-                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">a</span> <span class="tok-nv">c</span> <span class="tok-nv">y</span> <span class="tok-nv">k</span><span class="tok-p">)</span>
-                  <span class="tok-p">(</span><span class="tok-nf">firsts</span> <span class="tok-o">&#39;</span><span class="tok-p">((</span><span class="tok-nf">a</span> <span class="tok-nv">b</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">c</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">y</span> <span class="tok-nv">z</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">k</span> <span class="tok-nv">t</span> <span class="tok-nv">x</span><span class="tok-p">)))))</span>
+        <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;should get firsts&quot;</span>
+              <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">a</span> <span class="tok-nv">c</span> <span class="tok-nv">y</span> <span class="tok-nv">k</span><span class="tok-p">)</span>
+              <span class="tok-p">(</span><span class="tok-nf">firsts</span> <span class="tok-o">&#39;</span><span class="tok-p">((</span><span class="tok-nf">a</span> <span class="tok-nv">b</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">c</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">y</span> <span class="tok-nv">z</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">k</span> <span class="tok-nv">t</span> <span class="tok-nv">x</span><span class="tok-p">)))))</span>
 
 <span class="tok-p">(</span><span class="tok-k">define </span><span class="tok-nv">firsts</span>
-  <span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">l</span><span class="tok-p">)</span>
-    <span class="tok-p">(</span><span class="tok-nf">cond</span>
-     <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">l</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
-     <span class="tok-p">(</span><span class="tok-nf">else</span>
-      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">l</span><span class="tok-p">))</span>
-            <span class="tok-p">(</span><span class="tok-nf">firsts</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">l</span><span class="tok-p">)))))))</span>
+<span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">l</span><span class="tok-p">)</span>
+<span class="tok-p">(</span><span class="tok-nf">cond</span>
+ <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">l</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
+ <span class="tok-p">(</span><span class="tok-nf">else</span>
+  <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">l</span><span class="tok-p">))</span>
+        <span class="tok-p">(</span><span class="tok-nf">firsts</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">l</span><span class="tok-p">)))))))</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -1255,7 +1261,65 @@ On the book, page 11, they say <code>(atom? (cdr '(Harry)))</code> is <code>#f</
 </table>
 </div>
 <div class="paragraph">
-<p>CONTINUE FROM PAGE 47, `insertR'.</p>
+<p>Remember: we always ask two questions about a <code>lat</code>: <code>(null? lat)</code> and <code>else</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_function_insertr"><a class="link" href="#_function_insertr">function: `insertR'</a></h3>
+<div class="listingblock">
+<div class="title">`insertR' function definition</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="scheme"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</div></td><td class="code"><span></span><span class="tok-c1">;; Atom Atom (list-of Atom)</span>
+<span class="tok-c1">;; Produce list with &#39;new added to the right of the first occurence of &#39;old.</span>
+
+<span class="tok-p">(</span><span class="tok-nf">test-group</span> <span class="tok-s">&quot;`insertR&#39;:&quot;</span>
+            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;should add &#39;jalapeño to the right of &#39;and&quot;</span>
+                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">tacos</span> <span class="tok-nv">tamales</span> <span class="tok-k">and </span><span class="tok-nv">jalape</span><span class="tok-err">ñ</span><span class="tok-nv">o</span> <span class="tok-nv">salsa</span><span class="tok-p">)</span>
+                  <span class="tok-p">(</span><span class="tok-nf">insertR</span>
+                   <span class="tok-ss">&#39;jalape</span><span class="tok-err">ñ</span><span class="tok-nv">o</span>
+                   <span class="tok-ss">&#39;and</span>
+                   <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">tacos</span> <span class="tok-nv">tamales</span> <span class="tok-k">and </span><span class="tok-nv">salsa</span><span class="tok-p">)))</span>
+
+            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;should add &#39;e to the right of &#39;d&#39;&quot;</span>
+                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">a</span> <span class="tok-nv">b</span> <span class="tok-nv">c</span> <span class="tok-nv">d</span> <span class="tok-nv">e</span> <span class="tok-nv">f</span> <span class="tok-nv">g</span> <span class="tok-nv">h</span><span class="tok-p">)</span>
+                  <span class="tok-p">(</span><span class="tok-nf">insertR</span> <span class="tok-ss">&#39;e</span> <span class="tok-ss">&#39;d</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">a</span> <span class="tok-nv">b</span> <span class="tok-nv">c</span> <span class="tok-nv">d</span> <span class="tok-nv">f</span> <span class="tok-nv">g</span> <span class="tok-nv">h</span><span class="tok-p">))))</span>
+
+<span class="tok-p">(</span><span class="tok-k">define </span><span class="tok-nv">insertR</span>
+  <span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">new</span> <span class="tok-nv">old</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
+    <span class="tok-p">(</span><span class="tok-nf">cond</span>
+     <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
+     <span class="tok-p">((</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">old</span><span class="tok-p">)</span>
+      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span>
+            <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-nv">new</span>
+                  <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">))))</span>
+     <span class="tok-p">(</span><span class="tok-nf">else</span>
+      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">insertR</span> <span class="tok-nv">new</span> <span class="tok-nv">old</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))</span>
+</td></tr></table></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1263,7 +1327,7 @@ On the book, page 11, they say <code>(atom? (cdr '(Harry)))</code> is <code>#f</
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-13 21:08:57 -02
+Last updated 2017-12-14 14:37:06 -02
 </div>
 </div>
 </body>
