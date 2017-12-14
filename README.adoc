@@ -1,0 +1,18 @@
+= The Little Schemer
+
+My studies on the book The Little Schemer.
+
+Using Emacs + Geiser and Chicken Scheme.
+
+Also using an egg for tests:
+
+    chicken-install -s test
+
+
+To compile the asciidoctor to a nice html file with toc and syntax highlighting, do:
+
+    gem install asciidoctor pygments.rb
+    asciidoctor the-little-schemer.adoc
+    firefox the-tittle-schemer.html &
+
+
