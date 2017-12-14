@@ -532,6 +532,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_function_firsts">function: `firsts'</a></li>
 <li><a href="#_the_third_commandment">The Third Commandment</a></li>
 <li><a href="#_function_insertr">function: `insertR'</a></li>
+<li><a href="#_function_insertl">function: `insertL'</a></li>
 </ul>
 </li>
 </ul>
@@ -1318,6 +1319,104 @@ On the book, page 11, they say <code>(atom? (cdr '(Harry)))</code> is <code>#f</
                   <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">))))</span>
      <span class="tok-p">(</span><span class="tok-nf">else</span>
       <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">insertR</span> <span class="tok-nv">new</span> <span class="tok-nv">old</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_function_insertl"><a class="link" href="#_function_insertl">function: `insertL'</a></h3>
+<div class="listingblock">
+<div class="title">`insertL' function definition</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="scheme"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</div></td><td class="code"><span></span><span class="tok-c1">;; Atom Atom (list-of Atom)</span>
+<span class="tok-c1">;; Produce list with &#39;new added to the left of the first occurence of &#39;old.</span>
+
+<span class="tok-p">(</span><span class="tok-nf">test-group</span> <span class="tok-s">&quot;`insertL&#39;:&quot;</span>
+            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;should add &#39;jalapeño to the left of &#39;and&quot;</span>
+                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">tacos</span> <span class="tok-nv">tamales</span> <span class="tok-nv">jalape</span><span class="tok-err">ñ</span><span class="tok-nv">o</span> <span class="tok-k">and </span><span class="tok-nv">salsa</span><span class="tok-p">)</span>
+                  <span class="tok-p">(</span><span class="tok-nf">insertL</span>
+                   <span class="tok-ss">&#39;jalape</span><span class="tok-err">ñ</span><span class="tok-nv">o</span>
+                   <span class="tok-ss">&#39;and</span>
+                   <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">tacos</span> <span class="tok-nv">tamales</span> <span class="tok-k">and </span><span class="tok-nv">salsa</span><span class="tok-p">)))</span>
+
+            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;should add &#39;e to the left of &#39;f&quot;</span>
+                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">a</span> <span class="tok-nv">b</span> <span class="tok-nv">c</span> <span class="tok-nv">d</span> <span class="tok-nv">e</span> <span class="tok-nv">f</span> <span class="tok-nv">g</span> <span class="tok-nv">h</span><span class="tok-p">)</span>
+                  <span class="tok-p">(</span><span class="tok-nf">insertL</span> <span class="tok-ss">&#39;e</span> <span class="tok-ss">&#39;f</span> <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">a</span> <span class="tok-nv">b</span> <span class="tok-nv">c</span> <span class="tok-nv">d</span> <span class="tok-nv">f</span> <span class="tok-nv">g</span> <span class="tok-nv">h</span><span class="tok-p">))))</span>
+<span class="tok-c">#;</span>
+<span class="tok-c">(define insertL</span>
+<span class="tok-c">  (lambda (new old lat)</span>
+<span class="tok-c">    (cond</span>
+<span class="tok-c">     ((null? lat) &#39;())</span>
+<span class="tok-c">     ((eq? (car lat) old)</span>
+<span class="tok-c">      (cons new</span>
+<span class="tok-c">            (cons (car lat)</span>
+<span class="tok-c">                  (cdr lat))))</span>
+<span class="tok-c">     (else</span>
+<span class="tok-c">      (cons (car lat) (insertL new old (cdr lat)))))))</span>
+
+<span class="tok-p">(</span><span class="tok-k">define </span><span class="tok-nv">insertL</span>
+  <span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">new</span> <span class="tok-nv">old</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
+    <span class="tok-p">(</span><span class="tok-nf">cond</span>
+     <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
+     <span class="tok-p">((</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">old</span><span class="tok-p">))</span>
+      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-nv">new</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
+     <span class="tok-p">(</span><span class="tok-nf">else</span>
+      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">insertL</span> <span class="tok-nv">new</span> <span class="tok-nv">old</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="scheme"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3</div></td><td class="code"><span></span><span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-nv">new</span>
+      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span>
+            <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Is just the same as</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="scheme"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1</div></td><td class="code"><span></span><span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-nv">new</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
 </td></tr></table></code></pre>
 </div>
 </div>

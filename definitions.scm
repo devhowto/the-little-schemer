@@ -123,7 +123,7 @@
                    'and
                    '(tacos tamales and salsa)))
 
-            (test "should add 'e to the right of 'd'"
+            (test "should add 'e to the right of 'd"
                   '(a b c d e f g h)
                   (insertR 'e 'd '(a b c d f g h))))
 
@@ -137,6 +137,44 @@
                   (cdr lat))))
      (else
       (cons (car lat) (insertR new old (cdr lat)))))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; insertL ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Atom Atom (list-of Atom)
+;; Produce list with 'new added to the left of the first occurence of 'old.
+
+(test-group "`insertL':"
+            (test "should add 'jalapeño to the left of 'and"
+                  '(tacos tamales jalapeño and salsa)
+                  (insertL
+                   'jalapeño
+                   'and
+                   '(tacos tamales and salsa)))
+
+            (test "should add 'e to the left of 'f"
+                  '(a b c d e f g h)
+                  (insertL 'e 'f '(a b c d f g h))))
+#;
+(define insertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new
+            (cons (car lat)
+                  (cdr lat))))
+     (else
+      (cons (car lat) (insertL new old (cdr lat)))))))
+
+(define insertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old))
+      (cons new lat)
+     (else
+      (cons (car lat) (insertL new old (cdr lat)))))))
 
 
 
