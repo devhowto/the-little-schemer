@@ -171,10 +171,36 @@
   (lambda (new old lat)
     (cond
      ((null? lat) '())
-     ((eq? (car lat) old))
-      (cons new lat)
+     ((eq? (car lat) old)
+      (cons new lat))
      (else
       (cons (car lat) (insertL new old (cdr lat)))))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; subst ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Atom Atom (list-of Atom)
+;; Replaces first occurrence of `old' in `lat' with `new'.
+
+(test-group "`subst':"
+            (test "should replace first 'fudge with 'topping"
+                  '(ice cream with topping for dessert)
+                  (subst
+                   'topping
+                   'fudge
+                   '(ice cream with fudge for dessert))))
+
+(define subst
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new (cdr lat)))
+     (else
+      (cons (car lat)
+            (subst new old (cdr lat)))))))
+
+
 
 
 
