@@ -1,0 +1,7 @@
+# .gitignore
+
+*.rkt~
+*.scm~
+*.org
+
+
