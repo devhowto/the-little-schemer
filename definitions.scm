@@ -201,6 +201,38 @@
             (subst new old (cdr lat)))))))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; subst2 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Atom Atom Atom (list-of Atom) -> (list-of Atom)
+;; Replaces either the first occurrenct of `o1' or `o2' by `new'.
+
+(test-group "`subst2':"
+            (test "should replace `o1' or `o2' with `new' in the beginning"
+                  '(vanilla icecream with chocolate topping)
+                  (subst2
+                   'vanilla
+                   'chocolate
+                   'banana
+                   '(banana icecream with chocolate topping)))
+            (test "should replace `o1 or `o2' with `new' in the middle"
+                  '(banana icecream with no topping)
+                  (subst2
+                   'no
+                   'strawberry
+                   'chocolate
+                   '(banana icecream with chocolate topping))))
+
+(define subst2
+  (lambda (new o1 o2 lat)
+    (cond
+     ((null? lat) '())
+     ((or (eq? (car lat) o1)
+          (eq? (car lat) o2))
+      (cons new (cdr lat)))
+     (else (cons (car lat)
+                 (subst2 new o1 o2 (cdr lat)))))))
+
+
 
 
 

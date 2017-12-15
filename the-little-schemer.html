@@ -533,6 +533,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_the_third_commandment">The Third Commandment</a></li>
 <li><a href="#_function_insertr">function: `insertR'</a></li>
 <li><a href="#_function_insertl">function: `insertL'</a></li>
+<li><a href="#_function_subst2">function: `subst2'</a></li>
 </ul>
 </li>
 </ul>
@@ -1391,8 +1392,8 @@ On the book, page 11, they say <code>(atom? (cdr '(Harry)))</code> is <code>#f</
   <span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">new</span> <span class="tok-nv">old</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
     <span class="tok-p">(</span><span class="tok-nf">cond</span>
      <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
-     <span class="tok-p">((</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">old</span><span class="tok-p">))</span>
-      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-nv">new</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
+     <span class="tok-p">((</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">old</span><span class="tok-p">)</span>
+      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-nv">new</span> <span class="tok-nv">lat</span><span class="tok-p">))</span>
      <span class="tok-p">(</span><span class="tok-nf">else</span>
       <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nf">insertL</span> <span class="tok-nv">new</span> <span class="tok-nv">old</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))</span>
 </td></tr></table></code></pre>
@@ -1420,6 +1421,78 @@ On the book, page 11, they say <code>(atom? (cdr '(Harry)))</code> is <code>#f</
 </td></tr></table></code></pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_function_subst2"><a class="link" href="#_function_subst2">function: `subst2'</a></h3>
+<div class="listingblock">
+<div class="title">`subst2' function definition</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="scheme"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</div></td><td class="code"><span></span><span class="tok-c1">;; Atom Atom Atom (list-of Atom) -&gt; (list-of Atom)</span>
+<span class="tok-c1">;; Replaces either the first occurrenct of `o1&#39; or `o2&#39; by `new&#39;.</span>
+
+<span class="tok-p">(</span><span class="tok-nf">test-group</span> <span class="tok-s">&quot;`subst2&#39;:&quot;</span>
+            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;should replace `o1&#39; or `o2&#39; with `new&#39; in the beginning&quot;</span>
+                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">vanilla</span> <span class="tok-nv">icecream</span> <span class="tok-nv">with</span> <span class="tok-nv">chocolate</span> <span class="tok-nv">topping</span><span class="tok-p">)</span>
+                  <span class="tok-p">(</span><span class="tok-nf">subst2</span>
+                   <span class="tok-ss">&#39;vanilla</span>
+                   <span class="tok-ss">&#39;chocolate</span>
+                   <span class="tok-ss">&#39;banana</span>
+                   <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">banana</span> <span class="tok-nv">icecream</span> <span class="tok-nv">with</span> <span class="tok-nv">chocolate</span> <span class="tok-nv">topping</span><span class="tok-p">)))</span>
+            <span class="tok-p">(</span><span class="tok-nf">test</span> <span class="tok-s">&quot;should replace `o1 or `o2&#39; with `new&#39; in the middle&quot;</span>
+                  <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">banana</span> <span class="tok-nv">icecream</span> <span class="tok-nv">with</span> <span class="tok-nv">no</span> <span class="tok-nv">topping</span><span class="tok-p">)</span>
+                  <span class="tok-p">(</span><span class="tok-nf">subst2</span>
+                   <span class="tok-ss">&#39;no</span>
+                   <span class="tok-ss">&#39;strawberry</span>
+                   <span class="tok-ss">&#39;chocolate</span>
+                   <span class="tok-o">&#39;</span><span class="tok-p">(</span><span class="tok-nv">banana</span> <span class="tok-nv">icecream</span> <span class="tok-nv">with</span> <span class="tok-nv">chocolate</span> <span class="tok-nv">topping</span><span class="tok-p">))))</span>
+
+<span class="tok-p">(</span><span class="tok-k">define </span><span class="tok-nv">subst2</span>
+  <span class="tok-p">(</span><span class="tok-k">lambda </span><span class="tok-p">(</span><span class="tok-nf">new</span> <span class="tok-nv">o1</span> <span class="tok-nv">o2</span> <span class="tok-nv">lat</span><span class="tok-p">)</span>
+    <span class="tok-p">(</span><span class="tok-nf">cond</span>
+     <span class="tok-p">((</span><span class="tok-nb">null? </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-o">&#39;</span><span class="tok-p">())</span>
+     <span class="tok-p">((</span><span class="tok-k">or </span><span class="tok-p">(</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">o1</span><span class="tok-p">)</span>
+          <span class="tok-p">(</span><span class="tok-nb">eq? </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span> <span class="tok-nv">o2</span><span class="tok-p">))</span>
+      <span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-nv">new</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))</span>
+     <span class="tok-p">(</span><span class="tok-k">else </span><span class="tok-p">(</span><span class="tok-nb">cons </span><span class="tok-p">(</span><span class="tok-nb">car </span><span class="tok-nv">lat</span><span class="tok-p">)</span>
+                 <span class="tok-p">(</span><span class="tok-nf">subst2</span> <span class="tok-nv">new</span> <span class="tok-nv">o1</span> <span class="tok-nv">o2</span> <span class="tok-p">(</span><span class="tok-nb">cdr </span><span class="tok-nv">lat</span><span class="tok-p">)))))))</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<style type="text/css">
+code {
+    font-family: 'Noto Mono Regular', 'Ubuntu Mono', 'Droid Sans Mono';
+}
+.listingblock .pygments .tok-c1 {
+    font-style: normal;
+}
+</style>
 </div>
 </div>
 </div>
