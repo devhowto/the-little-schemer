@@ -233,7 +233,26 @@
                  (subst2 new o1 o2 (cdr lat)))))))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; multirember ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Atom (list-of Atom) -> (list-of Atom)
+;; Produce list with all occurrences of `a' removed from `lat'.
 
+(test-group "`multirember'"
+            (test "should remove all `a's in `lat'"
+                  '(a b c d e f)
+                  (multirember 'x '(x a b c d x e f x)))
+            (test "should leave `lat' untouched"
+                  '(x y z)
+                  (multirember 'k '(x y z))))
 
+(define multirember
+  (lambda (a lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) a)
+      (multirember a (cdr lat)))
+     (else
+      (cons (car lat) (multirember a (cdr lat)))))))
 
 

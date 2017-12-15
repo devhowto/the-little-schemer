@@ -272,6 +272,50 @@ Is just the same as
 ----
 
 
+=== function: `multirember'
+
+.`multirember' function definition
+[source,scheme,lineos]
+----
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; multirember ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Atom (list-of Atom) -> (list-of Atom)
+;; Produce list with all occurrences of `a' removed from `lat'.
+
+(test-group "`multirember'"
+            (test "should remove all `a's in `lat'"
+                  '(a b c d e f)
+                  (multirember 'x '(x a b c d x e f x)))
+            (test "should leave `lat' untouched"
+                  '(x y z)
+                  (multirember 'k '(x y z))))
+
+(define multirember
+  (lambda (a lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) a)
+      (multirember a (cdr lat)))
+     (else
+      (cons (car lat) (multirember a (cdr lat)))))))
+----
+
+Note the difference from this version that removes all occurrences to the `rember`, that removes just the first occurrence of `a` in `lat`:
+
+.excerpt of the functions `multirember' and `rember'
+[source,scheme,lineos]
+----
+;; `multirember' removes `a' “globally” in `lat'.
+((eq? (car lat) a)
+ (multirember a (cdr lat))) ; <1>
+
+;; `rember' removes only the first occurrence of `a` in `lat'.
+((eq? (car lat) a)
+ (cdr lat)) ; <1>
+----
+
+1. We recur, that is, we keep looking for further occurrences of `a` in `lat` and keep ignoring/dropping them.
+2. Just return the rest of `lat`, therefore not looking for any other occurrences of `a` in `lat`.
 
 
 
