@@ -256,3 +256,33 @@
       (cons (car lat) (multirember a (cdr lat)))))))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; multiinsertR ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Atom Atom (list-of Atom) -> (list-of Atom)
+;; Produce `lat' with `new' inserted to the right of all
+;; occurrences of `old'.
+
+(test-group "`multiinsertR'"
+            (test "should insert `x' to the right of all `z's"
+                  '(z x b z x k y z x)
+                  (multiinsertR 'x 'z '(z b z k y z)))
+            (test "should leave `lat' untouched, `z' doesn't exist in `lat'"
+                  '(k b c y)
+                  (multiinsertR 'x 'z '(k b c y))))
+
+(define multiinsertR
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons (car lat)
+            (cons new
+                  (multiinsertR new old (cdr lat)))))
+     (else
+      (cons (car lat)
+            (multiinsertR new old (cdr lat)))))))
+
+
+
+
+

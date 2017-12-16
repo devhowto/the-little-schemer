@@ -11,8 +11,16 @@ Also using an egg for tests:
 
 To compile the asciidoctor to a nice html file with toc and syntax highlighting, do:
 
-    gem install asciidoctor pygments.rb
-    asciidoctor the-little-schemer.adoc
-    firefox the-tittle-schemer.html &
+----
+gem install asciidoctor pygments.rb
+asciidoctor the-little-schemer.adoc
+
+xgd-open the-tittle-schemer.html
+# or
+firefox the-tittle-schemer.html &
+# or
+opera the-little-schemer.html &
+# or your favorite browser...
+----
 
 
