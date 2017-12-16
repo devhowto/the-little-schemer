@@ -1,12 +1,24 @@
 (require-extension test) ; chicken-install -s test
 
+;;
+;; The tag::foo[]/end::foo[] stuff are used in the asciidoctor document.
+;;
+;; For predicate functions that end in `?' (lat?, member?), the
+;; tag includes a `-p`, like `lat-p' and `member-p'.
+;;
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::atom-p[]
 ;; Expr -> Bool
 ;; Takes an expression and produce #t if it is an atom; #f otherwise.
 ;;
 ;; NOTE:
 ;; Chicken has its own implementation of atom?. It produces
 ;; `#t` for '(). This version (from the book) produces #f for '().
+
+(define atom?
+  (lambda (x)
+    (and (not (pair? x)) (not (null? x)))))
 
 (test-group "`atom?':"
             (test "is 'yoda an atom? Yes, it is."
@@ -15,23 +27,13 @@
             (test "'(foo) should not be an atom"
                   #f
                   (atom? '(foo))))
-
-(define atom?
-  (lambda (x)
-    (and (not (pair? x)) (not (null? x)))))
+;; end::atom-p[]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::lat-p[]
 ;; (list-of Atom) -> Bool
 ;; Produce #t if l is a list of atoms, #f otherwise.
-
-(test-group "`lat?'"
-            (test "list with only atoms should be #t"
-                  #t
-                  (lat? '(a b c)))
-            (test "list with lists inside should not be #t"
-                  #f
-                  (lat? '(a (b) c))))
 
 (define lat?
   (lambda (l)
@@ -40,18 +42,20 @@
      ((atom? (car l)) (lat? (cdr l)))
      (else #f))))
 
+(test-group "`lat?'"
+            (test "list with only atoms should be #t"
+                  #t
+                  (lat? '(a b c)))
+            (test "list with lists inside should not be #t"
+                  #f
+                  (lat? '(a (b) c))))
+;; end::lat-p[]
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::member-p[]
 ;; Atom (list-of Atom) -> Bool
 ;; Produce #t if the atom a exists in lat.
-
-(test-group "`member?':"
-            (test "element should be in the list of atoms"
-                  #t
-                  (member? 'force '(may the force be with you)))
-            (test "element should not be in the list"
-                  #f
-                  (member? 'nix '(windows nah sorry))))
 
 (define member?
   (lambda (a lat)
@@ -62,11 +66,30 @@
       (or (eq? (car lat) a)
           (member? a (cdr lat)))))))
 
+(test-group "`member?':"
+            (test "element should be in the list of atoms"
+                  #t
+                  (member? 'force '(may the force be with you)))
+            (test "element should not be in the list"
+                  #f
+                  (member? 'nix '(windows nah sorry))))
+;; end::member-p[]
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::rember[]
 ;; Atom (list-of Atom) -> (list-of Atom)
 ;; Produce list of atoms with first occurrence of `a' removed.
 ;; If `a' doesn't exist in `lat', produce the unmodified list.
+
+(define rember
+  (lambda (a lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) a) (cdr lat))
+     (else
+      ;; <1>
+      (cons (car lat) (rember a (cdr lat)))))))
 
 (test-group "`rember':"
             (test "element should be removed from beginning of lat"
@@ -78,29 +101,15 @@
             (test "element should be removed from end of lat"
                   '(x y)
                   (rember 'z '(x y z))))
-
-(define rember
-  (lambda (a lat)
-    (cond
-     ((null? lat) '())
-     ((eq? (car lat) a) (cdr lat))
-     (else
-      (cons (car lat) (rember a (cdr lat)))))))
+;; end::rember[]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::firsts[]
 ;; List -> List
 ;; Produce list with first element in each sub-list.
 ;; ASSUME: input list can be empty or contain only
 ;;         non-empty lists.
-(test-group "`firsts':"
-            (test "should produce '()"
-                  '()
-                  (firsts '()))
-
-            (test "should get firsts"
-                  '(a c y k)
-                  (firsts '((a b) (c) (y z) (k t x)))))
 
 (define firsts
   (lambda (l)
@@ -110,22 +119,22 @@
       (cons (car (car l))
             (firsts (cdr l)))))))
 
+(test-group "`firsts':"
+            (test "should produce '()"
+                  '()
+                  (firsts '()))
+
+            (test "should get firsts"
+                  '(a c y k)
+                  (firsts '((a b) (c) (y z) (k t x)))))
+;; end::firsts[]
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; insertR ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::insertR[]
 ;; Atom Atom (list-of Atom)
 ;; Produce list with 'new added to the right of the first occurence of 'old.
-
-(test-group "`insertR':"
-            (test "should add 'jalapeño to the right of 'and"
-                  '(tacos tamales and jalapeño salsa)
-                  (insertR
-                   'jalapeño
-                   'and
-                   '(tacos tamales and salsa)))
-
-            (test "should add 'e to the right of 'd"
-                  '(a b c d e f g h)
-                  (insertR 'e 'd '(a b c d f g h))))
 
 (define insertR
   (lambda (new old lat)
@@ -138,11 +147,34 @@
      (else
       (cons (car lat) (insertR new old (cdr lat)))))))
 
+(test-group "`insertR':"
+            (test "should add 'jalapeño to the right of 'and"
+                  '(tacos tamales and jalapeño salsa)
+                  (insertR
+                   'jalapeño
+                   'and
+                   '(tacos tamales and salsa)))
+
+            (test "should add 'e to the right of 'd"
+                  '(a b c d e f g h)
+                  (insertR 'e 'd '(a b c d f g h))))
+;; end::insertR[]
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; insertL ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::insertL[]
 ;; Atom Atom (list-of Atom)
 ;; Produce list with 'new added to the left of the first occurence of 'old.
+
+(define insertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new lat))
+     (else
+      (cons (car lat) (insertL new old (cdr lat)))))))
 
 (test-group "`insertL':"
             (test "should add 'jalapeño to the left of 'and"
@@ -155,40 +187,14 @@
             (test "should add 'e to the left of 'f"
                   '(a b c d e f g h)
                   (insertL 'e 'f '(a b c d f g h))))
-#;
-(define insertL
-  (lambda (new old lat)
-    (cond
-     ((null? lat) '())
-     ((eq? (car lat) old)
-      (cons new
-            (cons (car lat)
-                  (cdr lat))))
-     (else
-      (cons (car lat) (insertL new old (cdr lat)))))))
-
-(define insertL
-  (lambda (new old lat)
-    (cond
-     ((null? lat) '())
-     ((eq? (car lat) old)
-      (cons new lat))
-     (else
-      (cons (car lat) (insertL new old (cdr lat)))))))
+;; end::insertL[]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; subst ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::subst[]
 ;; Atom Atom (list-of Atom)
 ;; Replaces first occurrence of `old' in `lat' with `new'.
-
-(test-group "`subst':"
-            (test "should replace first 'fudge with 'topping"
-                  '(ice cream with topping for dessert)
-                  (subst
-                   'topping
-                   'fudge
-                   '(ice cream with fudge for dessert))))
 
 (define subst
   (lambda (new old lat)
@@ -200,11 +206,31 @@
       (cons (car lat)
             (subst new old (cdr lat)))))))
 
+(test-group "`subst':"
+            (test "should replace first 'fudge with 'topping"
+                  '(ice cream with topping for dessert)
+                  (subst
+                   'topping
+                   'fudge
+                   '(ice cream with fudge for dessert))))
+;; end::subst[]
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; subst2 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::subst2[]
 ;; Atom Atom Atom (list-of Atom) -> (list-of Atom)
 ;; Replaces either the first occurrenct of `o1' or `o2' by `new'.
+
+(define subst2
+  (lambda (new o1 o2 lat)
+    (cond
+     ((null? lat) '())
+     ((or (eq? (car lat) o1)
+          (eq? (car lat) o2))
+      (cons new (cdr lat)))
+     (else (cons (car lat)
+                 (subst2 new o1 o2 (cdr lat)))))))
 
 (test-group "`subst2':"
             (test "should replace `o1' or `o2' with `new' in the beginning"
@@ -221,30 +247,14 @@
                    'strawberry
                    'chocolate
                    '(banana icecream with chocolate topping))))
-
-(define subst2
-  (lambda (new o1 o2 lat)
-    (cond
-     ((null? lat) '())
-     ((or (eq? (car lat) o1)
-          (eq? (car lat) o2))
-      (cons new (cdr lat)))
-     (else (cons (car lat)
-                 (subst2 new o1 o2 (cdr lat)))))))
+;; end::subst2[]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; multirember ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::multirember[]
 ;; Atom (list-of Atom) -> (list-of Atom)
 ;; Produce list with all occurrences of `a' removed from `lat'.
-
-(test-group "`multirember'"
-            (test "should remove all `a's in `lat'"
-                  '(a b c d e f)
-                  (multirember 'x '(x a b c d x e f x)))
-            (test "should leave `lat' untouched"
-                  '(x y z)
-                  (multirember 'k '(x y z))))
 
 (define multirember
   (lambda (a lat)
@@ -255,20 +265,22 @@
      (else
       (cons (car lat) (multirember a (cdr lat)))))))
 
+(test-group "`multirember'"
+            (test "should remove all `a's in `lat'"
+                  '(a b c d e f)
+                  (multirember 'x '(x a b c d x e f x)))
+            (test "should leave `lat' untouched"
+                  '(x y z)
+                  (multirember 'k '(x y z))))
+;; end::multirember[]
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; multiinsertR ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::multiinsertR[]
 ;; Atom Atom (list-of Atom) -> (list-of Atom)
 ;; Produce `lat' with `new' inserted to the right of all
-;; occurrences of `old'.
-
-(test-group "`multiinsertR'"
-            (test "should insert `x' to the right of all `z's"
-                  '(z x b z x k y z x)
-                  (multiinsertR 'x 'z '(z b z k y z)))
-            (test "should leave `lat' untouched, `z' doesn't exist in `lat'"
-                  '(k b c y)
-                  (multiinsertR 'x 'z '(k b c y))))
+;; occurrences of `old'q
 
 (define multiinsertR
   (lambda (new old lat)
@@ -282,7 +294,42 @@
       (cons (car lat)
             (multiinsertR new old (cdr lat)))))))
 
+(test-group "`multiinsertR'"
+            (test "should insert `x' to the right of all `z's"
+                  '(z x b z x k y z x)
+                  (multiinsertR 'x 'z '(z b z k y z)))
+            (test "should leave `lat' untouched, `z' doesn't exist in `lat'"
+                  '(k b c y)
+                  (multiinsertR 'x 'z '(k b c y))))
+;; end::multiinsertR[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; multiinsertL ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::multiinsertL[]
+;; Atom Atom (list-of Atom) -> (list-of Atom)
+;; Produce `lat' with `new' inserted to the left of all occurrences of `old'.
+
+(define multiinsertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new
+            (cons (car lat)
+                  (multiinsertL new old (cdr lat)))))
+     (else
+      (cons (car lat)
+            (multiinsertL new old (cdr lat)))))))
+
+(test-group "`multiinsertL'"
+            (test "should insert `x' to the left of all `z's"
+                  '(x z b x z k y x z)
+                  (multiinsertL 'x 'z '(z b z k y z)))
+            (test "should produce the input lits unmodified"
+                  '(k l y)
+                  (multiinsertL 'x 'z '(k l y))))
+;; end::multiinsertL[]
 
 
 

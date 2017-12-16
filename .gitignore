@@ -3,5 +3,6 @@
 *.rkt~
 *.scm~
 *.org
+*.html
 
 

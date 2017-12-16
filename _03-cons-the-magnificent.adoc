@@ -4,12 +4,20 @@ To create `rember`, the fist thing we ask is `(null? lat)` because it is the fir
 
 === function: `rember'
 
-.`rember' function definition
+.`rember' function definition (incorrect)
 [source,scheme,lineos]
 ----
 ;; Atom (list-of Atom) -> (list-of Atom)
 ;; Produce list of atoms with first occurrence of `a' removed.
 ;; If `a' doesn't exist in `lat', produce the unmodified list.
+
+(define rember
+  (lambda (a lat)
+   (cond
+    ((null? lat) '())
+    ((eq? (car lat) a) (cdr lat)) ; <1>
+    (else
+     (cons (car lat) (rember a (cdr lat))))))) ; <2>
 
 (test-group "`rember':"
         (test "element should be removed from beginning of lat"
@@ -21,17 +29,9 @@ To create `rember`, the fist thing we ask is `(null? lat)` because it is the fir
         (test "element should be removed from end of lat"
               '(x y)
               (rember 'z '(x y z))))
-
-(define rember
-(lambda (a lat)
-(cond
- ((null? lat) '())
- ((eq? (car lat) a) (cdr lat)) ; <1>
- (else
-  (cons (car lat) (rember a (cdr lat))))))) ; <2>
 ----
 
-1. Note that we do not recur here. This is what allows `rember` to remove only the first occurrence of `a` in `lat`.
+1. Note that we *do not recur* here. This is what allows `rember` to remove only the first occurrence of `a` in `lat`.
 2. Yes, here we recur to check if `a` is in the rest of `lat`.
 
 Also note that we *do not use `cons' in this function*.
@@ -53,52 +53,10 @@ So, we use Cons, The Magnificent:
 .`rember' function definition (correct this time)
 [source,scheme,lineos]
 ----
-;; Atom (list-of Atom) -> (list-of Atom)
-;; Produce list of atoms with first occurrence of `a' removed.
-;; If `a' doesn't exist in `lat', produce the unmodified list.
-(define rember
-(lambda (a lat)
-(cond
-((null? lat) '())
-(else (cond
-    ((eq? (car lat) a) (cdr lat))
-    ;; <1>
-    (else (cons (car lat) (rember a (cdr lat)))))))))
+include::./definitions.scm[tag=rember]
 ----
 
 1. Now we use `cons` to keep elements that should not be removed.
-
-And we can even simplify it and use only one `cond`.
-
-=== function: `rember' refined
-
-.`rember`, simplified, only one `cond'
-[source,scheme,lineos]
-----
-;; Atom (list-of Atom) -> (list-of Atom)
-;; Produce list of atoms with first occurrence of `a' removed.
-;; If `a' doesn't exist in `lat', produce the unmodified list.
-
-(test-group "`rember':"
-        (test "element should be removed from beginning of lat"
-              '(y z x)
-              (rember 'x '(x y z x)))
-        (test "element should be removed from middle of lat"
-              '(x z)
-              (rember 'y '(x z)))
-        (test "element should be removed from end of lat"
-              '(x y)
-              (rember 'z '(x y z))))
-
-(define rember
-(lambda (a lat)
-(cond
- ((null? lat) '())
- ((eq? (car lat) a) (cdr lat))
- (else
-  (cons (car lat) (rember a (cdr lat)))))))
-----
-
 
 === The Second Commandment
 
@@ -112,26 +70,7 @@ Use `cons` to build lists.
 .`firsts' function definition
 [source,scheme,lineos]
 ----
-;; List -> List
-;; Produce list with first element in each sub-list.
-;; ASSUME: input list can be empty or contain only
-;;         non-empty lists.
-(test-group "`firsts':"
-        (test "should produce '()"
-              '()
-              (firsts '()))
-
-        (test "should get firsts"
-              '(a c y k)
-              (firsts '((a b) (c) (y z) (k t x)))))
-
-(define firsts
-(lambda (l)
-(cond
- ((null? l) '())
- (else
-  (cons (car (car l))
-        (firsts (cdr l)))))))
+include::./definitions.scm[tag=firsts]
 ----
 
 
@@ -149,32 +88,7 @@ Remember: we always ask two questions about a `lat`: `(null? lat)` and `else`.
 .`insertR' function definition
 [source,scheme,lineos]
 ----
-;; Atom Atom (list-of Atom)
-;; Produce list with 'new added to the right of the first occurence of 'old.
-
-(test-group "`insertR':"
-            (test "should add 'jalapeño to the right of 'and"
-                  '(tacos tamales and jalapeño salsa)
-                  (insertR
-                   'jalapeño
-                   'and
-                   '(tacos tamales and salsa)))
-
-            (test "should add 'e to the right of 'd'"
-                  '(a b c d e f g h)
-                  (insertR 'e 'd '(a b c d f g h))))
-
-(define insertR
-  (lambda (new old lat)
-    (cond
-     ((null? lat) '())
-     ((eq? (car lat) old)
-      (cons (car lat)
-            (cons new
-                  (cdr lat))))
-     (else
-      (cons (car lat) (insertR new old (cdr lat)))))))
-
+include::./definitions.scm[tag=insertR]
 ----
 
 === function: `insertL'
@@ -182,40 +96,7 @@ Remember: we always ask two questions about a `lat`: `(null? lat)` and `else`.
 .`insertL' function definition
 [source,scheme,lineos]
 ----
-;; Atom Atom (list-of Atom)
-;; Produce list with 'new added to the left of the first occurence of 'old.
-
-(test-group "`insertL':"
-            (test "should add 'jalapeño to the left of 'and"
-                  '(tacos tamales jalapeño and salsa)
-                  (insertL
-                   'jalapeño
-                   'and
-                   '(tacos tamales and salsa)))
-
-            (test "should add 'e to the left of 'f"
-                  '(a b c d e f g h)
-                  (insertL 'e 'f '(a b c d f g h))))
-#;
-(define insertL
-  (lambda (new old lat)
-    (cond
-     ((null? lat) '())
-     ((eq? (car lat) old)
-      (cons new
-            (cons (car lat)
-                  (cdr lat))))
-     (else
-      (cons (car lat) (insertL new old (cdr lat)))))))
-
-(define insertL
-  (lambda (new old lat)
-    (cond
-     ((null? lat) '())
-     ((eq? (car lat) old)
-      (cons new lat))
-     (else
-      (cons (car lat) (insertL new old (cdr lat)))))))
+include::./definitions.scm[tag=insertL]
 ----
 
 
@@ -235,40 +116,21 @@ Is just the same as
 (cons new lat)
 ----
 
+=== function: `subst'
+
+.`subst' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=subst]
+----
+
 
 === function: `subst2'
 
 .`subst2' function definition
 [source,scheme,lineos]
 ----
-;; Atom Atom Atom (list-of Atom) -> (list-of Atom)
-;; Replaces either the first occurrenct of `o1' or `o2' by `new'.
-
-(test-group "`subst2':"
-            (test "should replace `o1' or `o2' with `new' in the beginning"
-                  '(vanilla icecream with chocolate topping)
-                  (subst2
-                   'vanilla
-                   'chocolate
-                   'banana
-                   '(banana icecream with chocolate topping)))
-            (test "should replace `o1 or `o2' with `new' in the middle"
-                  '(banana icecream with no topping)
-                  (subst2
-                   'no
-                   'strawberry
-                   'chocolate
-                   '(banana icecream with chocolate topping))))
-
-(define subst2
-  (lambda (new o1 o2 lat)
-    (cond
-     ((null? lat) '())
-     ((or (eq? (car lat) o1)
-          (eq? (car lat) o2))
-      (cons new (cdr lat)))
-     (else (cons (car lat)
-                 (subst2 new o1 o2 (cdr lat)))))))
+include::./definitions.scm[tag=subst2]
 ----
 
 
@@ -277,27 +139,7 @@ Is just the same as
 .`multirember' function definition
 [source,scheme,lineos]
 ----
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; multirember ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Atom (list-of Atom) -> (list-of Atom)
-;; Produce list with all occurrences of `a' removed from `lat'.
-
-(test-group "`multirember'"
-            (test "should remove all `a's in `lat'"
-                  '(a b c d e f)
-                  (multirember 'x '(x a b c d x e f x)))
-            (test "should leave `lat' untouched"
-                  '(x y z)
-                  (multirember 'k '(x y z))))
-
-(define multirember
-  (lambda (a lat)
-    (cond
-     ((null? lat) '())
-     ((eq? (car lat) a)
-      (multirember a (cdr lat)))
-     (else
-      (cons (car lat) (multirember a (cdr lat)))))))
+include::./definitions.scm[tag=multirember]
 ----
 
 Note the difference from this version that removes all occurrences to the `rember`, that removes just the first occurrence of `a` in `lat`:
@@ -323,29 +165,16 @@ Note the difference from this version that removes all occurrences to the `rembe
 .`multiinsertR' function definition
 [source,scheme,lineos]
 ----
-;; Atom Atom (list-of Atom) -> (list-of Atom)
-;; Produce `lat' with `new' inserted to the right of all
-;; occurrences of `old'.
+include::./definitions.scm[tag=multiinsertR]
+----
 
-(test-group "`multiinsertR'"
-            (test "should insert `x' to the right of all `z's"
-                  '(z x b z x k y z x)
-                  (multiinsertR 'x 'z '(z b z k y z)))
-            (test "should leave `lat' untouched, `z' doesn't exist in `lat'"
-                  '(k b c y)
-                  (multiinsertR 'x 'z '(k b c y))))
 
-(define multiinsertR
-  (lambda (new old lat)
-    (cond
-     ((null? lat) '())
-     ((eq? (car lat) old)
-      (cons (car lat)
-            (cons new
-                  (multiinsertR new old (cdr lat)))))
-     (else
-      (cons (car lat)
-            (multiinsertR new old (cdr lat)))))))
+=== function: `multiinsertL'
+
+.`multiinsertL' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=multiinsertL]
 ----
 
 
@@ -360,3 +189,4 @@ code {
 }
 </style>
 ++++
+

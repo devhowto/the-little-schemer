@@ -4,23 +4,7 @@
 
 [source,scheme,lineos]
 ----
-;; (list-of Atom) -> Bool
-;; Produce #t if l is a list of atoms, #f otherwise.
-
-(test-group "`lat?'"
-            (test "list with only atoms should be #t"
-                  #t
-                  (lat? '(a b c)))
-            (test "list with lists inside should not be #t"
-                  #f
-                  (lat? '(a (b) c))))
-
-(define lat?
-  (lambda (l)
-    (cond
-     ((null? l) #t)
-     ((atom? (car l)) (lat? (cdr l)))
-     (else #f))))
+include::./definitions.scm[tag=lat-p]
 ----
 
 - `(cond ...)` asks questions
@@ -33,27 +17,10 @@ If the value of `(atom? (car l))` is `#t`, then the value of the entire function
 
 === function: `member?'
 
+.`member?' function definition
 [source,scheme,lineos]
 ----
-;; Atom (list-of Atom) -> Bool
-;; Produce #t if the atom a exists in lat.
-
-(test-group "`member?':"
-            (test "element should be in the list of atoms"
-                  #t
-                  (member? 'force '(may the force be with you)))
-            (test "element should not be in the list"
-                  #f
-                  (member? 'nix '(windows nah sorry))))
-
-(define member?
-  (lambda (a lat)
-    (cond
-     ((null? lat) #f)
-     (else
-
-      (or (eq? (car lat) a)
-          (member? a (cdr lat)))))))
+include::./definitions.scm[tag=member-p]
 ----
 
 

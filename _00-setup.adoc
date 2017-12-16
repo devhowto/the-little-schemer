@@ -9,24 +9,7 @@ Chicken Scheme has its own `atom?`. It returns `#t` for `'()`. The version from 
 .`atom?' function definition
 [source,scheme,lineos]
 ----
-;; Expr -> Bool
-;; Takes an expression and produce #t if it is an atom; #f otherwise.
-;;
-;; NOTE:
-;; Chicken has its own implementation of atom?. It produces
-;; `#t` for '(). This version (from the book) produces #f for '().
-
-(test-group "`atom?':"
-            (test "is 'yoda an atom? Yes, it is."
-                  #t
-                  (atom? 'yoda))
-            (test "'(foo) should not be an atom"
-                  #f
-                  (atom? '(foo))))
-
-(define atom?
-  (lambda (x)
-    (and (not (pair? x)) (not (null? x)))))
+include::./definitions.scm[tag=atom-p]
 ----
 
 The book's version of `atom?` returns `#f` for `'()`.
