@@ -1,5 +1,8 @@
 == 2. Do it Again and Again
 
+`'()` is a `lat?` because it doesn't contain a list (even though it doesn't contain any atom either, but that is their definition).
+
+
 === function: `lat?'
 
 [source,scheme,lineos]
