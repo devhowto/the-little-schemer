@@ -50,3 +50,13 @@ A number is either `zero` or it is one added to a “rest”, where rest is agai
 The natural terminal condition for numbers is `(zero? n)`. The natural recursion on a number is `(sub1 n)` because we want to reach `0`.
 
 See <<first-commandment-rev-1>>.
+
+=== function: `addtup'
+
+.`addtup' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=addtup]
+----
+
+

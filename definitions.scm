@@ -395,7 +395,7 @@
     (cond
      ((zero? m) n)
      (else
-      (add1 (o+ n) (sub1 m))))))
+      (add1 (o+ n (sub1 m)))))))
 
 (test-group "`o+'"
             (test "should add 2 and 5"
@@ -431,4 +431,28 @@
                   3
                   (o- 3 0)))
 ;; end::o-[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; addtup ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::addtup[]
+;; (list-of Tuple) -> Natural
+;; Adds numbers in the tuple.
+
+(define addtup
+  (lambda (tup)
+    (cond
+     ((null? tup) 0)
+     (else
+      (o+ (car tup) (addtup (cdr tup)))))))
+
+(test-group "`addtup'"
+            (test "should add '(1 2 3 4) and produce 10"
+                  10
+                  (addtup '(1 2 3 4)))
+            (test "should produce zero"
+                  0
+                  (addtup '())))
+;; end::addtup[]
+
 
