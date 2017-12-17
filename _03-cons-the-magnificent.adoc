@@ -177,16 +177,35 @@ include::./definitions.scm[tag=multiinsertR]
 include::./definitions.scm[tag=multiinsertL]
 ----
 
+[NOTE,caption=COMMANDMENT]
+====
+Always change at leat one argument while recuring. It must be changed to be closer to termination. The changing argument must be tested in the termination condition. When using `cdr` test termination with `null?`.
+====
 
 
-++++
-<style type="text/css">
-code {
-    font-family: 'Noto Mono Regular', 'Ubuntu Mono', 'Droid Sans Mono';
-}
-.listingblock .pygments .tok-c1 {
-    font-style: normal;
-}
-</style>
-++++
+=== function: `multisubst'
+
+.`multisubst' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=multisubst]
+----
+
+In short, besides the laws and commandments:
+
+To do something only to the first occurrence:
+
+----
+(<some-operation> <car cat/new/old/etc> (cdr lat))
+----
+
+To do something in all occurrences:
+
+----
+(<some-operation> <car cat/new/old/etc>
+  (recursive-invocation <params> (cdr lat)))
+----
+
+So, `(cdr lat)` vs `(recursive-function <params> `(cdr lat)`.
+
 

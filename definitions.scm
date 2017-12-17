@@ -332,4 +332,33 @@
 ;; end::multiinsertL[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; multisubst ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::multisubst[]
+;; Atom Atom (list-of Atom) -> (list-of Atom)
+;; Produce list with all occurrences of `new' removed.
+
+(define multisubst
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new (multisubst new old (cdr lat))))
+     (else
+      (cons (car lat) (multisubst new old (cdr lat)))))))
+
+(test-group "`multisubst'"
+            (test "should replace all occurrences of 'win32' with `linux'"
+                  '(my os is linux and theirs is linux too)
+                  (multisubst
+                   'linux
+                   'win32
+                   '(my os is win32 and theirs is win32 too)))
+            (test "should not touch original `lat'"
+                  '(my os is BSD and theirs is BSD too)
+                  (multisubst
+                   'linux
+                   'win32
+                   '(my os is BSD and theirs is BSD too))))
+
 

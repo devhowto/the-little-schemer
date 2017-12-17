@@ -14,12 +14,30 @@ include::_02-do-it-again.adoc[]
 
 include::_03-cons-the-magnificent.adoc[]
 
-
-// CONTINUE FROM PAGE 47, `insertL'
-
+// Continue from chapter 4, page 59.
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+++++
+<style type="text/css">
+code {
+    font-family: 'Noto Mono Regular', 'Ubuntu Mono', 'Droid Sans Mono';
+}
+.listingblock .pygments .tok-c1 {
+    font-style: normal;
+}
+</style>
+++++
 
