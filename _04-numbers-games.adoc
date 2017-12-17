@@ -1,0 +1,15 @@
+== 4. Numbers Games
+
+Numbers are atoms, but for this book we only consider non-negative numbers (Natural Set), and ignore negative and floating point numbers.
+
+For this book `(sub1 0)` is a “no answer” thing, but it practice it would produce `-1`.
+
+
+=== function: `add+'
+
+.`add+' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=add+]
+----
+

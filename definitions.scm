@@ -332,7 +332,7 @@
 ;; end::multiinsertL[]
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; multisubst ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tag::multisubst[]
 ;; Atom Atom (list-of Atom) -> (list-of Atom)
@@ -360,5 +360,48 @@
                    'linux
                    'win32
                    '(my os is BSD and theirs is BSD too))))
+;; end::multisubst[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; add1, sub1, zero?
+;; These functions exist the chicken scheme implementation as of 2017.
+;; Adding them here for the sake of completenes as far as the book
+;; is concerned.
+
+;; (define add1
+;;   (lambda (n)
+;;     (+ n 1)))
+;;
+;; (define sub1
+;;   (lambda (n)
+;;     (- n 1)))
+;;
+;; (define zero?
+;;   (lambda (n)
+;;     (= n 0)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; add+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::add+[]
+;; Using `add+' instead of simply `+' in order not to override
+;; `+' native implementation.
+(define add+
+  (lambda (n m)
+    (cond
+     ((zero? m) n)
+     (else
+      (add1 (add+ n) (sub1 m))))))
+
+(test-group "`add+'"
+            (test "should add 2 and 5"
+                  7
+                  (add+ 2 5))
+            (test "should add 0 and 13"
+                  13
+                  (add+ 0 13)))
+;; end::add+[]
+
 
 
