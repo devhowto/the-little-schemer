@@ -457,5 +457,25 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
+;; o* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::o*[]
+;; Number Number -> Number
+;; Multiply `n' by `m' (adds `n' up `m' times).
+
+(define o*
+  (lambda (n m)
+    (cond
+     ((zero? m) 0)
+     (else
+      (o+ n (o* n (sub1 m)))))))
+
+(test-group "`o*'"
+            (test "should multiply 3 by 5"
+                  15
+                  (o* 3 5))
+            (test "should multiply 11 by 0"
+                  0
+                  (o* 11 0)))
+;; end::o*[]
+
 

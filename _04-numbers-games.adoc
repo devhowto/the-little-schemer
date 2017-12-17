@@ -61,6 +61,11 @@ include::./definitions.scm[tag=addtup]
 
 See <<fourth-commandment-rev-1>>.
 
-page 65, fourth commandment
+=== function: `o*'
 
+.`o*' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=o*]
+----
 
