@@ -16,6 +16,8 @@ include::_03-cons-the-magnificent.adoc[]
 
 include::_04-numbers-games.adoc[]
 
+include::_commandments.adoc[]
+
 // Continue from chapter 4, page 59.
 
 

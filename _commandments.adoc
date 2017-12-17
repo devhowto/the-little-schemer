@@ -1,0 +1,20 @@
+== » Commandments
+
+[[first-commandment-rev-0]]
+=== The First Commandment (rev. 0)
+
+[NOTE,caption=COMMANDMENT]
+====
+Always ask `null?` as the first question in expressing any function.
+====
+
+[[first-commandment-rev-1]]
+=== The First Commandment (rev. 1)
+
+[NOTE,caption=COMMANDMENT]
+====
+When recurring on a listof atoms, `lat`, ask two questions about it: `(null? lat)` and `else`.
+
+When recurring on a number, `n`, ask two questions about it: `(zero? n)` and `else`.
+====
+

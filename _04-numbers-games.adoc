@@ -41,7 +41,12 @@ The value for the terminal condition for building lists with `cons` is `'()`. Th
 ** `((null? my-tup) 0)`, that is, `0` for adding/subtracting. `1` for multiplying (not sure (yet) about division).
 
 
+A list is an empty list, or a list with an atom `(car my-list)` and `(cdr my-list)` is yet another list.
 
+A tuple is an empty list, or a list with a number `(car my-tup)` and `(cdr my-tup)` which is yet another tup.
 
+A number is either `zero` or it is one added to a “rest”, where rest is again a number.
 
+The natural terminal condition for numbers is `(zero? n)`. The natural recursion on a number is `(sub1 n)` because we want to reach `0`.
 
+See <<first-commandment-rev-1>>.
