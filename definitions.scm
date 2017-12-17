@@ -385,6 +385,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; o+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tag::o+[]
+;; Natural Natural -> Natural
+;; Add two numbers together.
+
 ;; Using `o+' instead of simply `+' in order not to override
 ;; `+' native implementation.
 (define o+
@@ -407,6 +410,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; sub- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tag::o-[]
+;; Natural Natural -> Natural
+;; Subtract `m' from `n'.
+
 ;; Naming it `o-' instead of simply `-' in order not to override Chicken's
 ;; own implementation of `-'.
 
@@ -425,4 +431,5 @@
                   3
                   (o- 3 0)))
 ;; end::o-[]
+
 

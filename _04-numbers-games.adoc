@@ -27,3 +27,21 @@ include::./definitions.scm[tag=o-]
 ----
 
 
+A *tuple* is a list of numbers. `(3 (7 4) 13 9)` is not a tuple because it contains a list, that is, `(7 4)` is not a number.
+
+`'()` is a tup. It is the empty tup.
+
+The natural way to build numbers from list is to use `o+` instead of `cons`.
+
+The value for the terminal condition for building lists with `cons` is `'()`. The value for terminal condition when building numbers with `o+` is `0`.
+
+* terminal condition for a list: `(null? my-list)`.
+** `+((null? my-list) '())+`
+* terminal condition for a tup: `(null? my-tup)`.
+** `((null? my-tup) 0)`, that is, `0` for adding/subtracting. `1` for multiplying (not sure (yet) about division).
+
+
+
+
+
+
