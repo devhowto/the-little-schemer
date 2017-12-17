@@ -59,4 +59,8 @@ See <<first-commandment-rev-1>>.
 include::./definitions.scm[tag=addtup]
 ----
 
+See <<fourth-commandment-rev-1>>.
+
+page 65, fourth commandment
+
 

@@ -58,12 +58,7 @@ include::./definitions.scm[tag=rember]
 
 1. Now we use `cons` to keep elements that should not be removed.
 
-=== The Second Commandment
-
-[NOTE,caption=COMMANDMENT]
-====
-Use `cons` to build lists.
-====
+See <<second-commandment>>.
 
 === function: `firsts'
 
@@ -73,13 +68,7 @@ Use `cons` to build lists.
 include::./definitions.scm[tag=firsts]
 ----
 
-
-=== The Third Commandment
-
-[NOTE,caption=COMMANDMENT]
-====
-When building a list, describe the first tipical element, and then `cons` it into the natural recursion.
-====
+See <<third-commandment>>.
 
 Remember: we always ask two questions about a `lat`: `(null? lat)` and `else`.
 
@@ -177,10 +166,7 @@ include::./definitions.scm[tag=multiinsertR]
 include::./definitions.scm[tag=multiinsertL]
 ----
 
-[NOTE,caption=COMMANDMENT]
-====
-Always change at leat one argument while recuring. It must be changed to be closer to termination. The changing argument must be tested in the termination condition. When using `cdr` test termination with `null?`.
-====
+See <<fourth-commandment-preliminary>>.
 
 
 === function: `multisubst'
