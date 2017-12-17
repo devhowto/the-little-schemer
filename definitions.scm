@@ -383,25 +383,46 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; add+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; tag::add+[]
-;; Using `add+' instead of simply `+' in order not to override
+;; o+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::o+[]
+;; Using `o+' instead of simply `+' in order not to override
 ;; `+' native implementation.
-(define add+
+(define o+
   (lambda (n m)
     (cond
      ((zero? m) n)
      (else
-      (add1 (add+ n) (sub1 m))))))
+      (add1 (o+ n) (sub1 m))))))
 
-(test-group "`add+'"
+(test-group "`o+'"
             (test "should add 2 and 5"
                   7
-                  (add+ 2 5))
+                  (o+ 2 5))
             (test "should add 0 and 13"
                   13
-                  (add+ 0 13)))
-;; end::add+[]
+                  (o+ 0 13)))
+;; end::o+[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; sub- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::o-[]
+;; Naming it `o-' instead of simply `-' in order not to override Chicken's
+;; own implementation of `-'.
+
+(define o-
+  (lambda (n m)
+    (cond
+     ((zero? m) n)
+     (else
+      (sub1 (o- n (sub1 m)))))))
+
+(test-group "`o-'"
+            (test "should subtract 3 from 14"
+                  11
+                  (o- 14 3))
+            (test "should subtract 0 from 3"
+                  3
+                  (o- 3 0)))
+;; end::o-[]
 
