@@ -500,3 +500,35 @@
 ;; end::o*[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `tup+' ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::tup+[]
+;; Tuple Tuple -> Tuple
+;; Produce tuple with sums of each pair of `tup1' and `tup2'.
+;; ASSUME: Both tuples have the same length.
+
+(define tup+
+  (lambda (tup1 tup2)
+    (cond
+     ((and (null? tup1) (null? tup2))
+      '())
+     (else
+      (cons
+       (+ (car tup1)
+          (car tup2))
+          (tup+ (cdr tup1)
+                (cdr tup2)))))))
+
+(test-group "`tup+'"
+ (test
+  "should produce '() since tuples are empty"
+  '()
+  (tup+ '() '()))
+ (test
+  "should sum the tuple pairs"
+  '(11 11 11 11 11)
+  (tup+ '(3 6 9 11 4)
+        '(8 5 2  0 7))))
+;; end::tup+[]
+
+

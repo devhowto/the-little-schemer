@@ -78,3 +78,11 @@ include::./definitions.scm[tag=o*]
 See <<fifth-commandment>>.
 
 
+=== function: `tup+'
+
+.`tup+' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=tup+]
+----
+

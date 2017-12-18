@@ -46,12 +46,23 @@ code {
 .listingblock .pygments .tok-c1 {
     font-style: normal;
 }
+
+/*
 #toc .sectlevel1 {
     list-style-type: none;
 }
+*/
 #toc .sectlevel1 ul {
     list-style-type: circle;
+    padding-left: 2.3em !important;
 }
+
+@media (min-width: 768px) {
+    #toc.toc2 {
+        padding-left: 0.5em;
+    }
+}
+
 </style>
 ++++
 
