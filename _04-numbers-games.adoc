@@ -75,3 +75,6 @@ When we recur (not using tail-recursion), the recursive call is _never_ in the c
 include::./definitions.scm[tag=o*]
 ----
 
+See <<fifth-commandment>>.
+
+

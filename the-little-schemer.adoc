@@ -21,6 +21,10 @@ include::_commandments.adoc[]
 // Continue from chapter 4, page 59.
 
 
+//
+// TODO: understand `o*` better.
+//
+
 
 
 
