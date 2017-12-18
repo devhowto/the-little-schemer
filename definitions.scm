@@ -514,7 +514,7 @@
       '())
      (else
       (cons
-       (+ (car tup1)
+       (o+ (car tup1)
           (car tup2))
           (tup+ (cdr tup1)
                 (cdr tup2)))))))
