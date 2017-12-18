@@ -61,6 +61,12 @@ include::./definitions.scm[tag=addtup]
 
 See <<fourth-commandment-rev-1>>.
 
+
+=== Note About Recursion
+
+When we recur (not using tail-recursion), the recursive call is _never_ in the combination part. The combination part is always handled by some other operation, and the recursive invocation happens more at the end of the expression, generally involving `cdr` or `sub1`. Just take a look at the `else` question of our procedures and see the similarities.
+
+
 === function: `o*'
 
 .`o*' function definition

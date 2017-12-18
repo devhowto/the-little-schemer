@@ -42,6 +42,12 @@ code {
 .listingblock .pygments .tok-c1 {
     font-style: normal;
 }
+#toc .sectlevel1 {
+    list-style-type: none;
+}
+#toc .sectlevel1 ul {
+    list-style-type: circle;
+}
 </style>
 ++++
 
