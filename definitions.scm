@@ -590,5 +590,75 @@
             (test "should not be greater because it is equal to"
                   #f
                   (o> 3 3)))
+;; end::o>[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; o< ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::o<[]
+;; Number Number -> Bool
+;; Produce `#t' if `n' is less than `m'; `#f' otherwise.
+
+(define o<
+  (lambda (n m)
+    (cond
+     ((zero? m) #f)
+     ((zero? n) #t)
+     (else
+      (o< (sub1 n) (sub1 m))))))
+
+(test-group "`o<'"
+            (test "should be less than" #t (o< 9 13))
+            (test "should not be less than" #f (o< 9 7))
+            (test "should not be less than because it is equal to"
+                  #f
+                  (o< 3 3)))
+;; end::o<[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; o= ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::o=[]
+;; Number Number -> Bool
+;; Produce `#t' if `n' and `m' are equal; `#f' otherwise.
+
+(define o=
+  (lambda (n m)
+    (cond
+     ((zero? m) (zero? n))
+     ((zero? n) #f)
+     (else
+      (o= (sub1 n) (sub1 m))))))
+
+;; Just another implementation using `o>' and `o<'.
+(define o==
+  (lambda (n m)
+    (cond
+     ((o> n m) #f)
+     ((o< n m) #f)
+     (else #t))))
+
+(test-group
+ "`o='"
+ (test "should be equal" #t (o= 3 3))
+ (test "should not be equal, first is less than the second"
+       #f
+       (o= 3 5))
+ (test "should not be equal, first is greater than the second"
+       #f
+       (o= 5 3)))
+
+(test-group
+ "`o=='"
+ (test "should be equal" #t (o== 3 3))
+ (test "should not be equal, first is less than the second"
+       #f
+       (o== 3 5))
+ (test "should not be equal, first is greater than the second"
+       #f
+       (o== 5 3)))
+;; end::o=[]
+
+
 
 

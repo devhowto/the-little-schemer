@@ -107,3 +107,23 @@ include::./definitions.scm[tag=o>]
 ----
 
 1. The order of the questions matter. If we asked `(zero? m)` before `(zero? n)`, we would produce `#t` even for cases when both numbers are actually equal.
+
+
+=== function: `o<'
+
+.`o<' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=o<]
+----
+
+=== function: `o='
+
+.`o=' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=o=]
+----
+
+
+
