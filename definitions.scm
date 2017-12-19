@@ -568,3 +568,27 @@
        (tup+v2 '(5 9 4 9) '(2 3))))
 ;; end::tup+v2[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `o>' ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::o>[]
+;; Number Number -> Bool
+;; Produce `#t' if `n' is greater than `m'; `#f' otherwise.
+
+(define o>
+  (lambda (n m)
+    (cond
+     ;; <1>
+     ((zero? n) #f)
+     ((zero? m) #t)
+     (else
+      (o> (sub1 n) (sub1 m))))))
+
+(test-group "`o>'"
+            (test "should be greater" #t (o> 13 9))
+            (test "should not be greater" #f (o> 13 14))
+            (test "should not be greater because it is equal to"
+                  #f
+                  (o> 3 3)))
+
+
