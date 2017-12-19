@@ -86,3 +86,15 @@ See <<fifth-commandment>>.
 include::./definitions.scm[tag=tup+]
 ----
 
+
+=== function: `tup+v2'
+
+.`tup+v2' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=tup+v2]
+----
+
+In this version, if one tuple is lengthier than the other, we just `cons` the already produced sums onto the remaining list without doing any further `o+` operations.
+
+

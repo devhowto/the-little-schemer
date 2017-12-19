@@ -532,3 +532,39 @@
 ;; end::tup+[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `tup+v2' ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::tup+v2[]
+;; Tuple Tuple -> Tuple
+;; Produce tuple with sum of pair of elements from `tup1' and `tup2'.
+;; The length of the tuples don't have to be the same.
+
+(define tup+v2
+  (lambda (tup1 tup2)
+    (cond
+     ;; We can simplify and remove this check.
+     ;;((and (null? tup1) (null? tup2)) '())
+     ((null? tup1) tup2)
+     ((null? tup2) tup1)
+     (else
+      (cons (o+ (car tup1)
+                (car tup2))
+            (tup+v2 (cdr tup1)
+                    (cdr tup2)))))))
+
+(test-group
+ "`tup+v2'"
+ (test "should add empty tuples"
+       '()
+       (tup+v2 '() '()))
+ (test "should add tuples of same length"
+       '(11 3 7)
+       (tup+v2 '(4 2 1) '(7 1 6)))
+ (test "should add with `tup1' shorter than `tup2'"
+       '(7 12 4 9)
+       (tup+v2 '(2 3) '(5 9 4 9)))
+ (test "should add with `tup2' shorter than `tup1'"
+       '(7 12 4 9)
+       (tup+v2 '(5 9 4 9) '(2 3))))
+;; end::tup+v2[]
+
