@@ -126,4 +126,21 @@ include::./definitions.scm[tag=o=]
 ----
 
 
+=== function: `o**'
+
+.`o**' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=o**]
+----
+
+
+=== function `o/'
+
+.`o/' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=o/]
+----
+
 

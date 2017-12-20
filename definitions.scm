@@ -660,5 +660,49 @@
 ;; end::o=[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; o** ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::o**[]
+;; Number Number -> Number
+;; Produce the result of `n' to the `m'th power.
+
+(define o**
+  (lambda (n m)
+    (cond
+     ((zero? m) 1)
+     (else
+      (o* n (o** n (sub1 m)))))))
+
+(test-group "`o**'"
+            (test "should calculate 2 to the 3rd power"
+                  27
+                  (o** 3 3))
+            (test "should calculate 2 to the 5th power"
+                  32
+                  (o** 2 5)))
+;; end::o**[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; o/ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::o/[]
+;; Number Number -> Number
+;; Counts how many times `m' fits into `n'. It does division.
+
+(define o/
+  (lambda (n m)
+    (cond
+     ((o< n m) 0)
+     (else
+      (add1 (o/ (o- n m) m))))))
+
+(test-group "`o/'"
+            (test "should divide 15 by 4"
+                  3
+                  (o/ 15 4)))
+;; NOTE: division by zero doesn't work. You have been warned.
+;; end::o/[]
+
+
 
 
