@@ -704,5 +704,27 @@
 ;; end::o/[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; len ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::len[]
+;; (list-of Atom) -> Number
+;; Produce the length of `lat'.
+
+(define len
+  (lambda (lat)
+    (cond
+     ((null? lat) 0)
+     (else
+      (add1 (len (cdr lat)))))))
+
+(test-group
+ "`len'"
+ (test "should produce 0 for empty lat"
+       0
+       (len '()))
+ (test "should count length of non-empty lists"
+       6
+       (len '(may the force be with you))))
+;; end::len[]
 
 
