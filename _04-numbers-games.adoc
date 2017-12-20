@@ -163,3 +163,11 @@ include::./definitions.scm[tag=pick]
 In `pick`, `(car lat)` is always in sync with `n`.
 
 
+=== function: `rempick'
+
+.`rempick' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=rempick]
+----
+

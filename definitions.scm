@@ -752,3 +752,31 @@
 ;; end::pick[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; rempick ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::rempick[]
+;; Number (list-of Atom) -> Atom
+;; Produce `lat' with with element in `n'th position removed.
+;; ASSUME: `n' is a valid position in `lat'.
+
+(define rempick
+  (lambda (n lat)
+    (cond
+     ((null? lat) '())
+     ((zero? (sub1 n))
+      (rempick (sub1 n) (cdr lat)))
+     (else
+      (cons (car lat)
+            (rempick (sub1 n) (cdr lat)))))))
+
+(test-group
+ "`rempick'"
+ (test "should remove first element"
+       '(potatoes are hot)
+       (rempick 1 '(hot potatoes are hot)))
+ (test "should remove element in the middle of lat"
+       '(hotdogs with mustard)
+       (rempick 3 '(hotdogs with hot mustard))))
+;; end::rempick[]
+
+
