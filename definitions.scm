@@ -728,3 +728,27 @@
 ;; end::len[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; pick ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::pick[]
+;; Number (list-of Atom) -> Atom
+;; Produce atom in `n'th position in `lat'.
+;; ASSUME: `n' is a valid index in `lat'.
+
+(define pick
+  (lambda (n lat)
+    (cond
+     ((zero? (sub1 n)) (car lat))
+     (else (pick (sub1 n) (cdr lat))))))
+
+(test-group
+ "`pick'"
+ (test "should return first element"
+       'may
+       (pick 1 '(may the source)))
+ (test "should return from the middle of list"
+       'be
+       (pick 4 '(may the source be with you))))
+;; end::pick[]
+
+

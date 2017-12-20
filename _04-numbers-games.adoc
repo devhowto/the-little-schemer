@@ -152,3 +152,14 @@ include::./definitions.scm[tag=len]
 ----
 
 
+=== function: `pick'
+
+.`pick' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=pick]
+----
+
+In `pick`, `(car lat)` is always in sync with `n`.
+
+
