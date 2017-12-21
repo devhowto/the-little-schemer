@@ -171,3 +171,19 @@ In `pick`, `(car lat)` is always in sync with `n`.
 include::./definitions.scm[tag=rempick]
 ----
 
+=== About PRIMITIVES
+
+
+Can you write `number?` which is true if its argument is a numeric atom and false if it is anthing else?
+
+No: `number?`, like `add1`, `sub1`, `zero?`, `car`, `cdr`, `cons`, `null?`, `eq?`, and `atom?`, is a primitive function.
+
+
+“Can you write `number?' which is true if its argument is a numeric atom and false if it is anthing else?”
+
+“No: `number?', like `add1', `sub1', `zero?', `car', `cdr', `cons', `null?', `eq?', and `atom?', is a primitive function.”
+
+link::https://groups.google.com/forum/#!topic/comp.lang.scheme/1owCrv0H3lk[question in comp.lang.scheme group]
+
+And by the way, they show an implementation of `atom?' right in the beginning of the book, and now they say here it is a primitive. What is going on?
+

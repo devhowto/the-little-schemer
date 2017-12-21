@@ -780,3 +780,29 @@
 ;; end::rempick[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; no-nums ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::no-nums[]
+;; (list-of Atom) -> (list-of Atom)
+;; Produce `lat' with numeric atoms removed from the list.
+
+(define no-nums
+  (lambda (lat)
+    (cond
+     ((null? lat) '())
+     ((number? (car lat))
+      (no-nums (cdr lat)))
+     (else
+      (cons (car lat)
+            (no-nums (cdr lat)))))))
+
+(test-group
+ "`no-nums'"
+ (test "should remove numbers"
+       '(pears prunes dates)
+       (no-nums '(5 pears 6 prunes 9 dates)))
+ (test "should produce unmodified lat"
+       '(the force is strong with this one)
+       (no-nums '(the force is strong with this one))))
+;; end::no-nums[]
+
