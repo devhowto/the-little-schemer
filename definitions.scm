@@ -840,12 +840,21 @@
 ;; Atom Atom -> Bool
 ;; Produce `#t' if `a1' and `a2' are the same atom; `#f' otherwise.
 
+;; My version. Something might be wrong.
+;; (define eqan?
+;;   (lambda (a1 a2)
+;;     (cond
+;;      ((and (number? a1) (number? a2) (= a1 a2)) #t)
+;;      ((eq? a1 a2) #t)
+;;      (else #f))))
+
+;; Version from the book.
 (define eqan?
   (lambda (a1 a2)
     (cond
-     ((and (number? a1) (number? a2) (= a1 a2)) #t)
-     ((eq? a1 a2) #t)
-     (else #f))))
+     ((and (number? a1) (number? a2)) (= a1 a2))
+     ((or (number? a1) (number? a2)) #f)
+     (else (eq? a1 a2)))))
 
 (test-group
  "`eqan?'"
