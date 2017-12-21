@@ -179,9 +179,7 @@ Can you write `number?` which is true if its argument is a numeric atom and fals
 No: `number?`, like `add1`, `sub1`, `zero?`, `car`, `cdr`, `cons`, `null?`, `eq?`, and `atom?`, is a primitive function.
 
 
-“Can you write `number?' which is true if its argument is a numeric atom and false if it is anthing else?”
-
-“No: `number?', like `add1', `sub1', `zero?', `car', `cdr', `cons', `null?', `eq?', and `atom?', is a primitive function.”
+link:https://groups.google.com/forum/#!topic/comp.lang.scheme/1owCrv0H3lk[My question on comp.lang.scheme about primitives.]
 
 
 === function: `no-nums'
