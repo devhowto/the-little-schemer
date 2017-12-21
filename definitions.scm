@@ -806,3 +806,31 @@
        (no-nums '(the force is strong with this one))))
 ;; end::no-nums[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; all-nums ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::all-nums[]
+;; (list-of Atom) -> Tuple.
+;; Extract all numbers from `lat'.
+
+(define all-nums
+  (lambda (lat)
+    (cond
+     ((null? lat) '())
+     ((number? (car lat))
+      (cons (car lat)
+            (all-nums (cdr lat))))
+     (else
+      (all-nums (cdr lat))))))
+
+(test-group
+ "`all-nums'"
+ (test "should produce non-empty tuple"
+       '(9 13 22)
+       (all-nums '(9 wizards with 13 students and 22 wands)))
+ (test "should produce empty list/tuple"
+       '()
+       (all-nums '(sorry but no nums in this list))))
+;; end::all-nums[]
+
+
