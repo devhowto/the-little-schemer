@@ -834,3 +834,34 @@
 ;; end::all-nums[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; eqan? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::eqan?[]
+;; Atom Atom -> Bool
+;; Produce `#t' if `a1' and `a2' are the same atom; `#f' otherwise.
+
+(define eqan?
+  (lambda (a1 a2)
+    (cond
+     ((and (number? a1) (number? a2) (= a1 a2)) #t)
+     ((eq? a1 a2) #t)
+     (else #f))))
+
+(test-group
+ "`eqan?'"
+ (test "same two non-numeric atoms should be equal"
+       #t
+       (eqan? 'yoda (quote yoda)))
+ (test "same two numeric atoms should be equal"
+       #t
+       (eqan? 13 13))
+ (test "differnt two non-numeric atoms should not be equal"
+       #f
+       (eqan? 'yoda 'vader))
+ (test "different two numeric atoms should not be equal"
+       #f
+       (eqan? 13 9)))
+
+;; end::eqan?[]
+
+

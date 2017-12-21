@@ -200,4 +200,14 @@ include::./definitions.scm[tag=no-nums]
 include::./definitions.scm[tag=all-nums]
 ----
 
+Numbers are atoms. Still, we use `=` for numbers and `eq?' for all other atoms.
+
+
+=== function: `eqan?'
+
+.`eqan?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=eqan?]
+----
 
