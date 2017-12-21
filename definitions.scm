@@ -870,7 +870,35 @@
  (test "different two numeric atoms should not be equal"
        #f
        (eqan? 13 9)))
-
 ;; end::eqan?[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; occur ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::occur[]
+;; (list-of Atom) -> Number
+;; Count the number of times a given atom `a' appears in `lat'.
+
+(define occur
+  (lambda (a lat)
+    (cond
+     ((null? lat) 0)
+     ((eqan? (car lat) a)
+      (add1 (occur a (cdr lat))))
+     (else (occur a (cdr lat))))))
+
+(test-group
+ "`occur'"
+ (test "given atom appear should occur a few times in lat"
+       2
+       (occur 'tea '(tea cup full of tea)))
+ (test "given numeric atom appears a few times in lat"
+       3
+       (occur 5 '(5 foo 32 and 5 7 when 5 is 2)))
+ (test "given atom should not be found and counted on lat"
+       0
+       (occur 'win32 '(my favorite OS is *nix-based))))
+;; end::occur[]
+
 
 

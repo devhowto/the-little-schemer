@@ -209,3 +209,12 @@ Numbers are atoms. Still, we use `=` for numbers and `eq?' for all other atoms.
 include::./definitions.scm[tag=eqan?]
 ----
 
+=== function: `occur'
+
+.`occur' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=occur]
+----
+
+
