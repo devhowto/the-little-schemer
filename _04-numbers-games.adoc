@@ -218,3 +218,11 @@ include::./definitions.scm[tag=occur]
 ----
 
 
+=== function: `one?'
+
+.`one?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=one?]
+----
+

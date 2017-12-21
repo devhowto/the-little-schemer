@@ -901,4 +901,19 @@
 ;; end::occur[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; one? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::one?[]
+;; Number -> Bool
+;; Produce `#t' if `n' is 1 and `#f' otherwise.
+
+(define one?
+  (lambda (n)
+    (eqan? n 1)))
+
+(test-group
+ "`one?'"
+ (test "should be one" #t (one? 1))
+ (test "should not be one" #f (one? 0)))
+;; end::one?[]
 
