@@ -917,3 +917,28 @@
  (test "should not be one" #f (one? 0)))
 ;; end::one?[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; rempick-v2 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::rempick-v2[]
+;; Remove element at `n'th position in `lat'.
+;; ASSUME: `n' is a valid index in `lat'.
+
+(define rempick-v2
+  (lambda (n lat)
+    (cond
+     ((one? n) (cdr lat))
+     (else
+      (cons (car lat) (rempick-v2 (sub1 n) (cdr lat)))))))
+
+(test-group
+ "`rempick-v2'"
+ (test "should remove from the beginning of lat"
+       '(meringue salty pie)
+       (rempick-v2 1 '(lemon meringue salty pie)))
+ (test "should remove from the middle of lat"
+       '(lemon meringue pie)
+       (rempick-v2 3 '(lemon meringue salty pie))))
+;; end::rempick-v2[]
+
+

@@ -226,3 +226,13 @@ include::./definitions.scm[tag=occur]
 include::./definitions.scm[tag=one?]
 ----
 
+
+=== function: `rempick-v2'
+
+.`rempick-v2' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=rempick-v2]
+----
+
+
