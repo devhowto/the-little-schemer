@@ -1,0 +1,9 @@
+== 5. \*Oh My Gawd*:, It's Full of Stars
+
+=== function: `rember*'
+
+.`rember' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=rember*]
+----

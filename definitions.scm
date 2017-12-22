@@ -942,3 +942,29 @@
 ;; end::rempick-v2[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; rember* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::rember*[]
+
+(define rember*
+  (lambda (a l)
+    (cond
+     ((null? l) '())
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) a) (rember* a (cdr l)))
+       (else (cons (car l) (rember* a (cdr l))))))
+     (else (cons (rember* a (car l))
+                 (rember* a (cdr l)))))))
+
+(test-group
+ "`rember*'"
+ (test "should remove from inner lists"
+       '((coffee) ((tea)) (and (hick)))
+       (rember* 'cup '((coffee) cup ((tea) cup) (and (hick) cup))))
+ (test "should produce unmodified input list"
+
+       '((coffee) ((tea) and hick))
+       (rember* 'cup '((coffee) ((tea) and hick)))))
+;; end::rember*[]
+
