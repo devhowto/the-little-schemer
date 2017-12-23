@@ -13,10 +13,20 @@ Always ask `null?` as the first question in expressing any function.
 
 [NOTE,caption=COMMANDMENT]
 ====
-When recurring on a list of atoms, `lat`, ask two questions about it: `(null? lat)` and `else`.
-
-When recurring on a number, `n`, ask two questions about it: `(zero? n)` and `else`.
+* When recurring on a list of atoms, `lat`, ask two questions about it: `(null? lat)` and `else`.
+* When recurring on a number, `n`, ask two questions about it: `(zero? n)` and `else`.
 ====
+
+[[first-commandment-final-version]]
+=== The First Commandment (final version)
+
+[NOTE,caption=COMMANDMENT]
+====
+* When recurring on a list of atoms, `lat`, ask two questions about it: `(null? lat)` and `else`.
+* When recurring on a number, `n`, ask two questions about it: `(zero? n)` and `else`.
+* When recurring on a list of S-expressions, `l`, ask three questions about it: `(null? l)`, `(atom? (car l))` and `else`.
+====
+
 
 '''
 
@@ -62,17 +72,27 @@ Always change at least one argument while recurring. It must be changed to be cl
 * when using `sub1`, test termination with `zero?`
 ====
 
+[[fourth-commandment-final-version]]
+=== The Fourth Commandment (final version)
+
+[NOTE,caption=COMMANDMENT]
+====
+Always change at least one argument while recurring. When recurring on a list of atoms, `lat', use `(cdr lat)`. When recurring on a number, `n`, use `(sub1 n)`. And when recurring on a list of _S-expressions_, `l`, use `(car l)` and `(cdr l)` if neither `(null? l)` nor `(atom? (car l))` is true.
+
+It must be changed to be closer to termination. The changing argument must be tested in the termination condition:
+
+* when using `cdr`, test termination with `null?`
+* when using `sub1`, test termination with `zero?`
+====
+
 
 [[fifth-commandment]]
 === The Fifth Commandment
 
 [NOTE,caption=COMMANDMENT]
 ====
-When building a value with `o+`, always use `0` (zero) for the value of the terminating line, for adding `0` does not change the value of an addition.
-
-When building a value with `o*`, always use 1 for the value of the terminating line, for multiplying by `1` (one) does not change the value of a multiplication.
-
-When building a value with `cons`, always consider `()` for the value of the terminating line.
+* When building a value with `o+`, always use `0` (zero) for the value of the terminating line, for adding `0` does not change the value of an addition.
+* When building a value with `o*`, always use 1 for the value of the terminating line, for multiplying by `1` (one) does not change the value of a multiplication.
+* When building a value with `cons`, always consider `()` for the value of the terminating line.
 ====
-
 

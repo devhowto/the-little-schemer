@@ -968,3 +968,32 @@
        (rember* 'cup '((coffee) ((tea) and hick)))))
 ;; end::rember*[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; insertR* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::insertR*[]
+
+(define insertR*
+  (lambda (new old l)
+    (cond
+     ((null? l) '())
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) old)
+        (cons (car l) (cons new (insertR* new old (cdr l)))))
+       (else
+        (cons (car l) (insertR* new old (cdr l))))))
+     (else (cons (insertR* new old (car l))
+                 (insertR* new old (cdr l)))))))
+
+(test-group
+ "`insertR*'"
+ (test "should insert to the right, even on inner lists"
+       '(x z (a x z b) (((w x z))))
+       (insertR* 'z 'x '(x (a x b) (((w x))))))
+ (test "should produce unmodified input"
+       '(a b ((p)) k (((y z))))
+       (insertR* 'x 'x '(a b ((p)) k (((y z)))))))
+;; end::insertR*[]
+
+

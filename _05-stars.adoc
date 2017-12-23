@@ -2,8 +2,30 @@
 
 === function: `rember*'
 
-.`rember' function definition
+.`rember*' function definition
 [source,scheme,lineos]
 ----
 include::./definitions.scm[tag=rember*]
 ----
+
+
+=== function: `insertR*'
+
+.`insertR*' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=insertR*]
+----
+
+See <<first-commandment-final-version>>.
+
+Both `rember*` and `insertR*` recur with `car` as well when it happens to be a list, as well as with the `cdr`.
+
+All `*-functions' work on lists that are either:
+
+- empty,
+- an atom __cons__ed onto a list, or
+- a list __cons__ed onto a list.
+
+See <<fourth-commandment-final-version>>.
+
