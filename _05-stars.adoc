@@ -29,3 +29,15 @@ All `*-functions' work on lists that are either:
 
 See <<fourth-commandment-final-version>>.
 
+
+=== function: `occur*'
+
+.`occur*' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=occur*]
+----
+
+1. Note the use of `+` to combine the result of the two recursive invocations.
+
+

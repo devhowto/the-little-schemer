@@ -997,3 +997,32 @@
 ;; end::insertR*[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; occur* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::occur*[]
+;; Atom List -> Number
+;; Count how many times `a' appear in `l'.
+
+(define occur*
+  (lambda (a l)
+    (cond
+     ((null? l) 0)
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) a)
+        (add1 (occur* a (cdr l))))
+       (else (occur* a (cdr l)))))
+     ;; Note `+' here!
+     (else (+ (occur* a (car l)) ; <1>
+              (occur* a (cdr l)))))))
+
+(test-group
+ "`occur*'"
+ (test "should occurs a few times"
+       4
+       (occur* 'z '(a z (((z k z))) y (z))))
+ (test "should not occur even once"
+       0
+       (occur* 'z '(a b (((x k y))) p (t)))))
+;; end::occur*[]
+
