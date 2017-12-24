@@ -1030,3 +1030,33 @@
        (occur* 'z '(a b (((x k y))) p (t)))))
 ;; end::occur*[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; subst* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::subst*[]
+;; Atom Atom List -> List
+;; Prodce list with all occurrences of `old' replaced with `new'.
+
+(define subst*
+  (lambda (new old l)
+    (cond
+     ((null? l) '())
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) old)
+        (cons new (subst* new old (cdr l))))
+       (else (cons (car l) (subst* new old (cdr l))))))
+     (else (cons (subst* new old (car l)) ; <1>
+                 (subst* new old (cdr l)))))))
+
+(test-group
+ "`subst*'"
+ (test "should replace all occurrences, even in inner lists"
+       '(n y (k n t) (((y p n))))
+       (subst* 'n 'i '(i y (k i t) (((y p i))))))
+ (test "should produce unmodified input"
+       '(k (((p x)) (b)))
+       (subst* 'n 'i '(k (((p x)) (b))))))
+;; end::subst*[]
+
+

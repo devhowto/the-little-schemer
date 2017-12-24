@@ -40,4 +40,16 @@ include::./definitions.scm[tag=occur*]
 
 1. Note the use of `+` to combine the result of the two recursive invocations.
 
+=== function: `subst*'
+
+.`subst*' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=subst*]
+----
+
+1. Note that `cons` the result of one recursive invocation onto the result of the other recursive invocation.
+
+Besides that, we keep recurring with both `car` and `cdr` in these _star_ functions.
+
 
