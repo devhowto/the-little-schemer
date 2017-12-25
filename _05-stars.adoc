@@ -53,3 +53,24 @@ include::./definitions.scm[tag=subst*]
 Besides that, we keep recurring with both `car` and `cdr` in these _star_ functions.
 
 
+=== function: `insertL*'
+
+.`insertL*' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=insertL*]
+----
+
+
+=== function: `member*'
+
+.`member*' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=member*]
+----
+
+
+
+
+

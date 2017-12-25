@@ -1060,3 +1060,58 @@
 ;; end::subst*[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; insertL* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::insertL*[]
+
+(define insertL*
+  (lambda (new old l)
+    (cond
+     ((null? l) '())
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) old)
+        (cons new (cons old (insertL* new old (cdr l)))))
+       (else (cons (car l) (insertL* new old (cdr l))))))
+     (else (cons (insertL* new old (car l))
+                 (insertL* new old (cdr l)))))))
+
+(test-group
+ "`insertL*'"
+ (test "should insert to the left of atom, globally"
+       '(k x y (((p x y (x y z))) k x y))
+       (insertL* 'x 'y '(k y (((p y (y z))) k y))))
+ (test "should produce unmodified input"
+       '(k y (((p y (y z))) k y))
+       (insertL* 'a 'b '(k y (((p y (y z))) k y)))))
+;; end::insertL*[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; member* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::member*[]
+;; Atom List -> Bool
+;; Produce `#t' if `a' appears on `l', `#f' otherwise.
+
+(define member*
+  (lambda (a l)
+    (cond
+     ((null? l) #f)
+     ((atom? (car l))
+      (or (eq? (car l) a)
+          (member* a (cdr l))))
+     (else
+      (or (member* a (car l))
+          (member* a (cdr l)))))))
+
+(test-group
+ "`member*'"
+ (test "atom should appear somewhere in the list"
+       #t
+       (member* 'force '(may ((the (((force)))) be (with)) you)))
+ (test "atom should not appear in the list"
+       #f
+       (member* 'vader '(may ((the (((force)))) be (with)) you))))
+;; end::member*[]
+
+
