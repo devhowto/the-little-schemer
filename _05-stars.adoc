@@ -70,6 +70,19 @@ include::./definitions.scm[tag=insertL*]
 include::./definitions.scm[tag=member*]
 ----
 
+Pay attention the use of `or` in the combination part of the `atom?` an `else` questions.
+
+
+=== function: `leftmost'
+
+.`leftmost' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=leftmost]
+----
+
+1. Since it is assumed `l' is not empty, it is not necessary to ask `(null? l)`.
+
 
 
 

@@ -1115,3 +1115,29 @@
 ;; end::member*[]
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; leftmost ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::leftmost[]
+;; List -> Atom
+;; Produce the leftmost atom in `l'.
+;; ASSUME: `l' is not empty and does not contain the empty list.
+
+(define leftmost
+  (lambda (l)
+    (cond ; <1>
+     ((atom? (car l)) (car l))
+     (else (leftmost (car l))))))
+
+(test-group
+ "`leftmost'"
+ (test "should produce the leftmost atom not inside nested lists"
+       'may
+       (leftmost '(may the (force) be (with) you)))
+ (test "should produce the leftmost atom inside nested lists"
+       'may
+       (leftmost '(((((((may)))))) the (force) be (with) you))))
+;; end::leftmost[]
+
+
+
