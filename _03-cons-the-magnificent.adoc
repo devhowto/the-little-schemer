@@ -34,7 +34,7 @@ To create `rember`, the fist thing we ask is `(null? lat)` because it is the fir
 1. Note that we *do not recur* here. This is what allows `rember` to remove only the first occurrence of `a` in `lat`.
 2. Yes, here we recur to check if `a` is in the rest of `lat`.
 
-Also note that we *do not use `cons' in this function*.
+And we use `cons` to keep all those elements which should _not_ be removed.
 
 ----
 (rember 'x '(x y z))
