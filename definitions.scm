@@ -1151,6 +1151,7 @@
   (lambda (l1 l2)
     (cond
      ((and (null? l1) (null? l2)) #t)
+     ((or (null? l1) (null? l2)) #f)
      ((atom? (car l1))
       (and (atom? (car l2))
            (eq? (car l1) (car l2))
@@ -1200,7 +1201,7 @@
        (eqlist? '() '((f))))
  (test "first not empty second empty should not be equal"
        #f
-       (eqlist '(((g)) '())))
+       (eqlist? '(((g))) '()))
  (test "lists should not be equal"
        #f
        (eqlist? '(beef ((sausage)) (and (soda)))
