@@ -1140,4 +1140,76 @@
 ;; end::leftmost[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; eqlist? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::eqlist?[]
+;; List List -> Bool
+;; Produce `#t' if both are equal; `#f' otherwise.
+
+;; My first attempt (seems to do the job).
+(define eqlist?
+  (lambda (l1 l2)
+    (cond
+     ((and (null? l1) (null? l2)) #t)
+     ((atom? (car l1))
+      (and (atom? (car l2))
+           (eq? (car l1) (car l2))
+           (eqlist? (cdr l1) (cdr l2))))
+     (else (and (eqlist? (car l1) (car l2))
+                (eqlist? (cdr l1) (cdr l2)))))))
+
+;; Book's first version (more verbose).
+;(define eqlist?
+;  (lambda (l1 l2)
+;    (cond
+;     ((and (null? l1) (null? l2)) #t)
+;     ((and (null? l1) (atom? (car l2))) #f)
+;     ((null? l1) #f)
+;     ((and (atom? (car l1)) (null? l2)) #f)
+;     ((and (atom? (car l1)) (atom? (car l2)))
+;      (and (eqan? (car l1) (car l2))
+;           (eqlist? (cdr l1) (cdr l2))))
+;     ((atom? (car l1)) #f)
+;     ((null? l2) #f)
+;     ((atom? (car l2)) #f)
+;     (else
+;      (and (eqlist? (car l1) (car l2))
+;           (eqlist? (cdr l1) (cdr l2)))))))
+
+;; Book's second version (a bit less verbose).
+;(define eqlist?
+;  (lambda (l1 l2)
+;    (cond
+;     ((and (null? l1) (null? l2)) #t)
+;     ((or (null? l1) (null? l2)) #f)
+;     ((and (atom? (car l1)) (atom? (car l2)))
+;      (and (eqan? (car l1) (car l2))
+;           (eqlist? (cdr l1) (cdr l2))))
+;     ((or (atom? (car l1)) (atom? (car l2))) #f)
+;     (else
+;      (and (eqlist? (car l1) (car l2))
+;           (eqlist? (cdr l1) (cdr l2)))))))
+
+;;
+;; All tests pass with all the three versions of `eqlist?' above.
+;;
+(test-group
+ "`eqlist?'"
+ (test "first empty second not empty should not be equal"
+       #f
+       (eqlist? '() '((f))))
+ (test "first not empty second empty should not be equal"
+       #f
+       (eqlist '(((g)) '())))
+ (test "lists should not be equal"
+       #f
+       (eqlist? '(beef ((sausage)) (and (soda)))
+                '(beef ((salami)) (and (soda)))))
+ (test "lists should be equal"
+       #t
+       (eqlist? '(beef ((sausage)) (and (soda)))
+                '(beef ((sausage)) (and (soda))))))
+;; end::eqlist?[]
+
+
 

@@ -84,6 +84,18 @@ include::./definitions.scm[tag=leftmost]
 1. Since it is assumed `l' is not empty, it is not necessary to ask `(null? l)`.
 
 
+=== function: `eqlist?'
 
+Each argument may be either
+
+- empty,
+- an atom __cons__ed onto a list, or
+- a list __cons__ed onto a list.
+
+.`eqlist?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=eqlist?]
+----
 
 
