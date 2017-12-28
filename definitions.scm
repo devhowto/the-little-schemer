@@ -1150,8 +1150,13 @@
 (define eqlist?
   (lambda (l1 l2)
     (cond
-     ((and (null? l1) (null? l2)) #t)
-     ((or (null? l1) (null? l2)) #f)
+     ((and (null? l1) (null? l2)) #t) ; <1>
+     ;; If both `l1' and `l2' above were `null?', we would
+     ;; not even get to this `or' question. So, we are sure
+     ;; that at least one of them is not null. So, if one is
+     ;; sure not null, but one happens to be null, them the
+     ;; lists are not equal.
+     ((or (null? l1) (null? l2)) #f) ; <2>
      ((atom? (car l1))
       (and (atom? (car l2))
            (eqan? (car l1) (car l2))
