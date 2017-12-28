@@ -100,3 +100,17 @@ include::./definitions.scm[tag=eqlist?]
 
 1. If both are null, then we don't even get to the next question (`or`).
 2. If we get to this question, then at least one of the above was not null (we used `and`) and if now one happens to be null (we are using `or`) then we know the lists are not equal.
+
+
+=== function: `my-equal?'
+
+.`my-equal?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=my-equal?]
+----
+
+Note that we used `eqlist?` to define `my-equal?`.
+
+
+

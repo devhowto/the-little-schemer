@@ -1197,4 +1197,38 @@
 ;; end::eqlist?[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; my-equal? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::my-equal?[]
+;; S-Expr S-Expr -> Bool
+;; Produce `#t' if both S-Expressions are equal, and `#f' otherwise.
+
+(define my-equal?
+  (lambda (se1 se2)
+    (cond
+     ((and (atom? se1) (atom? se2))
+      (eqan? se1 se2))
+     ((or (atom? se1) (atom? se2)) #f)
+     (else (eqlist? se1 se2)))))
+
+(test-group
+ "`my-equal?'"
+ (test "two same atoms should be equal"
+       #t
+       (my-equal? 'y 'y))
+ (test "two same empty lists should be equal"
+       #t
+       (my-equal? '() '()))
+ (test "two same list nested in lists should be equal"
+       #t
+       (my-equal? '(a ((b (c)))) '(a ((b (c))))))
+ (test "two different atoms should not be equal"
+       #f
+       (my-equal? 'x 'y))
+ (test "two different lists should not be equal"
+       #f
+       (my-equal? '(a b) '(a ((b))))))
+;; end::my-equal?[]
+
+
 
