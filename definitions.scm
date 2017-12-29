@@ -1231,4 +1231,38 @@
 ;; end::my-equal?[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; eqlist? (v2) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::eqlist?-v2[]
+;; List List -> Bool
+;; Produce `#t' if both lists are equal, and `#f' otherwise.
+
+(define eqlist?
+  (lambda (l1 l2)
+    (cond
+     ((and (null? l1) (null? l2)) #t)
+     ((or (null? l1) (null? l2)) #f)
+     (else (and (equal? (car l1) (car l2))
+                (equal? (cdr l1) (cdr l2)))))))
+
+(test-group
+ "`eqlist?'"
+ (test "first empty second not empty should not be equal"
+       #f
+       (eqlist? '() '((f))))
+ (test "first not empty second empty should not be equal"
+       #f
+       (eqlist? '(((g))) '()))
+ (test "lists should not be equal"
+       #f
+       (eqlist? '(beef ((sausage)) (and (soda)))
+                '(beef ((salami)) (and (soda)))))
+ (test "lists should be equal"
+       #t
+       (eqlist? '(beef ((sausage)) (and (soda)))
+                '(beef ((sausage)) (and (soda))))))
+;; end::eqlist?-v2[]
+
+
+
 

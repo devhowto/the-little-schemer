@@ -113,4 +113,14 @@ include::./definitions.scm[tag=my-equal?]
 Note that we used `eqlist?` to define `my-equal?`.
 
 
+=== function: `eqlist? (v2)'
+
+.`eqlist? (v2)' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=eqlist?-v2]
+----
+
+See <<sixth-commandment>>.
+
 
