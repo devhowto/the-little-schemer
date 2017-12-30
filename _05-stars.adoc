@@ -124,3 +124,13 @@ include::./definitions.scm[tag=eqlist?-v2]
 See <<sixth-commandment>>.
 
 
+=== function: `rember (v2)'
+
+.`rember (v2)' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=rember-v2]
+----
+
+
+

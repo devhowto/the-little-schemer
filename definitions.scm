@@ -1264,5 +1264,36 @@
 ;; end::eqlist?-v2[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; rember (v2) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::rember-v2[]
+;; S-Exp (list-of S-Exp) -> (list-of S-Exp)
+;; Produce list with sexp removed from the input list.
+;; NOTE: It doesn't work with sexps inside lists. It can only `rember'
+;;       sexps if they are not further nested inside other lists.
+
+(define rember2
+  (lambda (s l)
+    (cond
+     ((null? l) '())
+     ((my-equal? (car l) s) (cdr l))
+     (else (cons (car l) (rember2 s (cdr l)))))))
+
+(test-group
+ "rember (v2)"
+ (test "should remove from lat"
+       '(a c)
+       (rember2 'b '(a b c)))
+ (test "should remove from list"
+       '((a) (c))
+       (rember2 '(b) '((a) (b) (c))))
+
+ ;; Should not remove `(a)' in `((a) b)'. This version of
+ ;; `rember' simply doesn't work for this sort of stuff.
+ (test "should not remove from nested lists"
+       '(x y ((a) b) k (((l))))
+       (rember2 '(a) '(x y ((a) b) k (((l)))))))
+;; end::rember-v2[]
+
 
 
