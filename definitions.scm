@@ -1296,4 +1296,38 @@
 ;; end::rember-v2[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; numbered? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::numbered?[]
+;; S-Exp -> Bool
+;; Produces `#t' if the representation of the arithmetic expression contains
+;; only numbers besides `+`, `*` and `↑`.
+;; ASSUME: input is always in the form `number` or `operand1 operand operator2'.
+
+(define numbered?
+  (lambda (aexp)
+    (cond
+     ((atom? aexp) (number? aexp))
+     (else
+      (and (numbered? (car aexp))
+           (numbered? (car (cdr (cdr aexp)))))))))
+
+(test-group
+ "`numbered?'"
+ (test "should not be a valid arith. expr."
+       #f
+       (numbered? '(a b c)))
+ (test "should be a valid arith. expr."
+       #t
+       (numbered? '(1 + 2)))
+ (test "should also be valid"
+       #t
+       (numbered? '(1 ↑ 2 * 3)))
+ (test "should not be valid because non-numeric operand"
+       #f
+       (numbered? '(1 * x)))
+ (test "only numbers is `#t' as per the book's solution of `numbered?'"
+       #t
+       (numbered? '(1 2 3))))
+;; end::numbered[]
 

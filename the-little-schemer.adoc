@@ -18,6 +18,8 @@ include::_04-numbers-games.adoc[]
 
 include::_05-stars.adoc[]
 
+include::_06-shadows.adoc[]
+
 include::_commandments.adoc[]
 
 
