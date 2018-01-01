@@ -1329,5 +1329,42 @@
  (test "only numbers is `#t' as per the book's solution of `numbered?'"
        #t
        (numbered? '(1 2 3))))
-;; end::numbered[]
+;; end::numbered?[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; value ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::value-v1[]
+;; QuotedList -> Number
+;; Produce the value of the input expression.
+
+(define value
+  (lambda (nexp)
+    (cond
+     ((atom? nexp) nexp)
+     ((eq? (car (cdr nexp)) '+)
+      (+ (value (car nexp))
+         (value (car (cdr (cdr nexp))))))
+     ((eq? (car (cdr nexp)) '*)
+      (* (value (car nexp))
+         (value (car (cdr (cdr nexp))))))
+     ((eq? (car (cdr nexp)) '↑)
+      (o** (value (car nexp))
+           (value (car (cdr (cdr nexp)))))))))
+
+(test-group
+ "`value'"
+ (test "should add numbers (simple)"
+       11
+       (value '(7 + 4)))
+ (test "should add numbers (nested)"
+       7
+       (value '(2 + (4 + 1))))
+ (test "should multiply numbers"
+       9
+       (value '(3 * (3 + (5 * 0)))))
+ (test "should raise the the power of"
+       32
+       (value '(2 ↑ (5 ↑ 1)))))
+;; end::value-v1[]
 
