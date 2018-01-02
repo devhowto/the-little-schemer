@@ -1405,4 +1405,21 @@
 ;; end::value-v2[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 1st-sub-exp ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::1st-sub-exp[]
+;; QuotedList -> Exp
+;; Produce first sub-expression from input quoted list.
+
+(define 1st-sub-exp
+  (lambda (aexp)
+    (car (cdr aexp))))
+
+(test-group
+ "`1st-sub-expi'"
+ (test "should produce 1st sub expression"
+       3
+       (1st-sub-exp '(+ 3 4))))
+;; end::1st-sub-exp[]
+
 

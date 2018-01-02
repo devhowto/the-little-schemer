@@ -48,4 +48,13 @@ include::./definitions.scm[tag=value-v2]
 ----
 
 
+=== function: `1st-sub-exp'
+
+.`1st-sub-exp' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=1st-sub-exp]
+----
+
+
 
