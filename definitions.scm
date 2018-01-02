@@ -1353,7 +1353,7 @@
            (value (car (cdr (cdr nexp)))))))))
 
 (test-group
- "`value'"
+ "`value' (v1)"
  (test "should add numbers (simple)"
        11
        (value '(7 + 4)))
@@ -1367,4 +1367,42 @@
        32
        (value '(2 ↑ (5 ↑ 1)))))
 ;; end::value-v1[]
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; value ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::value-v2[]
+;; QuotedList -> Number
+;; Produce the value of the input expression.
+
+(define value
+  (lambda (nexp)
+    (cond
+     ((atom? nexp) nexp)
+     ((eq? (car nexp) '+)
+      (+ (value (car (cdr nexp)))
+         (value (car (cdr (cdr nexp))))))
+     ((eq? (car nexp) '*)
+      (* (value (car (cdr nexp)))
+         (value (car (cdr (cdr nexp))))))
+     ((eq? (car nexp) '↑)
+      (o** (value (car (cdr nexp)))
+           (value (car (cdr (cdr nexp)))))))))
+
+(test-group
+ "`value' (v2)"
+ (test "should add numbers (simple)"
+       11
+       (value '(+ 7 4)))
+ (test "should add numbers (nested)"
+       7
+       (value '(+ 2 (+ 4 1))))
+ (test "should multiply numbers"
+       9
+       (value '(* 3 (+ 3 (* 5 0)))))
+ (test "should raise the the power of"
+       32
+       (value '(↑ 2 (↑ 5 1)))))
+;; end::value-v2[]
+
+
 

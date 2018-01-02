@@ -1,0 +1,51 @@
+== 6. Shadows
+
+For this chapter, an arithmetic expression is either an atom (including numbers), i.e, `*` or `9`, or two expressions combined by `+`, `*` or `↑`, something like `9 + 1`.
+
+`(quote +)` is the atom `+`, , not the operation `+`. The same holds true for other operators like `*`, `/`, etc.
+
+`(n + 3)` is not an arithmetic expression because our earlier definition of arithmetic expression does not include parenthesis.
+
+These is an invalid arithmetic expressions by our definition:
+
+----
+(3 + 5 * (2 + 3))
+----
+
+It should be like this instead:
+
+----
+(3 + (5 * (2 + 3)))
+----
+
+=== function: `numbered?'
+
+.`numbered?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=numbered?]
+----
+
+See <<seventh-commandment>>.
+
+
+=== function: `value' (v1)'
+
+.`value' (v1) function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=value-v1]
+----
+
+If we do `(cdr (cdr (+ 1 2)))` we get `(2)`, and that is not a sub-expression of our entire arithmetic expression; `2` would though, and `(car (cdr (cdr (+ 1 2))))` would be the proper way to access it. That is what we do in the next example as well.
+
+=== function: `value' (v2)
+
+.`value' (v2) function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=value-v2]
+----
+
+
+
