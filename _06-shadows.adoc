@@ -57,4 +57,12 @@ include::./definitions.scm[tag=1st-sub-exp]
 ----
 
 
+=== function: `2nd-sub-exp'
+
+.`2nd-sub-exp' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=2nd-sub-exp]
+----
+
 

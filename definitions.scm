@@ -1416,10 +1416,28 @@
     (car (cdr aexp))))
 
 (test-group
- "`1st-sub-expi'"
+ "`1st-sub-exp'"
  (test "should produce 1st sub expression"
        3
        (1st-sub-exp '(+ 3 4))))
 ;; end::1st-sub-exp[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 2nd-sub-exp ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::2nd-sub-exp[]
+;; QuotedList -> Exp
+;; Produce second sub expression in input quoted list.
+
+(define 2nd-sub-exp
+  (lambda (aexp)
+    (car (cdr (cdr aexp)))))
+
+(test-group
+ "`2nd-sub-exp'"
+ (test "should produce 2nd sub expression"
+       4
+       (2nd-sub-exp '(+ 3 4))))
+;; end::2nd-sub-exp[]
 
 
