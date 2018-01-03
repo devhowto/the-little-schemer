@@ -1455,3 +1455,41 @@
        (operator '(+ 3 4))))
 ;; end::operator[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; value (v3) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::value-v3[]
+;; QuotedList -> Number
+;; Produce the value of the input expression.
+
+(define value
+  (lambda (aexp)
+    (cond
+     ((atom? aexp) aexp)
+     ((eq? (operator aexp) '+)
+      (+ (value (1st-sub-exp aexp))
+         (value (2nd-sub-exp aexp))))
+     ((eq? (operator aexp) '*)
+      (* (value (1st-sub-exp aexp))
+         (value (2nd-sub-exp aexp))))
+     ((eq? (operator aexp) '↑)
+      (o** (value (1st-sub-exp aexp))
+         (value (2nd-sub-exp aexp)))))))
+
+(test-group
+ "`value' (v3)"
+ (test "should add numbers (simple)"
+       11
+       (value '(+ 7 4)))
+ (test "should add numbers (nested)"
+       7
+       (value '(+ 2 (+ 4 1))))
+ (test "should multiply numbers"
+       9
+       (value '(* 3 (+ 3 (* 5 0)))))
+ (test "should raise the the power of"
+       32
+       (value '(↑ 2 (↑ 5 1)))))
+;; end::value-v3[]
+
+

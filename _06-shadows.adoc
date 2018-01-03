@@ -75,5 +75,14 @@ include::./definitions.scm[tag=operator]
 ----
 
 
+=== function: `value' (v3)
+
+.`value' (v3)' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=value-v3]
+----
+
+This version uses helper functions to access the operator and the sub-expressions.
 
 
