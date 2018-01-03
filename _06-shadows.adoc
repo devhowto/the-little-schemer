@@ -66,3 +66,14 @@ include::./definitions.scm[tag=2nd-sub-exp]
 ----
 
 
+=== function: `operator'
+
+.`operator' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=operator]
+----
+
+
+
+

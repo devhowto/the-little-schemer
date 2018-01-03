@@ -1441,3 +1441,17 @@
 ;; end::2nd-sub-exp[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; operator ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::operator[]
+(define operator
+  (lambda (aexp)
+    (car aexp)))
+
+(test-group
+ "`operator'"
+ (test "should produce the operator"
+       '+
+       (operator '(+ 3 4))))
+;; end::operator[]
+
