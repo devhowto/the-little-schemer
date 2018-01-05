@@ -1493,3 +1493,76 @@
 ;; end::value-v3[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::our-lnums1[]
+;; LNum means our representation of number using lists where () is zero,
+;; (()) is one, (() ()) is two, etc.
+
+;; LNum -> Bool
+;; Produce `#t' if `n' is zero.
+(define my-zero?
+  (lambda (n)
+    (null? n)))
+
+;; LNum -> LNum
+;; Adds one to `n'.
+(define my-add1
+  (lambda (n)
+    (cons '() n)))
+
+;; LNum -> LNum
+;; Subtracts one from `n`.
+;; ASSUME: `n' is not zero (or we get an error). According to the law
+;;         `cdr', we won't ask for the `cdr` of an empty list (which
+;;         is our zero in this representation of numbers.
+(define my-sub1
+  (lambda (n)
+    (cdr n)))
+
+(define my-o+
+  (lambda (n m)
+    (cond
+     ((my-zero? m) n)
+     (else (my-o+ (my-add1 n)
+                  (my-sub1 m))))))
+
+(test-group
+ "`my-o+'"
+ (test "should add using our representation of numbers"
+       '(() () () ())
+       (my-o+ '(()) '(() () ()))))
+;; tag::our-lnums1[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; set? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::set?[]
+;; (list-of Atom) -> Bool
+;; Produce `#t' if lat is a set (no atom appears more than once), and
+;; `#f' otherwise.
+
+(define set?
+  (lambda (lat)
+    (cond
+     ((null? lat) #t)
+     ((member? (car lat) (cdr lat)) #f)
+     (else (set? (cdr lat))))))
+
+(test-group
+ "`set?'"
+ (test "empty list should be a set"
+       #t
+       (set? '()))
+ (test "lat with duplicates atoms should not be a set"
+       #f
+       (set? '(foo bar foo jedi)))
+ (test "lat with no duplicate atoms should be a set"
+       #t
+       (set? '(may the force be with you)))
+ (test "lat with numbers should be valid sets too if no duplicates appear"
+       #t
+       (set? '(one 2 three 4 5))))
+;; end::set?[]
+
+

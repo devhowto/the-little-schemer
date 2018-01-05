@@ -1,0 +1,11 @@
+== Friends and Relations
+
+=== function: `set?'
+
+.`set?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=set?]
+----
+
+

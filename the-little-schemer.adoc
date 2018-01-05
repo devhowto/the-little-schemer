@@ -20,7 +20,10 @@ include::_05-stars.adoc[]
 
 include::_06-shadows.adoc[]
 
+include::_07-friends-and-relations.adoc[]
+
 include::_commandments.adoc[]
+
 
 
 // Continue from chapter 4, page 59.
