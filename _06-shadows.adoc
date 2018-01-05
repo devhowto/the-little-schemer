@@ -85,4 +85,35 @@ include::./definitions.scm[tag=value-v3]
 
 This version uses helper functions to access the operator and the sub-expressions.
 
+We have by now used two syntaxes/representations for expressions, one where the operators are infix, and other where operators are prefix:
+
+----
+(1 + (2 + 3)) ; infix
+(+ 1 (+ 2 3)) ; prefix (default in lisps).
+----
+
+Our function `value` uses the helper functions `1st-sub-exp`, `2nd-sub-exp` and `operator`. If we just change those helper functions, our `value` function can handle any of the two possible representations without changing the function `value` itself.
+
+We have used representations for truth-values, numbers. 4 represents the concept of “four”, but we could have used `(() () () ())` as well, or `((((()))))` or even `IV`.
+
+We use four primitives for numbers: `number?`, `zero?`, `add1` and `sub1`.
+
+// NOTE: Escapes necessary or output gets some parenthesis missing.
+- `()` is zero.
+- `(())` is one.
+- `\(() ())` is two.
+- `\(() () ())` is three.
+- and so on and so forth...
+
+
+=== Alternative Number Representation
+
+.An example of using `()` to represent numbers.
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=our-lnums1]
+----
+
+
+
 

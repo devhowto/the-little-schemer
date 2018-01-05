@@ -118,3 +118,12 @@ Recur on the _subparts_ that are of the same nature:
 ====
 
 
+[[eighth-commandment]]
+=== The Eighth Commandment
+
+[NOTE,caption=COMMANDMENT]
+====
+Use help functions to abstract from representations.
+====
+
+
