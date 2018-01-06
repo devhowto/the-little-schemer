@@ -1,4 +1,4 @@
-== Friends and Relations
+== 7. Friends and Relations
 
 === function: `set?'
 
@@ -6,6 +6,15 @@
 [source,scheme,lineos]
 ----
 include::./definitions.scm[tag=set?]
+----
+
+
+=== function: `makeset'
+
+.`makeset' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=makeset]
 ----
 
 
