@@ -1563,7 +1563,7 @@
  (test "lat with numbers should be valid sets too if no duplicates appear"
        #t
        (set? '(one 2 three 4 5))))
-;; end::
+;; end::set?[]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1601,3 +1601,35 @@
 ;; end::makeset[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; makeset-v2 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::makeset-v2[]
+;; (list-of Atom) -> Set
+;; Produce a valid set from input list of atoms.
+;; NOTE: this version should produce resulting in the leaving the
+;;       members in the order they appear in input `lat'.
+
+(define makeset
+  (lambda (lat)
+    (cond
+     ((null? lat) '())
+     (else
+      (cons (car lat)
+            (makeset (multirember (car lat) (cdr lat))))))))
+
+(test-group
+ "`makeset'"
+ (test "should produce empty set"
+       '() ;; resulting set
+       (makeset '())) ;; input lat
+ (test "should produce set with one member out of lat with one member"
+       '(x) ;; resulting set
+       (makeset '(x))) ;; input lat
+ (test "should produce set with one member out of many duplicates"
+       '(x) ;; resulting set
+       (makeset '(x x x))) ;; input lat
+ (test "should produce set with a few members"
+       ;; Note the output order of members now match the input.
+       '(a b c d) ;; resulting set
+       (makeset '(a b c b d a))))
+;; end::makeset-v2[]

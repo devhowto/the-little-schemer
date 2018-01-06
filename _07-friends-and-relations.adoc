@@ -17,4 +17,13 @@ include::./definitions.scm[tag=set?]
 include::./definitions.scm[tag=makeset]
 ----
 
+=== function: `makeset' (v2)
+
+.`makeset' (v2) function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=makeset-v2]
+----
+
+
 

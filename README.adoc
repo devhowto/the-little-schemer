@@ -23,4 +23,15 @@ opera the-little-schemer.html &
 # or your favorite browser...
 ----
 
+== About The Tests
+
+Install necessary egg:
+
+    chicken-install -s test
+
+Note that we define a function, and right below it we have the tests. In several occasions in the book we write a function and then improve or change it otherwise in subsequent exercises. So, if we define function `f` and run its tests, they pass. If we rewrite function `f`, the new tests pass for that new version of `f` because we always define the tests right below the function (and the source file is read from top to bottom).
+
+So, if you evaluate function `f`, it passes for the tests right below it, but it may not make tests for other definitions of `f` pass.
+
+That means if you want to run individual tests for a particular function (and tests are failing), first evaluate the function above the tests and then run the tests. With Geiser you go to the end of the function and hit `C-x C-e`. Then you go to the end parenthesis of the particular test group (or test unit) and use the same key combination.
 
