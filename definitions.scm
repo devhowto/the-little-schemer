@@ -1679,3 +1679,50 @@
                 '(may the force be with you))))
 ;; end::subset?[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; eqset? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::eqset?[]
+;; Set Set -> Bool
+;; Produce `#t' if both sets have the same members, and `#f' otherwise.
+;; ASSUME: Both sets have the same length.
+
+;; Works.
+(define eqset?
+  (lambda (set1 set2)
+    (cond
+     ((null? set1) #t)
+     (else
+      (and (member? (car set1) set2)
+           (eqset? (cdr set1) set2))))))
+
+;; A bit more intersting because it makes use of `subset?'.
+(define eqset?
+  (lambda (set1 set2)
+    (cond
+     ((subset? set1 set2)
+      (subset? set2 set1))
+     (else #f))))
+
+;; The most concise and elegant one. Beautiful.
+(define eqset?
+  (lambda (set1 set2)
+    (and (subset? set1 set2)
+         (subset? set2 set1))))
+
+(test-group
+ "`eqset?'"
+ (test "two empty sets are equal?"
+       #t
+       (eqset? '() '()))
+ (test "two sets with members in the same order should be equal"
+       #t
+       (eqset? '(x y z) '(x y z)))
+ (test "two sets with same members but in different order should also be equal"
+       #t
+       (eqset? '(y z x) '(z x y)))
+ (test "two sets with different members should not be equal"
+       #f
+       (eqset? '(x y a) '(x y z))))
+;; end::eqset?[]
+

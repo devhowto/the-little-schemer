@@ -27,7 +27,14 @@ include::./definitions.scm[tag=makeset-v2]
 
 === About Sets
 
-A Set is an *unordered* collection of objects without duplicates.
+A Set is an unordered collection of objects without duplicates.
+
+Two sets are the same if they have the same members (which may be in different order).
+
+A subset is a set in which its members are part of another set. Two equal sets also mean that one set is a subset of the other, and vice-versa.
+
+Two sets intersect if they contain at least one common member.
+
 
 === function: `subset?'
 
@@ -36,5 +43,15 @@ A Set is an *unordered* collection of objects without duplicates.
 ----
 include::./definitions.scm[tag=subset?]
 ----
+
+
+=== function: `eqset?'
+
+.`eqset?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=eqset?]
+----
+
 
 
