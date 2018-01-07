@@ -54,4 +54,14 @@ include::./definitions.scm[tag=eqset?]
 ----
 
 
+=== function: `intersect?'
+
+.`intersect?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=intersect?]
+----
+
+Note that `subset?` uses `and`, and `intersect?` uses `or`, otherwise they are the same thing.
+
 

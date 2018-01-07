@@ -1726,3 +1726,39 @@
        (eqset? '(x y a) '(x y z))))
 ;; end::eqset?[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; intersect? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::intersect?[]
+;; Set Set -> Bool
+;; Produce `#t' if both sets have any common member.
+
+;; This version works fine.
+(define intersect?
+  (lambda (set1 set2)
+    (cond
+     ((null? set1) #f)
+     ((member? (car set1) set2) #t)
+     (else
+      (intersect? (cdr set1) set2)))))
+
+;; This looks better... moves `member?' to the else question and uses
+;; `or' instead of returning an explicit `#t'.
+(define intersect?
+  (lambda (set1 set2)
+    (cond
+     ((null? set1) #f)
+     (else
+      (or (member? (car set1) set2)
+          (intersect? (cdr set1) set2))))))
+
+(test-group
+ "`intersect?'"
+ (test "sets should not intersect"
+       #f
+       (intersect? '(a b c) '(d e f)))
+ (test "sets should intersect"
+       #t
+       (intersect? '(a b c) '(c d e f))))
+;; end::intersect?[]
+
