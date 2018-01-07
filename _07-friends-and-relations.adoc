@@ -26,4 +26,12 @@ include::./definitions.scm[tag=makeset-v2]
 ----
 
 
+=== function: `subset?'
+
+.`subset?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=subset?]
+----
+
 

@@ -1633,3 +1633,49 @@
        '(a b c d) ;; resulting set
        (makeset '(a b c b d a))))
 ;; end::makeset-v2[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; subset? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::subset?[]
+;; Set Set -> Bool
+;; Produce `#t' if all elements in `set1' appear in `set2', and `#f' otherwise.
+
+;; Works, but let's use the version with `and' below.
+; (define subset?
+;   (lambda (set1 set2)
+;     (cond
+;      ((null? set1) #t)
+;      ((member? (car set1) set2)
+;       (subset? (cdr set1) set2))
+;      (else #f))))
+
+(define subset?
+  (lambda (set1 set2)
+    (cond
+     ((null? set1) #t)
+     (else
+      (and (member? (car set1) set2)
+           (subset? (cdr set1) set2))))))
+
+(test-group
+ "`subset?'"
+ (test "empty set1 should be a subset of empty set2"
+       #t
+       (subset? '() '()))
+ (test "empty set1 should be a subset of set2"
+       #t
+       (subset? '() '(x y z)))
+ (test "non-empty set1 should not be a subset of empty set2"
+       #f
+       (subset? '(x) '()))
+ (test "set1 should be a subset of set2"
+       #t
+       (subset? '(may force you)
+                '(may the force be with you)))
+ (test "set1 should not be a subset of set2"
+       #f
+       (subset? '(may force me)
+                '(may the force be with you))))
+;; end::subset?[]
+
