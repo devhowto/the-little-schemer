@@ -25,6 +25,9 @@ include::./definitions.scm[tag=makeset]
 include::./definitions.scm[tag=makeset-v2]
 ----
 
+=== About Sets
+
+A Set is an *unordered* collection of objects without duplicates.
 
 === function: `subset?'
 
