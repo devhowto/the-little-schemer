@@ -1762,3 +1762,29 @@
        (intersect? '(a b c) '(c d e f))))
 ;; end::intersect?[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; intersect ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::intersect[]
+;; Set Set -> Set
+;; Produce set with intersecting members from `set1' and `set2'.
+
+(define intersect
+  (lambda (set1 set2)
+    (cond
+     ((null? set1) '())
+     ((member? (car set1) set2)
+      (cons (car set1)
+            (intersect (cdr set1) set2)))
+     (else
+      (intersect (cdr set1) set2)))))
+
+(test-group
+ "`intersect'"
+ (test "should produce empty set because there are no intersections"
+       '()
+       (intersect '(a b c) '(d e f)))
+ (test "should produce set from intersecting members"
+       '(b c)
+       (intersect '(a b c) '(b c d))))
+;; end::intersect[]
