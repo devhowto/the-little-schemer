@@ -1818,3 +1818,33 @@
         '(macaroni and cheese))))
 ;; end::union[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; difference ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::difference[]
+;; Set Set -> Set
+;; Produce all atoms in `set1' that are not in `set2'.
+
+(define difference
+  (lambda (set1 set2)
+    (cond
+     ((null? set1) '())
+     ((member? (car set1) set2)
+      (difference (cdr set1) set2))
+     (else
+      (cons (car set1)
+            (difference (cdr set1) set2))))))
+
+(test-group
+ "`difference'"
+ (test "should produce empty set from empty input sets"
+       '()
+       (difference '() '()))
+ (test "should produce empty set since there is no difference"
+       '()
+       (difference '(a b c) '(a k b x d c y z)))
+ (test "should produce set with some members arising from the diffrence"
+       '(a c)
+       (difference '(a b c d) '(b d))))
+;; end::difference[]
+

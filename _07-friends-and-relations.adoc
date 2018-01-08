@@ -87,3 +87,13 @@ include::./definitions.scm[tag=union]
 Pay attention to those instances where we don't return an empty list for the base case (as in those number-related function in which we returned `n` instead of `0`).
 
 
+=== function: `difference'
+
+.`difference' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=difference]
+----
+
+
+
