@@ -1788,3 +1788,33 @@
        '(b c)
        (intersect '(a b c) '(b c d))))
 ;; end::intersect[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; union ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::union[]
+;; Set Set -> Set
+;; Produce the union set from `set1' and `set2'.
+
+(define union
+  (lambda (set1 set2)
+    (cond
+     ((null? set1) set2)
+     ((member? (car set1) set2)
+      (union (cdr set1) set2))
+     (else
+      (cons (car set1)
+            (union (cdr set1) set2))))))
+
+(test-group
+ "`union'"
+ (test "should produce empty set"
+       '()
+       (union '() '()))
+ (test "should produce union set with some members"
+       '(stewed tomatoes casserole macaroni and cheese)
+       (union
+        '(stewed tomatoes and macaroni casserole)
+        '(macaroni and cheese))))
+;; end::union[]
+

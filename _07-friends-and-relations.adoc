@@ -35,6 +35,8 @@ A subset is a set in which its members are part of another set. Two equal sets a
 
 Two sets intersect if they contain at least one common member.
 
+The union of two sets is the combination of elements in both sets.
+
 
 === function: `subset?'
 
@@ -72,4 +74,16 @@ Note that `subset?` uses `and`, and `intersect?` uses `or`, otherwise they are t
 ----
 include::./definitions.scm[tag=intersect]
 ----
+
+
+=== function: `union'
+
+.`union' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=union]
+----
+
+Pay attention to those instances where we don't return an empty list for the base case (as in those number-related function in which we returned `n` instead of `0`).
+
 
