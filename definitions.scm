@@ -1848,3 +1848,47 @@
        (difference '(a b c d) '(b d))))
 ;; end::difference[]
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; intersectall ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::intersectall[]
+;; (list-of Set) -> Set
+;; Produce set with intersecting elements from input list of sets.
+;; members in `set1'.
+;; ASSUME: list of sets is not empty.
+
+(define intersectall
+  (lambda (l-set)
+    (cond
+     ((null? (cdr l-set)) (car l-set))
+     (else
+      (intersect (car l-set)
+                 (intersectall (cdr l-set)))))))
+
+(test-group
+ "`intersectall'"
+ ;; Since there is only one set in the list, there is nothing
+ ;; else that it _does not_ intersect with, so, the members
+ ;; on this set are considered to intersect.
+ (test "should produce first set"
+       '(m h z)
+       ;; Only 'a appear in all three sets in the list.
+       (intersectall '((m h z))))
+ (test "should produce set with one member"
+       '(a)
+       ;; Only `a' appear in all three sets in the list.
+       ;; Some other elements appear in two sets, but not in
+       ;; all three of them.
+       (intersectall '((a b c) (c a d e) (e f g h a b))))
+ (test "should produce set with several members"
+       ;; `the' and `force' appears in all sets
+       '(the force)
+       (intersectall '((the force)
+                       (the force is strong with this one)
+                       (may the force be with you)
+                       (see the force)
+                       (feel the force)
+                       (is force the only thing?)
+                       (be the force)))))
+;; end::intersectall[]
+
+

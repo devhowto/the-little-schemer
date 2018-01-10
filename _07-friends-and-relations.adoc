@@ -95,5 +95,14 @@ Pay attention to those instances where we don't return an empty list for the bas
 include::./definitions.scm[tag=difference]
 ----
 
+=== function: `intersectall'
+
+.`intersectall' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=intersectall]
+----
+
+
 
 
