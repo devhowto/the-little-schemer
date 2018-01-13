@@ -1892,3 +1892,39 @@
 ;; end::intersectall[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; a-pair? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::a-pair?[]
+;; List -> Bool
+;; Produce `#t' if `l' is a pair, and `#f' otherwise.
+
+(define a-pair?
+  (lambda (x)
+    (cond
+     ((atom? x) #f)
+     ((null? x) #f)
+     ((null? (cdr x)) #f)
+     ((null? (cdr (cdr x))) #t)
+     (else #f))))
+
+(test-group
+ "`a-pair?'"
+ (test "should not be a pair because it is a single atom"
+       #f
+       (a-pair? 'tomb-raider))
+ (test "should not be a pair because it is a list with a single atom"
+       #f
+       (a-pair? 'lara-croft))
+ (test "should be a pair of to atoms"
+       #t
+       (a-pair? '(lara croft)))
+ (test "should be a pair of two numeric atoms"
+       #t
+       (a-pair? '(3 -9)))
+ (test "should be a pair of two more complex sexps"
+       #t
+       (a-pair? '((tomb) (raider)))))
+;; end::a-pair?[]
+
+
+

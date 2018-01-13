@@ -104,5 +104,15 @@ include::./definitions.scm[tag=intersectall]
 ----
 
 
+=== function: `a-pair?'
+
+.`a-pair?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=a-pair?]
+----
+
+
+
 
 
