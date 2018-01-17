@@ -112,6 +112,40 @@ include::./definitions.scm[tag=intersectall]
 include::./definitions.scm[tag=a-pair?]
 ----
 
+=== function: `first'
+
+.`first' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=first]
+----
+
+
+=== function: `second'
+
+.`second' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=second]
+----
+
+
+=== function: `third'
+
+.`third' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=third]
+----
+
+
+=== function: `build'
+
+.`build' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=build]
+----
 
 
 

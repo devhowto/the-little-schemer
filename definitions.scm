@@ -1927,4 +1927,83 @@
 ;; end::a-pair?[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; first ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::first[]
+;; List -> S-Exp
+;; Produce first sexp from input list.
+;; ASSUME: Input list is not empty.
+
+(define first
+  (lambda (p)
+    (car p)))
+
+(test-group
+ "`first'"
+ (test "should retrieve first element of the list"
+       'may
+       (first '(may the force be))))
+;; end::first[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; second ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::second[]
+;; List -> S-Expr
+;; Produce the second element of the list.
+;; ASSUME: Input list contains at least two elements.
+
+(define second
+  (lambda (p)
+    (car (cdr p))))
+
+(test-group
+ "`second'"
+ (test "should produce second element of the list"
+       'force
+       (second '(the force is strong with this one))))
+;; end::second[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; third ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::third[]
+;; List -> S-Exp
+;; Produce the third element from the input list.
+;; ASSUME: The list is at least three elements long.
+
+(define third
+  (lambda (p)
+    (car (cdr (cdr p)))))
+
+(test-group
+ "`third'"
+ (test "should produce the third element"
+       'moon
+       (third '(to the moon is an awesome game))))
+;; end::third[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; build ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::build[]
+;; S-Exp S-Exp -> Pair
+;; Produce a pair from its two input sexps.
+
+(define build
+  (lambda (s1 s2)
+    (cons s1 (cons s2 '()))))
+
+(test-group
+ "`build'"
+ (test "should produce a pair of two atoms"
+       '(x y)
+       (build 'x 'y))
+ (test "should produce a pair of two more complex sexps"
+       '((feel) (the (force)))
+       (build '(feel) '(the (force)))))
+;; end::build[]
+
+
+
 
