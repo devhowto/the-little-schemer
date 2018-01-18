@@ -147,6 +147,24 @@ include::./definitions.scm[tag=third]
 include::./definitions.scm[tag=build]
 ----
 
+A list of pairs can have duplicates, but a set cannot. A Relation cannot have the same element `x' twice in the same position of the relation's pairs. I.e:
+
+----
+'((a b) (b a)) ;; OK, a relation.
+'((a b) (a b)) ;; Oops! Not really a relation.
+----
+
+A list of pairs is a _function_ if all `firsts` produce a Set (a set is an unordered collection of elements without duplicates).
+
+A finite function is a list of pairs in which no first element of any pair is the same as any other first element.
+
+=== function: `fun?'
+
+.`fun?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=fun?]
+----
 
 
 

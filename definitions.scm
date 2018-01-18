@@ -2005,5 +2005,24 @@
 ;; end::build[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fun? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::fun?[]
+;; (list-of Pair) -> Bool
+;; Produce `#t' if `rel' the firsts produce a Set, and `#f' otherwise.
 
+(define fun?
+  (lambda (rel)
+    (set? (firsts rel))))
+
+(test-group
+ "`fun?'"
+ (test "should not be a function"
+       #f
+       ;; A appears twice as the car of some pairs.
+       (fun? '((a b) (b c) (a d) (x y))))
+ (test "should be a function"
+       #t
+       (fun? '((a b) (b c) (c a) (x y)))))
+;; end::fun?[]
 
