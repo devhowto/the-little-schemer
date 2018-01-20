@@ -2026,3 +2026,64 @@
        (fun? '((a b) (b c) (c a) (x y)))))
 ;; end::fun?[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; revrel ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::revrel[]
+;; Relation -> Relation
+;; Produce relation with pair elements swapped.
+
+(define revrel
+  (lambda (rel)
+    (cond
+     ((null? rel) '())
+     (else
+      (cons (build (second (car rel))
+                   (first (car rel)))
+            (revrel (cdr rel)))))))
+
+(test-group
+ "`revrel'"
+ (test "should revert a relation"
+       '((a 8) (pie pumpkin) (sick got))
+       (revrel '((8 a) (pumpkin pie) (got sick)))))
+;; end::revrel[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; revpair  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::revpair[]
+;; Pair -> Pair
+;; Swaps the elements of a pair.
+
+(define revpair
+  (lambda (pair)
+    (build (second pair) (first pair))))
+
+(test-group
+ "`revpair'"
+ (test "should reverse a pair"
+       '(yoda master)
+       (revpair '(master yoda))))
+;; end::revpair[]
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; revrel (v2) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::revrel-v2[]
+;; Relation -> Relation
+;; Produce relation with pair elements swapped.
+
+(define revrel
+  (lambda (rel)
+    (cond
+     ((null? rel) '())
+     (else
+      (cons (revpair (car rel))
+            (revrel (cdr rel)))))))
+
+(test-group
+ "`revrel'"
+ (test "should revert a relation"
+       '((a 8) (pie pumpkin) (sick got))
+       (revrel '((8 a) (pumpkin pie) (got sick)))))
+;; end::revrel-v2[]

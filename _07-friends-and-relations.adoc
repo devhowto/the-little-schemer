@@ -166,5 +166,35 @@ A finite function is a list of pairs in which no first element of any pair is th
 include::./definitions.scm[tag=fun?]
 ----
 
+=== function: `revrel'
+
+We are going to use the helper functions `first` and `second` instead of doing everything with `car` and `cdr`.
+
+.`revrel' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=revrel]
+----
+
+=== function: `revpair'
+
+.`revpair' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=revpair]
+----
+
+
+=== function: `revrel' (v2)
+
+By using `revpair` as a helper function, we can write a new, more consice and elegant version of `revrel`.
+
+.`revrel' (v2) function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=revrel-v2]
+----
+
+
 
 
