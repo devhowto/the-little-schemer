@@ -2161,3 +2161,35 @@
        (one-to-one? '((8 3) (4 2) (7 6) (6 9) (3 4)))))
 ;; end::one-to-one?[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; rember-f ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::rember-f[]
+;; Predicate S-Exp (list-of S-Exp) -> (list-of S-Exp)
+;; Produce list with the first occurrenct of `s' removed.
+
+(define rember-f
+  (lambda (pred? s l)
+    (cond
+     ((null? l) '())
+     ((pred? s (car l)) (cdr l))
+     (else
+      (cons (car l)
+            (rember-f pred? s (cdr l)))))))
+
+(test-group
+ "`rember-f'"
+ (test "should remove the number"
+       '(6 2 3)
+       (rember-f = '5 '(6 5 2 3)))
+ (test "should remove the atom"
+       '(beans are good)
+       (rember-f eq? 'jelly '(jelly beans are good)))
+ (test "should remove the sexp"
+       '(lemonade and (cake))
+       (rember-f equal?
+                 '(pop corn)
+                 '(lemonade (pop corn) and (cake)))))
+;; end::rember-f[]
+
+

@@ -22,19 +22,9 @@ include::_06-shadows.adoc[]
 
 include::_07-friends-and-relations.adoc[]
 
+include::_08-lambda-the-ultimate.adoc[]
+
 include::_commandments.adoc[]
-
-
-
-// Continue from chapter 4, page 59.
-
-
-//
-// TODO: understand `o*` better.
-//
-
-
-
 
 
 

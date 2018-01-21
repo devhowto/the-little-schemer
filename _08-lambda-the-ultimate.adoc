@@ -1,0 +1,19 @@
+== 8. Lambda the Ultimate
+
+Functions can receive other functions as arguments.
+
+Rember this for comparing things:
+
+- `=` to compare numbers.
+- `eq?` to compare non-numeric atoms.
+- `equal?` to compare more complex sexps than the above, like lists.
+
+=== function: `rember-f'
+
+.`rember-f' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=rember-f]
+----
+
+

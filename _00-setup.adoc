@@ -1,6 +1,6 @@
 == 0. Setup
 
-I ran code and repl with Chicken Scheme, Emacs + Geiser and wrote notes in Asciidoctor.
+I ran code and played with repl sessions with Chicken Scheme, Emacs + Geiser and wrote the summary in Asciidoctor.
 
 Chicken Scheme has its own `atom?`. It returns `#t` for `'()`. The version from the book is:
 
