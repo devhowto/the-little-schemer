@@ -2,7 +2,7 @@
 
 These are all atoms because they are strings of characters that do not start with `(` or `)`:
 
-foo  u  1492  *abc$
+`foo`,  `u`,  `1492`,  `*abc$`
 
 All atoms are S-expressions.
 
@@ -38,12 +38,16 @@ A list is a sequence of cons, and not a concrete type. A list is a pair whose â€
 `(cons 'x 'y)` is created dynamically, whereas `(x . y)` is probably created during reading.
 ""
 
+----
 (eq? (cons 'x 'y) '(x . y)) => #f em Guile.
 (equal? (cons 'x 'y) '(x . y)) => #t.
+----
 
 `eq?`, `eqv?` and `equal?` have differente semÃ¢ntics. Even `(eq? (cons 'x 'y) (cons 'x 'y))` produces `#f`.
 
 
+[source,scheme,lineos]
+----
 (cons 'x '()) ; <1>
 ;; â†’  (x)
 
@@ -61,6 +65,7 @@ A list is a sequence of cons, and not a concrete type. A list is a pair whose â€
 
 '(x . '())
 ;; â†’  (x quote ()) ; <6>
+----
 
 1. Using `cons` and quoting each element individually.
 2. Using dot notation to create a pair. Quoting the entire list instead of quoting each element individually. That is why `()` is not immediately preceded by `'`. Actually, the outer `'` quotes both `x` and `()`.
