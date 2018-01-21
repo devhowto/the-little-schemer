@@ -196,5 +196,38 @@ include::./definitions.scm[tag=revrel-v2]
 ----
 
 
+=== function: `seconds'
+
+.`seconds' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=seconds]
+----
+
+
+=== function: `fullfun?'
+
+A `fullfun` is a function where, besides being a `fun?`, no pair have the same second element.
+
+The `fullfun?` function is not hard to write if we use other functions has helpers, like `set?` and `second`.
+
+.`fullfun?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=fullfun?]
+----
+
+
+=== function: `one-to-one?'
+
+`fullfun?` could have also been named `one-to-one?` because it also makes sense (if you know Set Theory, that is). And one could rewrite it as follows...
+
+.`one-to-one?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=one-to-one?]
+----
+
+
 
 

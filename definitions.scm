@@ -2009,7 +2009,7 @@
 ;; fun? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tag::fun?[]
 ;; (list-of Pair) -> Bool
-;; Produce `#t' if `rel' the firsts produce a Set, and `#f' otherwise.
+;; Produce `#t' if the firsts in `rel' produce a Set, and `#f' otherwise.
 
 (define fun?
   (lambda (rel)
@@ -2087,3 +2087,77 @@
        '((a 8) (pie pumpkin) (sick got))
        (revrel '((8 a) (pumpkin pie) (got sick)))))
 ;; end::revrel-v2[]
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `seconds' ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::seconds[]
+;; List -> List
+;; Produce list with composed by the second element in each sub-list.
+;; ASSUME: input list can be empty or contain only non-empty lists.
+;; ASSUME: sub-lists always have at least two elements.
+
+(define seconds
+  (lambda (l)
+    (cond
+     ((null? l) '())
+     ;; This should never come to pass because of the second ASSUME.
+     ((null? (cdr (car l)))
+      (cons '() (seconds (cdr l))))
+     (else
+      (cons (car (cdr (car l)))
+            (seconds (cdr l)))))))
+
+(test-group "`seconds':"
+            (test "should produce '()"
+                  '()
+                  (seconds '()))
+            (test "should get seconds"
+                  '(b d z t)
+                  (seconds '((a b) (c d) (y z) (k t x)))))
+;; end::seconds[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fullfun? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::fullfun?[]
+;; (list-of Pair) -> Bool
+;; Produce `#t' if both `firsts' and `seconds' produce a Set, and `#f' otherwise.
+
+(define fullfun?
+  (lambda (fun)
+    (cond
+     ((not (fun? fun)) #f)
+     (else
+      (set? (seconds fun))))))
+
+(test-group
+ "`fullfun?`"
+ (test "should not be a fullfun, 2 appears twice as second"
+       #f
+       (fullfun? '((8 3) (4 2) (7 6) (6 2) (3 4))))
+ (test "should be a fullfun, no second appears more than once"
+       #t
+       (fullfun? '((8 3) (4 2) (7 6) (6 9) (3 4)))))
+;; end::fullfun?[]
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; one-to-one? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::one-to-one?[]
+;; (list-of Pair) -> Bool
+;; Produce `#t' if both `firsts' and `seconds' produce a Set, and `#f' otherwise.
+
+(define one-to-one?
+  (lambda (fun)
+    (fun? (revrel fun))))
+
+(test-group
+ "`one-to-one?`"
+ (test "should not be a one-to-one, 2 appears twice as second"
+       #f
+       (one-to-one? '((8 3) (4 2) (7 6) (6 2) (3 4))))
+ (test "should be a one-to-one, no second appears more than once"
+       #t
+       (one-to-one? '((8 3) (4 2) (7 6) (6 9) (3 4)))))
+;; end::one-to-one?[]
+
