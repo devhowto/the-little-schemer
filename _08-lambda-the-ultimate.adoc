@@ -17,3 +17,15 @@ include::./definitions.scm[tag=rember-f]
 ----
 
 
+=== function `eq?-c' and currying
+
+Moses Schonfinkel (1889 — 1942) -> Haskell B. Curry (1900 — 1982).
+
+.`eq?-c' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=eq?-c]
+----
+
+
+

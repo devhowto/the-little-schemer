@@ -2193,3 +2193,32 @@
 ;; end::rember-f[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; eq?-c ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::eq?-c[]
+;; Atom -> (Procedure Atom) -> Bool
+;; Takes 'a and produces a procedure that takes 'x and compares
+;; that 'x with 'a, producing a bool.
+
+(define eq?-c
+  (lambda (a)
+    (lambda (x)
+      (eq? x a))))
+
+(test-group
+ "`eq?-c'"
+ (test
+  "should return a procedure"
+  #t
+  (procedure? (eq?-c 'foo)))
+ (test
+  "should return the expected procedure that compares with 'foo"
+  #t
+  ((eq?-c 'foo) 'foo))
+ (test
+  "should compare with 'foo, not with 'bar"
+  #f
+  ((eq?-c 'foo) 'bar)))
+;; end::eq?-c[]
+
+
