@@ -2222,3 +2222,41 @@
 ;; end::eq?-c[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; rember-f (v2, currying) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::rember-f-v2-currying[]
+;; (Predicate?) -> (Atom List) -> List
+;; Takes a predicate and roduces a function that takes `a' and `l' and
+;; produces a list with the first occurence of `a' removed from the list.
+
+(define rember-f
+  (lambda (pred?)
+    (lambda (s l)
+      (cond
+       ((null? l) '())
+       ((pred? s (car l)) (cdr l))
+       (else
+        (cons (car l)
+              ((rember-f pred?) s (cdr l))))))))
+
+(test-group
+ "`rember-f' (v2, currying)"
+ (test
+  "should produce a procedure"
+  #t
+  (procedure? (rember-f eq?)))
+ (test
+  "should remove member"
+  '(a b c x d)
+  ((rember-f eq?) 'x '(a b x c x d)))
+ (test
+  "should still remove the member"
+  '(equal? eqan? eqlist? eqpair?)
+  ((rember-f eq?) 'eq? '(equal? eqan? eq? eqlist? eqpair?)))
+ (test
+  "should remove the list as well"
+  '((a b) (e f))
+  ((rember-f eqlist?) '(c d) '((a b) (c d) (e f)))))
+;; end::rember-f-v2-currying[]
+
+

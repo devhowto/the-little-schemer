@@ -28,4 +28,13 @@ include::./definitions.scm[tag=eq?-c]
 ----
 
 
+=== function: `rember-f' v2, currying
+
+.`rember-f' (v2, currying) function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=rember-f-v2-currying]
+----
+
+
 
