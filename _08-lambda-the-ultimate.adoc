@@ -36,5 +36,23 @@ include::./definitions.scm[tag=eq?-c]
 include::./definitions.scm[tag=rember-f-v2-currying]
 ----
 
+=== function: `insertL-f'
+
+.`insertL-f' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=insertL-f]
+----
+
+=== function: `insertR-f'
+
+.`insertR-f' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=insertR-f]
+----
+
+
+
 
 

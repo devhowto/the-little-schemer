@@ -2226,7 +2226,7 @@
 ;; rember-f (v2, currying) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tag::rember-f-v2-currying[]
 ;; (Predicate?) -> (Atom List) -> List
-;; Takes a predicate and roduces a function that takes `a' and `l' and
+;; Takes a predicate and produces a function that takes `a' and `l' and
 ;; produces a list with the first occurence of `a' removed from the list.
 
 (define rember-f
@@ -2259,4 +2259,79 @@
   ((rember-f eqlist?) '(c d) '((a b) (c d) (e f)))))
 ;; end::rember-f-v2-currying[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `insertL-f' ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::insertL-f[]
+;; (Predicate?) -> (Atom Atom (list-of Atom)
+;; Takes a predicate and produces a function which producees
+;; list with `new' added to the left of the first occurence of `old'.
+
+(define insertL-f
+  (lambda (pred?)
+    (lambda (new old lat)
+      (cond
+       ((null? lat) '())
+       ((pred? (car lat) old)
+        (cons new lat))
+       (else
+        (cons (car lat) ((insertL-f pred?) new old (cdr lat))))))))
+
+(test-group "`insertL-f':"
+            (test "should add 'jalapeño to the left of 'and"
+                  '(tacos tamales jalapeño and salsa)
+                  ((insertL-f eq?)
+                     'jalapeño
+                     'and
+                     '(tacos tamales and salsa)))
+
+            (test "should add 'e to the left of 'f"
+                  '(a b c d e f g h)
+                  ((insertL-f eq?) 'e 'f '(a b c d f g h)))
+
+            (test "should add '(e f) to the left of '(g h)"
+                  '((a b) (c d) (e f) (g h))
+                  ((insertL-f eqlist?)
+                   '(e f)
+                   '(g h)
+                   '((a b) (c d) (g h)))))
+;; end::insertL-f[]
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `insertR-f' ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::insertR-f[]
+;; (Predicate?) -> Atom Atom (list-of Atom) -> (list-of Atom)
+;; Produces a function that produces list with `new' added to
+;; the right of the first occurence of `old'.
+
+(define insertR-f
+  (lambda (pred?)
+    (lambda (new old lat)
+      (cond
+       ((null? lat) '())
+       ((pred? (car lat) old)
+        (cons (car lat) (cons new (cdr lat))))
+       (else
+        (cons (car lat)
+              ((insertR-f pred?) new old (cdr lat))))))))
+
+(test-group "`insertR-f':"
+            (test "should add 'jalapeño to the right of 'and"
+                  '(tacos tamales and jalapeño salsa)
+                  ((insertR-f eq?)
+                   'jalapeño
+                   'and
+                   '(tacos tamales and salsa)))
+
+            (test "should add 'e to the right of 'd"
+                  '(a b c d e f g h)
+                  ((insertR-f eq?) 'e 'd '(a b c d f g h)))
+
+            (test "should add '(e f) to the right of '(c d)"
+                  '((a b) (c d) (e f) (g h))
+                  ((insertR-f eqlist?)
+                   '(e f)
+                   '(c d)
+                   '((a b) (c d) (g h)))))
+;; end::insertR-f[]
 
