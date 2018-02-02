@@ -2278,10 +2278,10 @@
         (cons (car lat) ((insertL-f pred?) new old (cdr lat))))))))
 
 (test-group "`insertL-f':"
-            (test "should add 'jalapeño to the left of 'and"
+            (test "should add 'jalapeno to the left of 'and"
                   '(tacos tamales jalapeño and salsa)
                   ((insertL-f eq?)
-                     'jalapeño
+                     'jalapeno
                      'and
                      '(tacos tamales and salsa)))
 
@@ -2317,9 +2317,9 @@
 
 (test-group "`insertR-f':"
             (test "should add 'jalapeño to the right of 'and"
-                  '(tacos tamales and jalapeño salsa)
+                  '(tacos tamales and jalapeno salsa)
                   ((insertR-f eq?)
-                   'jalapeño
+                   'jalapeno
                    'and
                    '(tacos tamales and salsa)))
 
