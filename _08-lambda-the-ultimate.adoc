@@ -53,6 +53,32 @@ include::./definitions.scm[tag=insertR-f]
 ----
 
 
+=== function: `seqL'
+
+.`seqL' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=seqL]
+----
+
+=== function: `seqR'
+
+.`seqR' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=seqR]
+----
+
+=== function: `insert-g'
+
+.`insert-g' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=insert-g]
+----
+
+
+
 
 
 

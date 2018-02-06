@@ -2279,7 +2279,7 @@
 
 (test-group "`insertL-f':"
             (test "should add 'jalapeno to the left of 'and"
-                  '(tacos tamales jalapeño and salsa)
+                  '(tacos tamales jalapeno and salsa)
                   ((insertL-f eq?)
                      'jalapeno
                      'and
@@ -2334,4 +2334,96 @@
                    '(c d)
                    '((a b) (c d) (g h)))))
 ;; end::insertR-f[]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; seqL ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::seqL[]
+;; S-Exp S-Exp S-Exp -> (list-of S-Exp)
+;; Produce list with `new' inserted to the left of `old'.
+
+(define seqL
+  (lambda (new old l)
+    (cons new (cons old l))))
+
+(test-group
+ "`seqL'"
+ (test "should insert `b' to the left of `c'"
+       '(b c d e)
+       (seqL 'b 'c '(d e))))
+;; end::seqL[]
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; seqR ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::seqR[]
+;; S-Exp S-Exp S-Exp -> (list-of S-Exp)
+;; Produce list with `new' inserted to the right of `old'.
+
+(define seqR
+  (lambda (new old l)
+    (cons old (cons new l))))
+
+(test-group
+ "`seqR'"
+ (test "should insert `c' to the right of `b'"
+       '(b c d e)
+       (seqR 'c 'b '(d e))))
+;; end::seqR[]
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; insert-g ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::insert-g[]
+;; Function Atom Atom (list-of Atom) -> (list-of Atom)
+;; Produce list with `new' inserted either the left or the right of `old'
+;; according to the function it receives.
+
+;; `insert-g' is actually a function which produces a function that
+;; is just like `insertL' or `insertR', depending on the `seq'
+;; function used.
+
+(define insert-g
+  (lambda (seq)
+    (lambda (new old l)
+      (cond
+       ((null? l) '())
+       ((eq? (car l) old)
+        (seq new old (cdr l)))
+       (else
+        (cons (car l)
+              ((insert-g seq) new old (cdr l))))))))
+
+(test-group
+ "`insert-g':"
+ (test "should add 'jalapeno to the left of 'and"
+       '(tacos tamales jalapeno and salsa)
+       ((insert-g seqL)
+        'jalapeno
+        'and
+        '(tacos tamales and salsa)))
+
+ (test "should add 'f to the right of 'e"
+       '(a b c d)
+       ((insert-g seqR) 'c 'b '(a b d))))
+
+;;
+;; And now we could redefine `insertL' and `insertR' making use
+;; of `insert-g', `seqL' and `seqR'.
+;;
+(define insertL (insert-g seqL))
+(define insertR (insert-g seqR))
+
+;;
+;; We could also not use `seqL' and `sedR' and use just
+;; `insert-g' to define `insertL' and `insertR'.
+;;
+(define insertL
+  (insert-g
+   (lambda (new old l)
+     (cons new (cons old l)))))
+
+(define insertR
+  (insert-g
+   (lambda (new old l)
+     (cons old (cons new l)))))
+;; end::insert-g[]
 
