@@ -98,6 +98,16 @@ include::./definitions.scm[tag=atom-to-fn]
 ----
 
 
+=== function: `multirember-f'
+
+.`multirember-f' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=multirember-f]
+----
+
+
+
 
 
 

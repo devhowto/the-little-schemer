@@ -2485,3 +2485,29 @@
 ;; end::atom-to-fn[]
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; multirember-f ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::multirember-f[]
+;; Predicate Atom (list-of Atom) -> (list-of Atom)
+;; Produce list with all occurrences of `a' removed from `lat'
+;; using `pred?' to decide what should be removed.
+
+(define multirember-f
+  (lambda (pred? a lat)
+    (cond
+     ((null? lat) '())
+     ((pred? (car lat) a)
+      (multirember-f pred? a (cdr lat)))
+     (else
+      (cons (car lat) (multirember-f pred? a (cdr lat)))))))
+
+(test-group
+ "`multirember-f'"
+ (test "should remove all `a's in `lat'"
+       '(a b c d e f)
+       (multirember-f eq? 'x '(x a b c d x e f x)))
+ (test "should leave `lat' untouched"
+       '(x y z)
+       (multirember-f eq?'k '(x y z))))
+;; end::multirember-f[]
+
