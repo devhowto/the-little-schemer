@@ -2530,3 +2530,33 @@
        (multirember-eq?'k '(x y z))))
 ;; end::multirember-eq?[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; multiremberT ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::multiremberT[]
+;; Predicate List -> List
+;; Produce new list with all elements matched by the predicate function
+;; removed from the original list.
+
+(define multiremberT
+  (lambda (pred? lat)
+    (cond
+     ((null? lat) '())
+     ((pred? (car lat))
+      (multiremberT pred? (cdr lat)))
+     (else
+      (cons (car lat)
+            (multiremberT pred? (cdr lat)))))))
+
+(define eq?-x
+  (eq?-c 'x))
+
+(test-group
+ "`multiremberT'"
+ (test"should remove all 'x from input list"
+      '(a b c d e f)
+      (multiremberT
+       eq?-x
+       '(a b x c d x e f))))
+;; end::multiremberT[]
+

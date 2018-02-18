@@ -115,6 +115,15 @@ include::./definitions.scm[tag=multirember-f]
 include::./definitions.scm[tag=multirember-eq?]
 ----
 
+=== function: `multiremberT'
+
+.`multiremberT' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=multiremberT]
+----
+
+
 
 
 
