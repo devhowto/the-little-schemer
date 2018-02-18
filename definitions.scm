@@ -2374,8 +2374,8 @@
 ;; insert-g ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tag::insert-g[]
 ;; Function Atom Atom (list-of Atom) -> (list-of Atom)
-;; Produce list with `new' inserted either the left or the right of `old'
-;; according to the function it receives.
+;; Produce list with `new' inserted either the left, right, or in place
+;; of `old' according to the function it receives.
 
 ;; `insert-g' is actually a function which produces a function that
 ;; is just like `insertL' or `insertR', depending on the `seq'
@@ -2426,4 +2426,29 @@
    (lambda (new old l)
      (cons old (cons new l)))))
 ;; end::insert-g[]
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; seqS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::seqS[]
+;; S-Exp S-Exp S-Exp -> (list-of S-Exp)
+;; Produce list with `old' replaced with `new'.
+
+(define seqS
+  (lambda (new old l)
+    (cons new l)))
+
+(test-group
+ "`seqS'"
+ (test "should replace x with c"
+       '(c d e f)
+       (seqS 'c 'x '(d e f))))
+
+;; Now we can redefine `subst' to use `insert-g' and `seqS'.
+(define subst (insert-g seqS))
+;; Use it just like the old subst:
+;;   (subst 'c 'x '(a b x d e f))
+;; should produce '(a b c d e f).
+;; end::seqS[]
 

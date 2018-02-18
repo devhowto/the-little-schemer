@@ -127,3 +127,11 @@ Use help functions to abstract from representations.
 ====
 
 
+[[ninth-commandment]]
+=== The Ninth Commandment
+
+[NOTE,caption=COMMANDMENT]
+====
+Abstract common patterns with a new function.
+====
+

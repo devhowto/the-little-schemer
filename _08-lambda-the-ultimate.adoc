@@ -69,7 +69,7 @@ include::./definitions.scm[tag=seqL]
 include::./definitions.scm[tag=seqR]
 ----
 
-=== function: `insert-g'
+=== function: `insert-g' (and new `inserL/insertR' definitions)
 
 .`insert-g' function definition
 [source,scheme,lineos]
@@ -78,6 +78,15 @@ include::./definitions.scm[tag=insert-g]
 ----
 
 
+=== function: `seqS' (and new `subst' definition)
+
+.`seqS' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=seqS]
+----
+
+See <<ninth-commandment>>.
 
 
 
