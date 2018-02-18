@@ -107,6 +107,15 @@ include::./definitions.scm[tag=multirember-f]
 ----
 
 
+=== function: `multirember-eq?'
+
+.`multirember-eq?' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=multirember-eq?]
+----
+
+
 
 
 

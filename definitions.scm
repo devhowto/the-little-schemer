@@ -2511,3 +2511,22 @@
        (multirember-f eq?'k '(x y z))))
 ;; end::multirember-f[]
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; multirember-eq? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::multirember-eq?[]
+;; Atom (list-of Atom) -> (list-of Atom)
+
+(define multirember-eq?
+  (lambda (a l)
+    (multirember-f eq? a l)))
+
+(test-group
+ "`multirember-eq?'"
+ (test "should remove all `a's in `lat'"
+       '(a b c d e f)
+       (multirember-eq? 'x '(x a b c d x e f x)))
+ (test "should leave `lat' untouched"
+       '(x y z)
+       (multirember-eq?'k '(x y z))))
+;; end::multirember-eq?[]
+
