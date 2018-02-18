@@ -89,5 +89,15 @@ include::./definitions.scm[tag=seqS]
 See <<ninth-commandment>>.
 
 
+=== function: `atom-to-fn' (and rewrite `value')
+
+.`atom-to-fn' function definition
+[source,scheme,lineos]
+----
+include::./definitions.scm[tag=atom-to-fn]
+----
+
+
+
 
 

@@ -2452,3 +2452,36 @@
 ;; should produce '(a b c d e f).
 ;; end::seqS[]
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; atom-to-function ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tag::atom-to-fn[]
+;; Atom -> Function
+;; Produce operator as function.
+;; ASSUME: 'x is a valid operator.
+(define atom-to-fn
+  (lambda (x)
+    (cond
+     ((eq? x (quote +)) +)
+     ((eq? x (quote *)) *)
+     (else o**))))
+
+(atom-to-fn (operator '(+ 5 3)))
+;; Produces the procedure `+', not the atom `+'.
+
+;; Now we can rewrite `value' using `atom-to-fn' to make `value'
+;; shorter and simpler.
+
+(define value
+  (lambda (nexp)
+    (cond
+     ((atom? nexp) nexp)
+     (else
+      ((atom-to-fn (operator nexp))
+       (value (1st-sub-exp nexp))
+       (value (2nd-sub-exp nexp)))))))
+
+(value '(+ 2 3)) ; 5
+;; end::atom-to-fn[]
+
+
