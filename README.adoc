@@ -1,0 +1,17 @@
+= The Little Schemer
+:icons: font
+:stem: latexmath
+:toc: right
+:experiments:
+
+== Chicken Scheme
+
+I'm using link:https://wiki.call-cc.org/man/5/Getting%20started[Chicken Scheme] with the link:http://wiki.call-cc.org/eggref/5/test[test egg] to work on the challenges.
+
+== Emacs
+
+Install link:https://www.nongnu.org/geiser/[Geiser].
+
+On a buffer containing code/tests, do kbd:[M-x] `geiser`.
+
+kbd:[C-c C-c] will either run tests or evaluate the expression (depends on where in the code _point_ is at the moment).
