@@ -3,11 +3,21 @@
 `'()` is a `lat?` because it doesn't contain a list (even though it doesn't contain any atom either, but that is their definition).
 
 
-=== function: `lat?'
+=== function: lat?
 
-[source,scheme,lineos]
+[source,scheme]
 ----
-include::./definitions.scm[tag=lat-p]
+;;;;
+;; lat? :: List -> Bool
+;;
+;; Checks whether `l` is a list of atoms.
+;;
+(define lat?
+  (lambda (l)
+    (cond
+     ((null? l) #t)
+     ((atom? (car l)) (lat? (cdr l)))
+     (else #f))))
 ----
 
 - `(cond ...)` asks questions
@@ -18,14 +28,39 @@ If the value of `(atom? (car l))` is `#t`, then the value of the entire function
 
 `(lat? (cdr l))` asks if the rest of the list is composed only of atoms, invoking the function with a new argument.
 
-=== function: `member?'
+=== function: member? v1
 
-.`member?' function definition
-[source,scheme,lineos]
+.member? function definition
+[source,scheme]
 ----
-include::./definitions.scm[tag=member-p]
+;;;;
+;; member? :: Atom List -> Bool
+;;
+;; Checks whether `a` is member of the `lat`.
+;;
+(define member?
+  (lambda (a lat)
+    (cond
+     ((null? lat) #f)
+     ((eq? a (car lat)) #t)
+     (else (member? a (cdr lat))))))
 ----
 
+=== function: member? v2
 
-See <<first-commandment-preliminary>>.
+Makes use of `or` so we don't return `#t` explicitly like v1.
 
+[source,scheme]
+----
+;;;;
+;; member? :: Atom List -> Bool
+;;
+;; Checks whether `a` is member of the `lat`.
+;;
+(define member?
+  (lambda (a lat)
+    (cond
+     ((null? lat) #f)
+     (else (or (eq? (car lat) a)
+               (member? a (cdr lat)))))))
+----

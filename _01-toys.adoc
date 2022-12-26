@@ -182,7 +182,9 @@ The primitive `eq?` takes two arguments. Each must be a non-numeric atom.
 // TODO: verify that this is indeed true.
 Note, it doesn't compare “references” in memory. `(eq? 'x 'x)` is `#t` even if they are not the same object in memory.
 
-According to the book you can't use `eq?` on non-atom sexps, but empirical observation on a real Chicken Scheme implementation allowed it. There is a note on the book about this, actually.
+According to the book you can't use `eq?` on non-atom sexps, but empirical observation on a real Chicken Scheme implementation allowed it for empty lists: `(eq? '() '())` returns `#t`.
+There is a note on the book about this, actually.
+
 
 In practice, `eq?` can take ints and floats as arguments, but:
 

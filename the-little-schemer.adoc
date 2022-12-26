@@ -2,7 +2,7 @@
 :source-highlighter: pygments
 :pygments-css: class
 :sectlinks:
-:toc: right
+:toc: left
 :webfonts!:
 :icons: font
 

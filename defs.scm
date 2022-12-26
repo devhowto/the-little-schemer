@@ -1,6 +1,6 @@
 
 ;;;;
-;; atom? :: Value -> Bool
+;; atom? :: S-Exp -> Bool
 ;;
 ;; Checks whether `x` is an atom.
 ;;
@@ -12,10 +12,43 @@
   (lambda (x)
     (and (not (pair? x)) (not (null? x)))))
 
+(atom? '())
+
 ;;
 ;; Chapter 1 :: Toys
 ;; =================
 ;;
 
+;;
+;; Mostly getting to know car, cdr, atom?, null? and eq?.
+;;
 
+;;
+;; Chapter 2 :: Do It Again
+;; ========================
+;;
+
+;;;;
+;; lat? :: List -> Bool
+;;
+;; Checks whether `l` is a list of atoms.
+;;
+(define lat?
+  (lambda (l)
+    (cond
+     ((null? l) #t)
+     ((atom? (car l)) (lat? (cdr l)))
+     (else #f))))
+
+;;;;
+;; member? :: Atom List -> Bool
+;;
+;; Checks whether `a` is member of the `lat`.
+;;
+(define member?
+  (lambda (a lat)
+    (cond
+     ((null? lat) #f)
+     (else (or (eq? (car lat) a)
+               (member? a (cdr lat)))))))
 
