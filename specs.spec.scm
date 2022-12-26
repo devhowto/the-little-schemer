@@ -54,3 +54,22 @@
         '(foo bar qux tux qux)
         (rember 'qux '(foo qux bar qux tux qux))))
 
+
+(test-group "rember"
+  (test "empty list"
+        '()
+        (firsts '()))
+
+  (test "list of non-empty lists"
+        '(a b c)
+        (firsts '((a x)
+                  (b y)
+                  (c z))))
+
+  (test "list of lists with list car's"
+        '((may the) force (always be with) you)
+        (firsts '(((may the))
+                  (force be)
+                  ((always be with) all of)
+                  (you)))))
+

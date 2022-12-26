@@ -65,3 +65,20 @@
      (else (cons (car lat)
                  (rember a (cdr lat)))))))
 
+;;;;
+;; firsts :: [List] -> [List]
+;;
+;; Returns a list of all car's of the sublists.
+;;
+;; ASSUME: The input list is either an empty list or
+;; a list composed of only non-empty lists. That is,
+;; it is expected that we can `car` each sub-list.
+;;
+(define firsts
+  (lambda (l)
+    (cond
+     ((null? l) '())
+     (else
+      (cons (car (car l))
+            (firsts (cdr l)))))))
+
