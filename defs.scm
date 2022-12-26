@@ -41,7 +41,7 @@
      (else #f))))
 
 ;;;;
-;; member? :: Atom List -> Bool
+;; member? :: Atom [Atom] -> Bool
 ;;
 ;; Checks whether `a` is member of the `lat`.
 ;;
@@ -51,4 +51,17 @@
      ((null? lat) #f)
      (else (or (eq? (car lat) a)
                (member? a (cdr lat)))))))
+
+;;;;
+;; rember :: Atom [Atom] -> [Atom]
+;;
+;; Removes the first occurrence of `a` in `lat`.
+;;
+(define rember
+  (lambda (a lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) a) (cdr lat))
+     (else (cons (car lat)
+                 (rember a (cdr lat)))))))
 

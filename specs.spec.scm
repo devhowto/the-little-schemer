@@ -41,3 +41,16 @@
         #t
         (member? 'force '(The force is strong with this one))))
 
+(test-group "rember"
+  (test "empty-list"
+        '()
+        (rember 'foo '()))
+
+  (test "atom not present in lat"
+        '(foo bar qux)
+        (rember 'tux '(foo bar qux)))
+
+  (test "atom present multiple times in lat"
+        '(foo bar qux tux qux)
+        (rember 'qux '(foo qux bar qux tux qux))))
+

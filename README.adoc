@@ -8,6 +8,22 @@
 
 I'm using link:https://wiki.call-cc.org/man/5/Getting%20started[Chicken Scheme] with the link:http://wiki.call-cc.org/eggref/5/test[test egg] to work on the challenges.
 
+== Tests
+
+Install the link:http://wiki.call-cc.org/eggref/5/test[test egg].
+
+[source,shell-session]
+----
+$ chicken-install test
+----
+
+Run the tests:
+
+[source,shell-session]
+----
+$ csi -script *.spec.scm
+----
+
 == Emacs
 
 Install link:https://www.nongnu.org/geiser/[Geiser].
@@ -15,3 +31,8 @@ Install link:https://www.nongnu.org/geiser/[Geiser].
 On a buffer containing code/tests, do kbd:[M-x geiser].
 
 kbd:[C-c C-c] will either run tests or evaluate the expression (depends on where in the code _point_ is at the moment).
+
+To run tests in Emacs, open a spec.scm file and evaluate the entire buffer once with kbd:[C-c C-b].
+It will evaluate the import and/or load expressions and run the tests once.
+
+Subsequently, it is possible to use kbd:[C-x C-e] to run specific test expressions or 

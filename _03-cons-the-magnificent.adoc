@@ -2,75 +2,55 @@
 
 To create `rember`, the fist thing we ask is `(null? lat)` because it is the first commandment.
 
-=== function: `rember'
+=== function: rember v1
 
-.`rember' function definition (incorrect)
-[source,scheme,lineos]
+.`rember' function definition 
+[source,scheme]
 ----
-;; Atom (list-of Atom) -> (list-of Atom)
-;; Produce list of atoms with first occurrence of `a' removed.
-;; If `a' doesn't exist in `lat', produce the unmodified list.
-
+;;;;
+;; rember :: Atom [Atom] -> [Atom]
+;;
+;; Removes the first occurrence of `a` in `lat`.
+;;
 (define rember
   (lambda (a lat)
-   (cond
-    ((null? lat) '())
-    ((eq? (car lat) a) (cdr lat)) ; <1>
-    (else
-     (cons (car lat) (rember a (cdr lat))))))) ; <2>
-
-(test-group "`rember':"
-        (test "element should be removed from beginning of lat"
-              '(y z x)
-              (rember 'x '(x y z x)))
-        (test "element should be removed from middle of lat"
-              '(x z)
-              (rember 'y '(x z)))
-        (test "element should be removed from end of lat"
-              '(x y)
-              (rember 'z '(x y z))))
+    (cond
+     ((null? lat) '())
+     (else (cond
+            ((eq? (car lat) a) (cdr lat)) ; <1>
+            (else (cons (car lat) ; <2>
+                        (rember a (cdr lat))))))))) ; <3>
 ----
 
-1. Note that we *do not recur* here. This is what allows `rember` to remove only the first occurrence of `a` in `lat`.
-2. Yes, here we recur to check if `a` is in the rest of `lat`.
+1. Note that we *do not recur* here.
+This is what allows `rember` to remove only the first occurrence of `a` in `lat`.
 
-And we use `cons` to keep all those elements which should _not_ be removed.
+2. Use of `cons` to keep the elements we don't want to remove.
 
+3. Recur to check if `a` is in the rest of `lat`.
+
+We always ask two questions about a `lat`:
+
+* `(null? lat)`
+* `else`
+
+=== function: rember v2
+
+[source,scheme]
 ----
-(rember 'x '(x y z))
-;; →  (y z), looks ok.
-
-(rember 'x '(a b c y x z))
-;; →  (z), oops!
+;;;;
+;; rember :: Atom [Atom] -> [Atom]
+;;
+;; Removes the first occurrence of `a` in `lat`.
+;;
+(define rember
+  (lambda (a lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) a) (cdr lat))
+     (else (cons (car lat)
+                 (rember a (cdr lat)))))))
 ----
-
-Since we did not use cons to keep elements that should not be removed, we lost them and got an incorrect result. We dropped `'x`, but we also lost all atoms preceding `'x`.
-
-So, we use Cons, The Magnificent:
-
-=== function: `rember' (correct version)
-
-.`rember' function definition (correct this time)
-[source,scheme,lineos]
-----
-include::./definitions.scm[tag=rember]
-----
-
-1. Now we use `cons` to keep elements that should not be removed.
-
-See <<second-commandment>>.
-
-=== function: `firsts'
-
-.`firsts' function definition
-[source,scheme,lineos]
-----
-include::./definitions.scm[tag=firsts]
-----
-
-See <<third-commandment>>.
-
-Remember: we always ask two questions about a `lat`: `(null? lat)` and `else`.
 
 === function: `insertR'
 
