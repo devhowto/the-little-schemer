@@ -1,0 +1,24 @@
+== 0 :: Setup
+
+I ran code and played with repl sessions with Chicken Scheme, Emacs + Geiser and wrote the summary in Asciidoctor.
+
+Chicken Scheme has its own `atom?`. It returns `#t` for `'()`. The version from the book is:
+
+=== function: `atom?'
+
+.atom? function definition
+[source,scheme]
+----
+;;;;
+;; atom? :: Value -> Bool
+;;
+;; Checks whether `x` is an atom.
+;;
+;; The default Chicken Scheme `atom?` implementation returns `#t` for
+;; `'()`, but the book wants the empty list to NOT be considered an
+;; atom. Therefore, the `atom?` implementation from the book.
+;;
+(define atom?
+  (lambda (x)
+    (and (not (pair? x)) (not (null? x)))))
+----

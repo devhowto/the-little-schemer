@@ -2,9 +2,10 @@
 :source-highlighter: pygments
 :pygments-css: class
 :sectlinks:
-:toc: left
+:toc: right
 :webfonts!:
-//:icons: font
+:icons: font
+
 
 include::_00-setup.adoc[]
 

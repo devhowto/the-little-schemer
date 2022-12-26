@@ -2,7 +2,10 @@
 
 These are all atoms because they are strings of characters that do not start with `(` or `)`:
 
-`foo`,  `u`,  `1492`,  `*abc$`
+* `foo`
+* `u`
+* `1492`
+* `*abc$`
 
 All atoms are S-expressions.
 
@@ -10,40 +13,63 @@ All lists are S-expressions.
 
 === '() is an atom?, not a pair, but still a list
 
-`()` can be both an atom and a (null/empty) list, depending on the context. A list is a pair where there is a car field, and a cdr field, and the cdr field is a list. The empty/null list is not a pair because its length is zero and it doesn't have the car and cdr fields. The null list can be returned as the cdr of a list, though.
+`()` can be both an atom and a (null/empty) list, depending on the context.
+A list is a pair where there is a `car` field, and a `cdr` field — and the `cdr` field is a list.
+The empty/null list is not a pair because its length is zero and it doesn't have the `car` and `cdr` fields.
+The null list can be returned as the `cdr` of a list, though.
+
+[WARNING]
+====
+Some scheme implementations say `(atom? '())` is `#t`.
+
+`'()` *is* a list, but *not a pair*, and some implementations decided that anything that is not a pair is an atom (and as the empty list is not a pair, it is an atom on those implementations).
+
+TL;DR:
+
+* In some schemes, `(atom? '())` is `#t`.
+* In the book's implementation, `(atom? '())` is `#f`.
+====
 
 ----
 atom? '()
-;; →  #t
+;; → #t in default Chicken Scheme, #f as per the
+;; book's implementation of atom?.
+
 pair? '()
-;; →  #f
+;; → #f
+
 null? '()
-;; →  #t
+;; → #t
 ----
 
 How come‽ So, `'()` is an atom, not a pair, and still, an empty list. It is those three things.
 
 `pair?` produces `#t` if it receives a `cons`, and `'()` is *not* a cons.
 
-`atom?` is anything that is not a `cons`.
+`atom?` is anything that is not a `cons` (but REMEMBER that the book's implementation of `atom?`, the empty list is not an atom).
 
 So, `'()` is both an atom, an empty list, and although being a list, it is not a pair!
 
-A list is a sequence of cons, and not a concrete type. A list is a pair whose ‘cdr’ is a any list (empty or non-empty).
+A list is a sequence of cons, and not a concrete type.
+A list is a pair whose ‘cdr’ is a any list, empty or non-empty.
 
-`(cons 'x 'y) ~ '(x . y)` (`~` means “more or less like”).
+`(cons 'x 'y) ≃ '(x . y)` (`≃` means “more or less like”).
 
-[, didi at #lisp-br on freenode]
-""
+[quote, didi, lisp-br on libera]
+____
 `(cons 'x 'y)` is created dynamically, whereas `(x . y)` is probably created during reading.
-""
+____
 
+See:
+
+[source,scheme]
 ----
-(eq? (cons 'x 'y) '(x . y)) => #f em Guile.
+(eq? (cons 'x 'y) '(x . y)) => #f in Guile scheme.
 (equal? (cons 'x 'y) '(x . y)) => #t.
 ----
 
-`eq?`, `eqv?` and `equal?` have differente semântics. Even `(eq? (cons 'x 'y) (cons 'x 'y))` produces `#f`.
+`eq?`, `eqv?` and `equal?` have different semantics.
+Even `(eq? (cons 'x 'y) (cons 'x 'y))` produces `#f`.
 
 
 [source,scheme,lineos]
@@ -68,10 +94,19 @@ A list is a sequence of cons, and not a concrete type. A list is a pair whose �
 ----
 
 1. Using `cons` and quoting each element individually.
-2. Using dot notation to create a pair. Quoting the entire list instead of quoting each element individually. That is why `()` is not immediately preceded by `'`. Actually, the outer `'` quotes both `x` and `()`.
+
+2. Using dot notation to create a pair.
+Quoting the entire list instead of quoting each element individually. 
+That is why `()` is not immediately preceded by `'`.
+Actually, the outer `'` quotes both `x` and `()`.
+
 3. Consing `'x` (which is fine) into `()` (not quoted) is an error because `()` is not data, it is an empty list of code, but there is no operator/function and code to execute inside it.
-4. Error because `('x ...)` is not something that can be invoked. It is seem as code, just that it is not a real operator/function invocation.
+
+4. Error because `('x ...)` is not something that can be invoked as a function.
+It is looks like code, just that it is not a real operator/function invocation.
+
 5. Same as above.
+
 6. We are quoting `x` once, and `()` twice, therefore the output as shown.
 
 

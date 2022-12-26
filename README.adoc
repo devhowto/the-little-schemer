@@ -2,7 +2,7 @@
 :icons: font
 :stem: latexmath
 :toc: right
-:experiments:
+:experimental:
 
 == Chicken Scheme
 
@@ -12,6 +12,6 @@ I'm using link:https://wiki.call-cc.org/man/5/Getting%20started[Chicken Scheme] 
 
 Install link:https://www.nongnu.org/geiser/[Geiser].
 
-On a buffer containing code/tests, do kbd:[M-x] `geiser`.
+On a buffer containing code/tests, do kbd:[M-x geiser].
 
 kbd:[C-c C-c] will either run tests or evaluate the expression (depends on where in the code _point_ is at the moment).
