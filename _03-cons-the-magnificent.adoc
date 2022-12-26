@@ -2,7 +2,7 @@
 
 To create `rember`, the fist thing we ask is `(null? lat)` because it is the first commandment.
 
-=== function: rember v1
+===  rember v1
 
 .`rember' function definition 
 [source,scheme]
@@ -34,7 +34,7 @@ We always ask two questions about a `lat`:
 * `(null? lat)`
 * `else`
 
-=== function: rember v2
+===  rember v2
 
 [source,scheme]
 ----
@@ -52,7 +52,7 @@ We always ask two questions about a `lat`:
                  (rember a (cdr lat)))))))
 ----
 
-=== function: firsts
+===  firsts
 
 [source,scheme]
 ----
@@ -74,7 +74,7 @@ We always ask two questions about a `lat`:
             (firsts (cdr l)))))))
 ----
 
-=== function: `insertR'
+===  `insertR'
 
 .`insertR' function definition
 [source,scheme,lineos]
@@ -82,7 +82,7 @@ We always ask two questions about a `lat`:
 include::./definitions.scm[tag=insertR]
 ----
 
-=== function: `insertL'
+===  `insertL'
 
 .`insertL' function definition
 [source,scheme,lineos]
@@ -107,7 +107,7 @@ Is just the same as
 (cons new lat)
 ----
 
-=== function: `subst'
+===  `subst'
 
 .`subst' function definition
 [source,scheme,lineos]
@@ -116,7 +116,7 @@ include::./definitions.scm[tag=subst]
 ----
 
 
-=== function: `subst2'
+===  `subst2'
 
 .`subst2' function definition
 [source,scheme,lineos]
@@ -125,7 +125,7 @@ include::./definitions.scm[tag=subst2]
 ----
 
 
-=== function: `multirember'
+===  `multirember'
 
 .`multirember' function definition
 [source,scheme,lineos]
@@ -151,7 +151,7 @@ Note the difference from this version that removes all occurrences to the `rembe
 2. Just return the rest of `lat`, therefore not looking for any other occurrences of `a` in `lat`.
 
 
-=== function: `multiinsertR'
+===  `multiinsertR'
 
 .`multiinsertR' function definition
 [source,scheme,lineos]
@@ -160,7 +160,7 @@ include::./definitions.scm[tag=multiinsertR]
 ----
 
 
-=== function: `multiinsertL'
+===  `multiinsertL'
 
 .`multiinsertL' function definition
 [source,scheme,lineos]
@@ -171,7 +171,7 @@ include::./definitions.scm[tag=multiinsertL]
 See <<fourth-commandment-preliminary>>.
 
 
-=== function: `multisubst'
+===  `multisubst'
 
 .`multisubst' function definition
 [source,scheme,lineos]

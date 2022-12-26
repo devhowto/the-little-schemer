@@ -3,7 +3,7 @@
 `'()` is a `lat?` because it doesn't contain a list (even though it doesn't contain any atom either, but that is their definition).
 
 
-=== function: lat?
+===  lat?
 
 [source,scheme]
 ----
@@ -28,7 +28,7 @@ If the value of `(atom? (car l))` is `#t`, then the value of the entire function
 
 `(lat? (cdr l))` asks if the rest of the list is composed only of atoms, invoking the function with a new argument.
 
-=== function: member? v1
+===  member? v1
 
 .member? function definition
 [source,scheme]
@@ -46,7 +46,7 @@ If the value of `(atom? (car l))` is `#t`, then the value of the entire function
      (else (member? a (cdr lat))))))
 ----
 
-=== function: member? v2
+===  member? v2
 
 Makes use of `or` so we don't return `#t` explicitly like v1.
 
