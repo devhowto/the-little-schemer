@@ -73,3 +73,18 @@
                   ((always be with) all of)
                   (you)))))
 
+(test-group "insertR"
+  (test "single-element list"
+        '(hello world)
+        (insertR 'world 'hello '(hello)))
+
+  (test "insert to the middle"
+        '(tic tac toe)
+        (insertR 'tac 'tic '(tic toe)))
+
+  (test "insert to the end"
+        '(may the force be with you)
+        (insertR 'you 'with '(may the force be with))))
+
+
+

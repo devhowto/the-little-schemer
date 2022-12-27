@@ -74,13 +74,31 @@ We always ask two questions about a `lat`:
             (firsts (cdr l)))))))
 ----
 
-===  `insertR'
+===  insertR
 
-.`insertR' function definition
-[source,scheme,lineos]
+.insertR function definition
+[source,scheme]
 ----
-include::./definitions.scm[tag=insertR]
+;;;;
+;; insertR :: Atom Atom [Atom] -> [Atom]
+;;
+;; Inserts `new` to the right of `old`.
+;;
+;; ASSUME: `old` is a member of `lat`. If `old` is not a member
+;; of `lat`, the unchanged list is returned.
+;;
+(define insertR
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons (car lat) (cons new (cdr lat)))) ; <1>
+     (else
+      (cons (car lat)
+            (insertR new old (cdr lat)))))))
 ----
+
+1. Because `(car lat)` is the the same value a `old`, we could do `(cons old (cons new (cdr lat)))` just as well.
 
 ===  `insertL'
 
@@ -90,8 +108,6 @@ include::./definitions.scm[tag=insertR]
 include::./definitions.scm[tag=insertL]
 ----
 
-
-Note that
 
 [source,scheme,lineos]
 ----

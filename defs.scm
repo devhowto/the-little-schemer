@@ -82,3 +82,22 @@
       (cons (car (car l))
             (firsts (cdr l)))))))
 
+
+;;;;
+;; insertR :: Atom Atom [Atom] -> [Atom]
+;;
+;; Inserts `new` to the right of `old`.
+;;
+;; ASSUME: `old` is a member of `lat`. If `old` is not a member
+;; of `lat`, the unchanged list is returned.
+;;
+(define insertR
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons (car lat) (cons new (cdr lat))))
+     (else
+      (cons (car lat)
+            (insertR new old (cdr lat)))))))
+
