@@ -109,3 +109,47 @@
         '(haskell lisp racket scheme)
         (subst 'racket 'scala '(haskell lisp scala scheme))))
 
+
+(test-group "subst2"
+  (test "single-element list, replace o1"
+        '(hello)
+        (subst2 'hello 'hey 'hi '(hey)))
+
+  (test "single-element list, replace o2"
+        '(hello)
+        (subst2 'hello 'hey 'hi '(hi)))
+
+  (test "multi-element list, replace o1"
+        '(may the source be with you)
+        (subst2 'source
+                'force
+                'power
+                '(may the force be with you)))
+
+  (test "when o1 appears twice, beginning"
+        '(NEW foo bar qux THIS)
+        (subst2 'NEW
+                'THIS
+                'THAT
+                '(THIS foo bar qux THIS)))
+
+  (test "when o1 appears twice, not in the beginning"
+        '(foo bar NEW qux THIS)
+        (subst2 'NEW
+                'THIS
+                'THAT
+                '(foo bar THIS qux THIS)))
+
+  (test "when o2 appears and o1 does not"
+        '(NEW foo bar THAT qux)
+        (subst2 'NEW
+                'THIS
+                'THAT
+                '(THAT foo bar THAT qux)))
+
+  (test "when o1 and o2, replace only o1"
+        '(foo NEW bar THAT qux)
+        (subst2 'NEW
+                'THIS
+                'THAT
+                '(foo THIS bar THAT qux))))

@@ -12,8 +12,6 @@
   (lambda (x)
     (and (not (pair? x)) (not (null? x)))))
 
-(atom? '())
-
 ;;
 ;; Chapter 1 :: Toys
 ;; =================
@@ -134,3 +132,17 @@
      (else (cons (car lat)
                  (subst new old (cdr lat)))))))
 
+;;;;
+;; subst2 :: Atom Atom Atom [Atom] -> [Atom]
+;;
+;; Substitutes the first occurrence of either `o1` or `o2`
+;; with `new`. If neither is found, return the list unchanged.
+;;
+(define subst2
+  (lambda (new o1 o2 lat)
+    (cond
+     ((null? lat) '())
+     ((or (eq? (car lat) o1) (eq? (car lat) o2))
+      (cons new (cdr lat)))
+     (else (cons (car lat)
+                 (subst2 new o1 o2 (cdr lat)))))))
