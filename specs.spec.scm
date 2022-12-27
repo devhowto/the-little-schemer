@@ -99,3 +99,13 @@
         '(may the force be with you)
         (insertL 'with 'you '(may the force be you))))
 
+
+(test-group "subst"
+  (test "single-element list"
+        '(scheme)
+        (subst 'scheme 'lisp '(lisp)))
+
+  (test "multi-element list"
+        '(haskell lisp racket scheme)
+        (subst 'racket 'scala '(haskell lisp scala scheme))))
+

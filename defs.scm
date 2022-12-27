@@ -117,3 +117,20 @@
      (else
       (cons (car lat)
             (insertL new old (cdr lat)))))))
+
+;;;;
+;; subst :: Atom Atom [Atom] -> [Atom]
+;;
+;; Substitute the first occurrence of `old` with `new`.
+;;
+;; If `old` is not found, the list is returned unchanged.
+;;
+(define subst
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new (cdr lat)))
+     (else (cons (car lat)
+                 (subst new old (cdr lat)))))))
+
