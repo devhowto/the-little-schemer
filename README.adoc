@@ -24,9 +24,20 @@ Run the tests:
 $ csi -script *.spec.scm
 ----
 
-== Emacs
+== Emacs and Geiser
 
 Install link:https://www.nongnu.org/geiser/[Geiser].
+Also see the link:https://wiki.call-cc.org/emacs[Chicken Docs on Setting up Emacs and Geiser]
+
+For Chicken 5, we also need:
+
+[source,shell-session]
+----
+$ chicken-install apropos chicken-doc srfi-18
+
+$ cd `csi -R chicken.platform -p '(chicken-home)'`
+$ curl https://3e8.org/pub/chicken-doc/chicken-doc-repo-5.tgz | sudo tar zx
+----
 
 On a buffer containing code/tests, do kbd:[M-x geiser].
 
