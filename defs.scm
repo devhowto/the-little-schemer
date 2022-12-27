@@ -86,7 +86,7 @@
 ;;;;
 ;; insertR :: Atom Atom [Atom] -> [Atom]
 ;;
-;; Inserts `new` to the right of `old`.
+;; Inserts `new` to the right of the first occurrence of `old`.
 ;;
 ;; ASSUME: `old` is a member of `lat`. If `old` is not a member
 ;; of `lat`, the unchanged list is returned.
@@ -104,7 +104,7 @@
 ;;;;
 ;; insertL :: Atom Atom [Atom] -> [Atom]
 ;;
-;; Inserts `new` to the left of the first occurrence `old`.
+;; Inserts `new` to the left of the first occurrence of `old`.
 ;;
 ;; NOTE: If `old` is not found, the list is returned unchanged.
 ;;
@@ -113,9 +113,7 @@
     (cond
      ((null? lat) '())
      ((eq? (car lat) old)
-      (cons new (cons (car lat) (cdr lat))))
+      (cons new lat))
      (else
       (cons (car lat)
             (insertL new old (cdr lat)))))))
-
-

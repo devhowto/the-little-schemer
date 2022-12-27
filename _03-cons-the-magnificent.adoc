@@ -82,10 +82,10 @@ We always ask two questions about a `lat`:
 ;;;;
 ;; insertR :: Atom Atom [Atom] -> [Atom]
 ;;
-;; Inserts `new` to the right of `old`.
+;; Inserts `new` to the right of the first occurrence of `old`.
 ;;
 ;; ASSUME: `old` is a member of `lat`. If `old` is not a member
-;; of `lat`, the unchanged list is returned.
+;; of `lat`, the list is returned unchanged.
 ;;
 (define insertR
   (lambda (new old lat)
@@ -100,7 +100,7 @@ We always ask two questions about a `lat`:
 
 1. Because `(car lat)` is the the same value a `old`, we could do `(cons old (cons new (cdr lat)))` just as well.
 
-=== insertL
+=== insertL v1
 
 [source,scheme]
 ----
@@ -122,18 +122,53 @@ We always ask two questions about a `lat`:
             (insertL new old (cdr lat)))))))
 ----
 
-[source,scheme,lineos]
+=== insertL v2
+
+1. Because `(eq? (car lat) old)`, we can replace:
+
+[source,scheme]
 ----
 (cons new
       (cons (car lat)
             (cdr lat)))
 ----
 
-Is just the same as
+with:
 
-[source,scheme,lineos]
+[source,scheme]
 ----
 (cons new lat)
+----
+
+That is, if we cons the car and then the cdr, we just have the list it self. See:
+
+[source,racket]
+----
+(define lat '(1 2 3))
+(cons (car lat) (cdr lat))
+;;=> '(1 2 3)
+----
+
+We simplifly `insertL` to this:
+
+[source,racket]
+----
+;;;;
+;; insertL :: Atom Atom [Atom] -> [Atom]
+;;
+;; Inserts `new` to the left of the first occurrence `old`.
+;;
+;; NOTE: If `old` is not found, the list is returned unchanged.
+;;
+(define insertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new lat))
+     (else
+      (cons (car lat)
+            (insertL new old (cdr lat)))))))
 ----
 
 ===  `subst'
