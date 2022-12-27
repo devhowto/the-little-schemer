@@ -100,14 +100,27 @@ We always ask two questions about a `lat`:
 
 1. Because `(car lat)` is the the same value a `old`, we could do `(cons old (cons new (cdr lat)))` just as well.
 
-===  `insertL'
+=== insertL
 
-.`insertL' function definition
-[source,scheme,lineos]
+[source,scheme]
 ----
-include::./definitions.scm[tag=insertL]
+;;;;
+;; insertL :: Atom Atom [Atom] -> [Atom]
+;;
+;; Inserts `new` to the left of the first occurrence `old`.
+;;
+;; NOTE: If `old` is not found, the list is returned unchanged.
+;;
+(define insertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new (cons (car lat) (cdr lat))))
+     (else
+      (cons (car lat)
+            (insertL new old (cdr lat)))))))
 ----
-
 
 [source,scheme,lineos]
 ----

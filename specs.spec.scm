@@ -86,5 +86,16 @@
         '(may the force be with you)
         (insertR 'you 'with '(may the force be with))))
 
+(test-group "insertL"
+  (test "single-element list"
+        '(hello world)
+        (insertL 'hello 'world '(world)))
 
+  (test "insert to the middle"
+        '(tic tac toe)
+        (insertL 'tac 'toe '(tic toe)))
+
+  (test "insert just before the last element"
+        '(may the force be with you)
+        (insertL 'with 'you '(may the force be you))))
 

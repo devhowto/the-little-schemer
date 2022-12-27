@@ -101,3 +101,21 @@
       (cons (car lat)
             (insertR new old (cdr lat)))))))
 
+;;;;
+;; insertL :: Atom Atom [Atom] -> [Atom]
+;;
+;; Inserts `new` to the left of the first occurrence `old`.
+;;
+;; NOTE: If `old` is not found, the list is returned unchanged.
+;;
+(define insertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new (cons (car lat) (cdr lat))))
+     (else
+      (cons (car lat)
+            (insertL new old (cdr lat)))))))
+
+
