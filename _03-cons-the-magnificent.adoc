@@ -173,6 +173,7 @@ We simplifly `insertL` to this:
 
 === subst
 
+.subst function definition
 [source,scheme]
 ----
 ;;;;
@@ -194,36 +195,73 @@ We simplifly `insertL` to this:
 
 The version in the book uses `cond` twice, and this (my) version uses a single `cond` expression.
 
-===  `subst'
+=== subst
 
-.`subst' function definition
+.subst function definition
+[source,scheme]
+----
+;;;;
+;; subst :: Atom Atom [Atom] -> [Atom]
+;;
+;; Substitute the first occurrence of `old` with `new`.
+;;
+;; If `old` is not found, the list is returned unchanged.
+;;
+(define subst
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new (cdr lat)))
+     (else (cons (car lat)
+                 (subst new old (cdr lat)))))))
+----
+
+
+===  subst2
+
+.subst2 function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=subst]
+;;;;
+;; subst2 :: Atom Atom Atom [Atom] -> [Atom]
+;;
+;; Substitutes the first occurrence of either `o1` or `o2`
+;; with `new`. If neither is found, return the list unchanged.
+;;
+(define subst2
+  (lambda (new o1 o2 lat)
+    (cond
+     ((null? lat) '())
+     ((or (eq? (car lat) o1) (eq? (car lat) o2))
+      (cons new (cdr lat)))
+     (else (cons (car lat)
+                 (subst2 new o1 o2 (cdr lat)))))))
 ----
 
 
-===  `subst2'
-
-.`subst2' function definition
-[source,scheme,lineos]
-----
-include::./definitions.scm[tag=subst2]
-----
-
-
-===  `multirember'
+===  multirember
 
 .`multirember' function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=multirember]
+;;;;
+;; multirember :: Atom [Atom] -> [Atom]
+;;
+;; Removes all occurrences of `a` from `lat`.
+;;
+(define multirember
+  (lambda (a lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) a) (multirember a (cdr lat)))
+     (else (cons (car lat) (multirember a (cdr lat)))))))
 ----
 
 Note the difference from this version that removes all occurrences to the `rember`, that removes just the first occurrence of `a` in `lat`:
 
 .excerpt of the functions `multirember' and `rember'
-[source,scheme,lineos]
+[source,scheme]
 ----
 ;; `multirember' removes `a' “globally” in `lat'.
 ((eq? (car lat) a)
@@ -238,32 +276,74 @@ Note the difference from this version that removes all occurrences to the `rembe
 2. Just return the rest of `lat`, therefore not looking for any other occurrences of `a` in `lat`.
 
 
-===  `multiinsertR'
+===  multiinsertR
 
-.`multiinsertR' function definition
-[source,scheme,lineos]
+.multiinsertR function definition
+[source,scheme]
 ----
-include::./definitions.scm[tag=multiinsertR]
+;;;;
+;; multiinsertR :: Atom Atom [Atom] -> [Atom]
+;;
+;; Inserts `new` to the right of all occurrences of `old`.
+;;
+(define multiinsertR
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons old
+            (cons new
+                  (multiinsertR new old (cdr lat)))))
+     (else
+      (cons (car lat)
+            (multiinsertR new old (cdr lat)))))))
 ----
 
 
-===  `multiinsertL'
+===  multiinsertL
 
-.`multiinsertL' function definition
-[source,scheme,lineos]
+.multiinsertL function definition
+[source,scheme]
 ----
-include::./definitions.scm[tag=multiinsertL]
+;;;;
+;; multiinsertL :: Atom Atom [Atom] -> [Atom]
+;;
+;; Inserts `new` to the left of all occurrences of `old`.
+;;
+(define multiinsertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new
+            (cons old
+                  (multiinsertL new old (cdr lat)))))
+     (else
+      (cons (car lat)
+            (multiinsertL new old (cdr lat)))))))
 ----
 
 See <<fourth-commandment-preliminary>>.
 
 
-===  `multisubst'
+===  multisubst
 
-.`multisubst' function definition
+.multisubst function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=multisubst]
+;;;;
+;; multisubst :: Atom Atom [Atom] -> [Atom]
+;;
+;; Replaces all occurrences of `old` with `new`.
+;;
+(define multisubst
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new (multisubst new old (cdr lat))))
+     (else
+      (cons (car lat) (multisubst new old (cdr lat)))))))
 ----
 
 In short, besides the laws and commandments:

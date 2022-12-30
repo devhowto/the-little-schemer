@@ -205,3 +205,16 @@
         '(NEW qux NEW qux foo NEW qux bar NEW qux baz NEW qux)
         (multiinsertL 'NEW 'qux '(qux qux foo qux bar qux baz qux))))
 
+(test-group "multisubst"
+  (test "empty list"
+        '()
+        (multisubst 'NEW 'qux '()))
+
+  (test "single occurrence"
+        '(foo NEW bar)
+        (multisubst 'NEW 'qux '(foo qux bar)))
+
+  (test "multiple occurrences"
+        '(foo NEW bar NEW baz NEW NEW)
+        (multisubst 'NEW 'qux '(foo qux bar qux baz qux qux))))
+
