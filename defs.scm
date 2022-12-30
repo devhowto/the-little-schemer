@@ -162,7 +162,7 @@
 
 
 ;;;;
-;; multiinsertR :: Atom [Atom] -> [Atom]
+;; multiinsertR :: Atom Atom [Atom] -> [Atom]
 ;;
 ;; Inserts `new` to the right of all occurrences of `old`.
 ;;
@@ -177,3 +177,22 @@
      (else
       (cons (car lat)
             (multiinsertR new old (cdr lat)))))))
+
+
+;;;;
+;; multiinsertL :: Atom Atom [Atom] -> [Atom]
+;;
+;; Inserts `new` to the left of all occurrences of `old`.
+;;
+(define multiinsertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons new
+            (cons old
+                  (multiinsertL new old (cdr lat)))))
+     (else
+      (cons (car lat)
+            (multiinsertL new old (cdr lat)))))))
+

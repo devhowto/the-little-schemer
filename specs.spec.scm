@@ -192,3 +192,16 @@
         '(qux NEW qux NEW foo qux NEW bar qux NEW baz qux NEW)
         (multiinsertR 'NEW 'qux '(qux qux foo qux bar qux baz qux))))
 
+(test-group "multiinsertL"
+  (test "empty list"
+        '()
+        (multiinsertL 'NEW 'qux '()))
+
+  (test "single occurrence"
+        '(foo bar NEW qux)
+        (multiinsertL 'NEW 'qux '(foo bar qux)))
+
+  (test "multiple occurrences"
+        '(NEW qux NEW qux foo NEW qux bar NEW qux baz NEW qux)
+        (multiinsertL 'NEW 'qux '(qux qux foo qux bar qux baz qux))))
+
