@@ -153,3 +153,29 @@
                 'THIS
                 'THAT
                 '(foo THIS bar THAT qux))))
+
+(test-group "multirember"
+  (test "empty list"
+        '()
+        (multirember 'qux '()))
+
+  (test "single-element list, atom not found"
+        '(foo)
+        (multirember 'qux '(foo)))
+
+  (test "single-element list, atom found"
+        '()
+        (multirember 'qux '(qux)))
+
+  (test "list containing the atom multiple times"
+        '()
+        (multirember 'qux '(qux qux qux qux)))
+
+  (test "list not containing atom"
+        '(foo bar baz tux)
+        (multirember 'qux '(foo bar baz tux)))
+
+  (test "list containing a few occurrences of the atom"
+        '(foo bar tux)
+        (multirember 'qux' (qux foo qux bar tux qux))))
+
