@@ -160,3 +160,20 @@
      ((eq? (car lat) a) (multirember a (cdr lat)))
      (else (cons (car lat) (multirember a (cdr lat)))))))
 
+
+;;;;
+;; multiinsertR :: Atom [Atom] -> [Atom]
+;;
+;; Inserts `new` to the right of all occurrences of `old`.
+;;
+(define multiinsertR
+  (lambda (new old lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) old)
+      (cons old
+            (cons new
+                  (multiinsertR new old (cdr lat)))))
+     (else
+      (cons (car lat)
+            (multiinsertR new old (cdr lat)))))))

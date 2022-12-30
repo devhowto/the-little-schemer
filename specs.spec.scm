@@ -179,3 +179,16 @@
         '(foo bar tux)
         (multirember 'qux' (qux foo qux bar tux qux))))
 
+(test-group "multiinsertR"
+  (test "empty list"
+        '()
+        (multiinsertR 'NEW 'qux '()))
+
+  (test "single occurrence"
+        '(foo bar qux NEW )
+        (multiinsertR 'NEW 'qux '(foo bar qux)))
+
+  (test "multiple occurrences"
+        '(qux NEW qux NEW foo qux NEW bar qux NEW baz qux NEW)
+        (multiinsertR 'NEW 'qux '(qux qux foo qux bar qux baz qux))))
+
