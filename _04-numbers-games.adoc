@@ -5,12 +5,23 @@ Numbers are atoms, but for this book we only consider non-negative numbers (Natu
 For this book `(sub1 0)` is a “no answer” thing, but it practice it would produce `-1`.
 
 
-=== function: `o+'
+=== function: o+
 
-.`o+' function definition
+.o+ function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=o+]
+;;;;
+;; o+ :: Natural Natural -> Natural
+;;
+;; Computes the sum of `n` and `m`.
+;;
+(define o+
+  (lambda (n m)
+    (cond
+     ((zero? m) n)
+     (else (o+ (add1 n) (sub1 m))))))
+
+(o+ 1 1)
 ----
 
 We broke the first commandment as we did not use `null?`. Still asking `zero?` of a number is somewhat like asking `null?` of a list.

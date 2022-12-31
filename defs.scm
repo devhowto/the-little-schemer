@@ -219,3 +219,21 @@
      (else
       (cons (car lat) (multisubst new old (cdr lat)))))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Chapter 4 :: Number Games
+;; =========================
+
+;;;;
+;; o+ :: Natural Natural -> Natural
+;;
+;; Computes the sum of `n` and `m`.
+;;
+(define o+
+  (lambda (n m)
+    (cond
+     ((zero? m) n)
+     (else (o+ (add1 n) (sub1 m))))))
+
+(o+ 1 1)
+

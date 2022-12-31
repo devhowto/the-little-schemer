@@ -227,3 +227,24 @@
         '(foo NEW bar NEW baz NEW NEW)
         (multisubst 'NEW 'qux '(foo qux bar qux baz qux qux))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Chapter 4 :: Number Games
+;; =========================
+
+(test-group "o+"
+  (test "0 + 0"
+        0
+        (o+ 0 0))
+
+  (test "0 + 12"
+        12
+        (o+ 0 12))
+
+  (test "12 + 0"
+        12
+        (o+ 12 0))
+
+  (test "100 + 200"
+        300
+        (o+ 100 200)))
