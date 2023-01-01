@@ -235,5 +235,16 @@
      ((zero? m) n)
      (else (o+ (add1 n) (sub1 m))))))
 
-(o+ 1 1)
+
+
+;;;;
+;; o- :: Natural Natural -> Natural
+;;
+;; Computes the difference of `n` and `m` (subtracts `m` from `n`).
+;;
+(define o-
+  (lambda (n m)
+    (cond
+     [(zero? m) n]
+     [else (o- (sub1 n) (sub1 m))])))
 

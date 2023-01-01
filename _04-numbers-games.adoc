@@ -29,12 +29,21 @@ We broke the first commandment as we did not use `null?`. Still asking `zero?` o
 `zero?` is like `null?` and `add1` (builds numbers) is like `cons` (builds lists).
 
 
-=== function: `o-'
+=== function: o-
 
-.`o-' function definition
+.o- function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=o-]
+;;;;
+;; o- :: Natural Natural -> Natural
+;;
+;; Computes the difference of `n` and `m` (subtracts `m` from `n`).
+;;
+(define o-
+  (lambda (n m)
+    (cond
+     [(zero? m) n]
+     [else (o- (sub1 n) (sub1 m))])))
 ----
 
 
