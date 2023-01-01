@@ -248,3 +248,15 @@
      [(zero? m) n]
      [else (o- (sub1 n) (sub1 m))])))
 
+;;;;
+;; addtup :: [Natural] -> Natural
+;;
+;; Adds up all elements of `tup`.
+;;
+(define addtup
+  (lambda (tup)
+    (cond
+     ((null? tup) 0)
+     (else (o+ (car tup)
+               (addtup (cdr tup)))))))
+

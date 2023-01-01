@@ -69,22 +69,28 @@ A number is either `zero` or it is one added to a “rest”, where rest is agai
 
 The natural terminal condition for numbers is `(zero? n)`. The natural recursion on a number is `(sub1 n)` because we want to reach `0`.
 
-See <<first-commandment-rev-1>>.
+=== function: addtup
 
-=== function: `addtup'
-
-.`addtup' function definition
+.addtup function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=addtup]
+;;;;
+;; addtup :: [Natural] -> Natural
+;;
+;; Adds up all elements of `tup`.
+;;
+(define addtup
+  (lambda (tup)
+    (cond
+     ((null? tup) 0)
+     (else (o+ (car tup)
+               (addtup (cdr tup)))))))
 ----
-
-See <<fourth-commandment-rev-1>>.
-
 
 === Note About Recursion
 
-When we recur (not using tail-recursion), the recursive call is _never_ in the combination part. The combination part is always handled by some other operation, and the recursive invocation happens more at the end of the expression, generally involving `cdr` or `sub1`. Just take a look at the `else` question of our procedures and see the similarities.
+When we recur (not using tail-recursion), the recursive call is _never_ in the combination part. The combination part is always handled by some other operation, and the recursive invocation happens more at the end of the expression, generally involving `cdr` or `sub1`.
+Just take a look at the `else` question of our procedures and see the similarities.
 
 
 === function: `o*'

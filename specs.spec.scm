@@ -263,3 +263,17 @@
         0
         (- 24 24)))
 
+
+(test-group "addtup"
+  (test "empty tup"
+        0
+        (addtup '()))
+
+  (test "single-element tup"
+        3
+        (addtup '(3)))
+
+  (test "multiple-element tup"
+        26
+        (addtup '(10 5 7 3 1))))
+
