@@ -8,7 +8,7 @@ For this book `(sub1 0)` is a “no answer” thing, but it practice it would pr
 === function: o+
 
 .o+ function definition
-[source,scheme,lineos]
+[source,scheme]
 ----
 ;;;;
 ;; o+ :: Natural Natural -> Natural
@@ -32,7 +32,7 @@ We broke the first commandment as we did not use `null?`. Still asking `zero?` o
 === function: o-
 
 .o- function definition
-[source,scheme,lineos]
+[source,scheme]
 ----
 ;;;;
 ;; o- :: Natural Natural -> Natural
@@ -72,7 +72,7 @@ The natural terminal condition for numbers is `(zero? n)`. The natural recursion
 === function: addtup
 
 .addtup function definition
-[source,scheme,lineos]
+[source,scheme]
 ----
 ;;;;
 ;; addtup :: [Natural] -> Natural
@@ -93,16 +93,52 @@ When we recur (not using tail-recursion), the recursive call is _never_ in the c
 Just take a look at the `else` question of our procedures and see the similarities.
 
 
-=== function: `o*'
+=== function: o*
 
-.`o*' function definition
-[source,scheme,lineos]
+.o* function definition
+[source,scheme]
 ----
-include::./definitions.scm[tag=o*]
+;;;;
+;; o* :: Natural Natural -> Natural
+;;
+;; Calculates the product of `n` and `m`.
+;;
+(define o*
+  (lambda (n m)
+    (cond
+     ((zero? m) 0)
+     (else (o+ n (o* n (sub1 m)))))))
 ----
 
-See <<fifth-commandment>>.
+This is how the above definition would expand for `(o* 3 4)`:
 
+.stepping through (o* 3 4) expansion
+[source,scheme]
+----
+(o* 3 4)
+(o+ 3 (o* 3 3))
+(o+ 3 (o+ 3 (o* 3 2)))
+(o+ 3 (o+ 3 (o+ 3 (o* 3 1))))
+(o+ 3 (o+ 3 (o+ 3 (o+ 3 (o* 3 0)))))
+(o+ 3 (o+ 3 (o+ 3 (o+ 3 0))))
+(o+ 3 (o+ 3 (o+ 3 3)))
+(o+ 3 (o+ 3 6))
+(o+ 3 9)
+12
+----
+
+Or:
+
+[source,text]
+----
+12 * 3 = 12 + 12 * 2
+       = 12 + 12 + 12 * 1
+       = 12 + 12 + 12 + 12 * 0
+       = 12 + 12 + 12 + 0
+       = 12 + 12 + 12
+       = 12 + 24
+       = 36
+----
 
 === function: `tup+'
 

@@ -260,3 +260,14 @@
      (else (o+ (car tup)
                (addtup (cdr tup)))))))
 
+;;;;
+;; o* :: Natural Natural -> Natural
+;;
+;; Calculates the product of `n` and `m`.
+;;
+(define o*
+  (lambda (n m)
+    (cond
+     ((zero? m) 0)
+     (else (o+ n (o* n (sub1 m)))))))
+
