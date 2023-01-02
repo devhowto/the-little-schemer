@@ -5,7 +5,7 @@ Numbers are atoms, but for this book we only consider non-negative numbers (Natu
 For this book `(sub1 0)` is a “no answer” thing, but it practice it would produce `-1`.
 
 
-=== function: o+
+=== o+
 
 .o+ function definition
 [source,scheme]
@@ -29,7 +29,7 @@ We broke the first commandment as we did not use `null?`. Still asking `zero?` o
 `zero?` is like `null?` and `add1` (builds numbers) is like `cons` (builds lists).
 
 
-=== function: o-
+=== o-
 
 .o- function definition
 [source,scheme]
@@ -69,7 +69,7 @@ A number is either `zero` or it is one added to a “rest”, where rest is agai
 
 The natural terminal condition for numbers is `(zero? n)`. The natural recursion on a number is `(sub1 n)` because we want to reach `0`.
 
-=== function: addtup
+=== addtup
 
 .addtup function definition
 [source,scheme]
@@ -93,7 +93,7 @@ When we recur (not using tail-recursion), the recursive call is _never_ in the c
 Just take a look at the `else` question of our procedures and see the similarities.
 
 
-=== function: o*
+=== o*
 
 .o* function definition
 [source,scheme]
@@ -163,7 +163,7 @@ Or:
 ----
 
 
-=== function: `tup+v2'
+=== `tup+v2'
 
 .`tup+v2' function definition
 [source,scheme,lineos]
@@ -174,7 +174,7 @@ include::./definitions.scm[tag=tup+v2]
 In this version, if one tuple is lengthier than the other, we just `cons` the already produced sums onto the remaining list without doing any further `o+` operations.
 
 
-=== function: `o>'
+=== `o>'
 
 .`o>' function definition
 [source,scheme,lineos]
@@ -185,7 +185,7 @@ include::./definitions.scm[tag=o>]
 1. The order of the questions matter. If we asked `(zero? m)` before `(zero? n)`, we would produce `#t` even for cases when both numbers are actually equal.
 
 
-=== function: `o<'
+=== `o<'
 
 .`o<' function definition
 [source,scheme,lineos]
@@ -193,7 +193,7 @@ include::./definitions.scm[tag=o>]
 include::./definitions.scm[tag=o<]
 ----
 
-=== function: `o='
+=== `o='
 
 .`o=' function definition
 [source,scheme,lineos]
@@ -202,7 +202,7 @@ include::./definitions.scm[tag=o=]
 ----
 
 
-=== function: `o**'
+=== `o**'
 
 .`o**' function definition
 [source,scheme,lineos]
@@ -211,7 +211,7 @@ include::./definitions.scm[tag=o**]
 ----
 
 
-=== function: `o/'
+=== `o/'
 
 .`o/' function definition
 [source,scheme,lineos]
@@ -219,7 +219,7 @@ include::./definitions.scm[tag=o**]
 include::./definitions.scm[tag=o/]
 ----
 
-=== function: `len'
+=== `len'
 
 .`len' function definition
 [source,scheme,lineos]
@@ -228,7 +228,7 @@ include::./definitions.scm[tag=len]
 ----
 
 
-=== function: `pick'
+=== `pick'
 
 .`pick' function definition
 [source,scheme,lineos]
@@ -239,7 +239,7 @@ include::./definitions.scm[tag=pick]
 In `pick`, `(car lat)` is always in sync with `n`.
 
 
-=== function: `rempick'
+=== `rempick'
 
 .`rempick' function definition
 [source,scheme,lineos]
@@ -258,7 +258,7 @@ No: `number?`, like `add1`, `sub1`, `zero?`, `car`, `cdr`, `cons`, `null?`, `eq?
 link:https://groups.google.com/forum/#!topic/comp.lang.scheme/1owCrv0H3lk[My question on comp.lang.scheme about primitives.]
 
 
-=== function: `no-nums'
+=== `no-nums'
 
 .`no-nums' function definition
 [source,scheme,lineos]
@@ -266,7 +266,7 @@ link:https://groups.google.com/forum/#!topic/comp.lang.scheme/1owCrv0H3lk[My que
 include::./definitions.scm[tag=no-nums]
 ----
 
-=== function: `all-nums'
+=== `all-nums'
 
 .`all-nums' function definition
 [source,scheme,lineos]
@@ -277,7 +277,7 @@ include::./definitions.scm[tag=all-nums]
 Numbers are atoms. Still, we use `=` for numbers and `eq?' for all other atoms.
 
 
-=== function: `eqan?'
+=== `eqan?'
 
 .`eqan?' function definition
 [source,scheme,lineos]
@@ -285,7 +285,7 @@ Numbers are atoms. Still, we use `=` for numbers and `eq?' for all other atoms.
 include::./definitions.scm[tag=eqan?]
 ----
 
-=== function: `occur'
+=== `occur'
 
 .`occur' function definition
 [source,scheme,lineos]
@@ -294,7 +294,7 @@ include::./definitions.scm[tag=occur]
 ----
 
 
-=== function: `one?'
+=== `one?'
 
 .`one?' function definition
 [source,scheme,lineos]
@@ -303,7 +303,7 @@ include::./definitions.scm[tag=one?]
 ----
 
 
-=== function: `rempick-v2'
+=== `rempick-v2'
 
 .`rempick-v2' function definition
 [source,scheme,lineos]
