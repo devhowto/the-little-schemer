@@ -291,3 +291,25 @@
         15
         (o* 5 3)))
 
+
+(test-group "tup+"
+  (test "empty tups"
+        '()
+        (tup+ '() '()))
+
+  (test "(0) (0)"
+        '(0)
+        (tup+ '(0) '(0)))
+
+  (test "(1 2 3) (1 2 3)"
+        '(2 4 6)
+        (tup+ '(1 2 3) '(1 2 3)))
+
+  (test "when tup1 is shorter"
+        '(2 4 3)
+        (tup+ '(1 2) '(1 2 3)))
+
+  (test "when tup2 is shorter"
+        '(2 4 3)
+        (tup+ '(1 2 3) '(1 2))))
+

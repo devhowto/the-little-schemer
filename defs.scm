@@ -271,3 +271,19 @@
      ((zero? m) 0)
      (else (o+ n (o* n (sub1 m)))))))
 
+;;;;
+;; tup+ :: [Natural] [Natural] -> [Natural]
+;;
+;; tup+ :: Adds pairs of numbers from `tup1` and `tup2`.
+;;
+;; If one tup is lengthier, appends those elements to the end
+;; of the resulting list.
+;;
+(define tup+
+  (lambda (tup1 tup2)
+    (cond
+     ((null? tup1) tup2)
+     ((null? tup2) tup1)
+     (else (cons (+ (car tup1) (car tup2))
+                 (tup+ (cdr tup1) (cdr tup2)))))))
+
