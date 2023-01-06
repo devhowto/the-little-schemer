@@ -346,3 +346,17 @@
      ((zero? e) 1)
      (else (o* b (o** b (sub1 e)))))))
 
+;;;;
+;; o/ :: Int Int -> Int
+;;
+;; Computes the integer division for `n` and `m`, that is,
+;; how many times `m` goes into the first`.
+;;
+;; NOTE: The remainder is ignored.
+;;
+(define o/
+  (lambda (n m)
+    (cond
+     ((< n m) 0)
+     (else (add1 (o/ (- n m) m))))))
+

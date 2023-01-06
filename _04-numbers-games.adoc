@@ -265,13 +265,43 @@ The above implementation expands to something more or less like this:
 (o* 2     4)
 ----
 
-=== `o/'
+=== o/
 
-.`o/' function definition
-[source,scheme,lineos]
+.o/ function definition
+[source,scheme]
 ----
-include::./definitions.scm[tag=o/]
+;;;;
+;; o/ :: Int Int -> Int
+;;
+;; Computes the integer division for `n` and `m`, that is,
+;; how many times `m` goes into the first`.
+;;
+;; NOTE: The remainder is ignored.
+;;
+(define o/
+  (lambda (n m)
+    (cond
+     ((< n m) 0)
+     (else (add1 (o/ (- n m) m))))))
 ----
+
+The above expands to something like this:
+
+[source,scheme]
+----
+(o/ 9 2)
+(add1 (o/ 7 2))
+(add1 (add1 (o/ 5 2)))
+(add1 (add1 (add1 (o/ 3 2))))
+(add1 (add1 (add1 (add1 (o/ 1 2)))))
+(add1 (add1 (add1 (add1 0))))
+(add1 (add1 (add1 1)))
+(add1 (add1 2))
+(add1 3)
+4
+----
+
+
 
 === `len'
 
