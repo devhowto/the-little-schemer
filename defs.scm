@@ -289,7 +289,7 @@
 
 
 ;;;;
-;; o> :: Int Int -> Int
+;; o> :: Int Int -> Bool
 ;;
 ;; Checks whether `n` is greater than `m`.
 ;;
@@ -306,7 +306,7 @@
 
 
 ;;;;
-;; o< :: Int Int -> Int
+;; o< :: Int Int -> Bool
 ;;
 ;; Checks whether `n` is less than `m`.
 ;;

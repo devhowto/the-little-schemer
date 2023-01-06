@@ -168,7 +168,7 @@ Or:
 [source,scheme,lineos]
 ----
 ;;;;
-;; o> :: Int Int -> Int
+;; o> :: Int Int -> Bool
 ;;
 ;; Checks whether `n` is greater than `m`.
 ;;
@@ -192,7 +192,7 @@ Or:
 [source,scheme,lineos]
 ----
 ;;;;
-;; o< :: Int Int -> Int
+;; o< :: Int Int -> Bool
 ;;
 ;; Checks whether `n` is less than `m`.
 ;;
