@@ -4,6 +4,14 @@
 :toc: right
 :experimental:
 
+My studies on the book The Little Schemer.
+
+[NOTE]
+====
+The official repo is the link:https://gitlab.com/devhowto/the-little-schemer[The Litthe Schemer on Gitlab].
+The link:https://github.com/devhowto/the-little-schemer[Github repo] is only a mirror.
+====
+
 == Chicken Scheme
 
 I'm using link:https://wiki.call-cc.org/man/5/Getting%20started[Chicken Scheme] with the link:http://wiki.call-cc.org/eggref/5/test[test egg] to work on the challenges.
