@@ -294,7 +294,8 @@
 ;; Checks whether `n` is greater than `m`.
 ;;
 ;; NOTE: The order of the two `(zero? ...)` conditions matter
-;; when `n` and `m` are the same number.
+;; when `n` and `m` are the same number. We MUST check for
+;; `(zero? n)` first.
 ;;
 (define o>
   (lambda (n m)
@@ -302,4 +303,21 @@
      ((zero? n) #f)
      ((zero? m) #t)
      (else (o> (sub1 n) (sub1 m))))))
+
+
+;;;;
+;; o< :: Int Int -> Int
+;;
+;; Checks whether `n` is less than `m`.
+;;
+;; NOTE: The order of the two `(zero? ...)` conditions matter
+;; when `n` and `m` are the same number. We MUST check for
+;; `(zero? m)` first.
+;;
+(define o<
+  (lambda (n m)
+    (cond
+     ((zero? m) #f)
+     ((zero? n) #t)
+     (else (o< (sub1 n) (sub1 m))))))
 

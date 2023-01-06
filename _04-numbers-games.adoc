@@ -186,12 +186,26 @@ Or:
 1. The order of the questions matter. If we asked `(zero? m)` before `(zero? n)`, we would produce `#t` even for cases when both numbers are actually equal.
 
 
-=== `o<'
+=== o<
 
-.`o<' function definition
+.o< function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=o<]
+;;;;
+;; o< :: Int Int -> Int
+;;
+;; Checks whether `n` is less than `m`.
+;;
+;; NOTE: The order of the two `(zero? ...)` conditions matter
+;; when `n` and `m` are the same number. We MUST check for
+;; `(zero? m)` first.
+;;
+(define o<
+  (lambda (n m)
+    (cond
+     ((zero? m) #f)
+     ((zero? n) #t)
+     (else (o< (sub1 n) (sub1 m))))))
 ----
 
 === `o='
