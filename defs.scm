@@ -321,3 +321,17 @@
      ((zero? n) #t)
      (else (o< (sub1 n) (sub1 m))))))
 
+
+;;;;
+;; o= :: Int Int -> Bool
+;;
+;; Checks whether `n` and `m` are the same value.
+;;
+(define o=
+  (lambda (n m)
+    (cond
+     ((zero? n) (zero? m))
+     ((zero? n) #f)
+     (else (o= (sub1 n) (sub1 m))))))
+
+

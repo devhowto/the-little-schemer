@@ -165,7 +165,7 @@ Or:
 === o>
 
 .o> function definition
-[source,scheme,lineos]
+[source,scheme]
 ----
 ;;;;
 ;; o> :: Int Int -> Bool
@@ -189,7 +189,7 @@ Or:
 === o<
 
 .o< function definition
-[source,scheme,lineos]
+[source,scheme]
 ----
 ;;;;
 ;; o< :: Int Int -> Bool
@@ -208,14 +208,34 @@ Or:
      (else (o< (sub1 n) (sub1 m))))))
 ----
 
-=== `o='
+=== o=
 
-.`o=' function definition
-[source,scheme,lineos]
+.o= function definition
+[source,scheme]
 ----
-include::./definitions.scm[tag=o=]
+;;;;
+;; o= :: Int Int -> Bool
+;;
+;; Checks whether `n` and `m` are the same value.
+;;
+(define o=
+  (lambda (n m)
+    (cond
+     ((zero? n) (zero? m))
+     ((zero? n) #f)
+     (else (o= (sub1 n) (sub1 m))))))
 ----
 
+.o= using o> and o<
+[source,scheme]
+----
+(define o=
+  (lambda (n m)
+    (cond
+     ((o> n m) #f)
+     ((o< n m) #f)
+     (else #t))))
+----
 
 === `o**'
 
