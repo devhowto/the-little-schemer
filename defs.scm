@@ -287,3 +287,19 @@
      (else (cons (+ (car tup1) (car tup2))
                  (tup+ (cdr tup1) (cdr tup2)))))))
 
+
+;;;;
+;; o> :: Int Int -> Int
+;;
+;; Checks whether `n` is greater than `m`.
+;;
+;; NOTE: The order of the two `(zero? ...)` conditions matter
+;; when `n` and `m` are the same number.
+;;
+(define o>
+  (lambda (n m)
+    (cond
+     ((zero? n) #f)
+     ((zero? m) #t)
+     (else (o> (sub1 n) (sub1 m))))))
+

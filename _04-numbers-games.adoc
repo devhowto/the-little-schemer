@@ -162,24 +162,25 @@ Or:
                  (tup+ (cdr tup1) (cdr tup2)))))))
 ----
 
+=== o>
 
-=== `tup+v2'
-
-.`tup+v2' function definition
+.o> function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=tup+v2]
-----
-
-In this version, if one tuple is lengthier than the other, we just `cons` the already produced sums onto the remaining list without doing any further `o+` operations.
-
-
-=== `o>'
-
-.`o>' function definition
-[source,scheme,lineos]
-----
-include::./definitions.scm[tag=o>]
+;;;;
+;; o> :: Int Int -> Int
+;;
+;; Checks whether `n` is greater than `m`.
+;;
+;; NOTE: The order of the two `(zero? ...)` conditions matter
+;; when `n` and `m` are the same number.
+;;
+(define o>
+  (lambda (n m)
+    (cond
+     ((zero? n) #f)
+     ((zero? m) #t)
+     (else (o> (sub1 n) (sub1 m))))))
 ----
 
 1. The order of the questions matter. If we asked `(zero? m)` before `(zero? n)`, we would produce `#t` even for cases when both numbers are actually equal.
