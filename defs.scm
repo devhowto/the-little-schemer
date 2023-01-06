@@ -371,3 +371,21 @@
      ((null? lat) 0)
      (else (add1 (len (cdr lat)))))))
 
+
+;;;;
+;; pick :: Int [Atom] -> Atom
+;;
+;; Retrieves the atom at index `n`.
+;;
+;; NOTE: `pick` is defined only for non-empty lists and for
+;; non-zero indexes.
+;;
+;; NOTE: If not found, returns the last atom blindly; that
+;; is, assume the atom is present.
+;;
+(define pick
+  (lambda (n lat)
+    (cond
+     ((zero? (sub1 n)) (car lat))
+     (else (pick (sub1 n) (cdr lat))))))
+

@@ -321,12 +321,27 @@ The above expands to something like this:
 ----
 
 
-=== `pick'
+=== pick
 
-.`pick' function definition
+.pick function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=pick]
+;;;;
+;; pick :: Int [Atom] -> Atom
+;;
+;; Retrieves the atom at index `n`.
+;;
+;; NOTE: `pick` is defined only for non-empty lists and for
+;; non-zero indexes.
+;;
+;; NOTE: If not found, returns the last atom blindly; that
+;; is, assume the atom is present.
+;;
+(define pick
+  (lambda (n lat)
+    (cond
+     ((zero? (sub1 n)) (car lat))
+     (else (pick (sub1 n) (cdr lat))))))
 ----
 
 In `pick`, `(car lat)` is always in sync with `n`.

@@ -416,3 +416,21 @@
         6
         (len '(may the force be with you.))))
 
+
+(test-group "pick"
+  (test "first idx on single-element list"
+        'may
+        (pick 1 '(may)))
+
+  (test "first idx on multi-element list"
+        'may
+        (pick 1 '(may the force be with you)))
+
+  (test "middle element"
+        'be
+        (pick 4 '(may the force be with you)))
+
+  (test "last element"
+        'you
+        (pick 6 '(may the force be with you))))
+
