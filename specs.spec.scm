@@ -402,3 +402,17 @@
         5
         (o/ 17 3)))
 
+
+(test-group "len"
+  (test "empty list"
+        0
+        (len '()))
+
+  (test "single-element list"
+        1
+        (len '(may)))
+
+  (test "multiple-element list"
+        6
+        (len '(may the force be with you.))))
+

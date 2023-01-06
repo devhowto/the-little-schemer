@@ -360,3 +360,14 @@
      ((< n m) 0)
      (else (add1 (o/ (- n m) m))))))
 
+;;;;
+;; len :: [Atom] -> Int
+;;
+;; Computes the length of `lat`.
+;;
+(define len
+  (lambda (lat)
+    (cond
+     ((null? lat) 0)
+     (else (add1 (len (cdr lat)))))))
+
