@@ -335,3 +335,14 @@
      (else (o= (sub1 n) (sub1 m))))))
 
 
+;;;;
+;; o** :: Natural Natural -> Natural
+;;
+;; Raises `b` to the `e`th power.
+;;
+(define o**
+  (lambda (b e)
+    (cond
+     ((zero? e) 1)
+     (else (o* b (o** b (sub1 e)))))))
+

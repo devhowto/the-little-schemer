@@ -237,14 +237,33 @@ Or:
      (else #t))))
 ----
 
-=== `o**'
+=== o**
 
-.`o**' function definition
+.o** function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=o**]
+;;;;
+;; o** :: Natural Natural -> Natural
+;;
+;; Raises `b` to the `e`th power.
+;;
+(define o**
+  (lambda (b e)
+    (cond
+     ((zero? e) 1)
+     (else (o* b (o** b (sub1 e)))))))
 ----
 
+The above implementation expands to something more or less like this:
+
+[source,scheme]
+----
+(o** 2 3)
+(o* 2 (o** 2 2))
+(o* 2 (o* 2 (o* 2 1)))
+(o* 2 (o* 2     2))
+(o* 2     4)
+----
 
 === `o/'
 
