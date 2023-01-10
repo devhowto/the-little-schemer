@@ -402,15 +402,28 @@ link:https://groups.google.com/forum/#!topic/comp.lang.scheme/1owCrv0H3lk[My que
                  (no-nums (cdr lat)))))))
 ----
 
-=== `all-nums'
+=== all-nums
 
-.`all-nums' function definition
+.all-nums function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=all-nums]
+;;;;
+;; all-nums :: [Atom] -> [Atom]
+;;
+;; Returns a list containing all numbers in `lat`.
+;;
+(define all-nums
+  (lambda (lat)
+    (cond
+     ((null? lat) '())
+     ((number? (car lat))
+      (cons (car lat)
+            (all-nums (cdr lat))))
+     (else (all-nums (cdr lat))))))
 ----
 
-Numbers are atoms. Still, we use `=` for numbers and `eq?' for all other atoms.
+Numbers are atoms.
+Still, we use `=` for numbers and `eq?' for all other atoms.
 
 
 === `eqan?'

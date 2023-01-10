@@ -470,3 +470,21 @@
         '(one two three)
         (no-nums' (1 one 2 two 3 three))))
 
+
+(test-group "all-nums"
+  (test "empty list"
+        '()
+        (all-nums '()))
+
+  (test "list with no number members"
+        '()
+        (all-nums '(life is short the craft is hard to learn)))
+
+  (test "list containing only number members"
+        '(1 3 5 7)
+        (all-nums '(1 3 5 7)))
+
+  (test "mixed list"
+        '(1 2 3)
+        (all-nums '(1 one 2 two 3 three))))
+

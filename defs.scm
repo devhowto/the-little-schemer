@@ -422,3 +422,17 @@
      (else (cons (car lat)
                  (no-nums (cdr lat)))))))
 
+;;;;
+;; all-nums :: [Atom] -> [Atom]
+;;
+;; Returns a list containing all numbers in `lat`.
+;;
+(define all-nums
+  (lambda (lat)
+    (cond
+     ((null? lat) '())
+     ((number? (car lat))
+      (cons (car lat)
+            (all-nums (cdr lat))))
+     (else (all-nums (cdr lat))))))
+
