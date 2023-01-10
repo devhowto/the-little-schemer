@@ -434,3 +434,21 @@
         'you
         (pick 6 '(may the force be with you))))
 
+
+(test-group "rempick"
+  (test "single-element list"
+        '()
+        (rempick 1 '(qux)))
+
+  (test "two-element list when n is 1"
+        '(bar)
+        (rempick 1 '(foo bar)))
+
+  (test "two-element list when n is 2"
+        '(foo)
+        (rempick 2 '(foo bar)))
+
+  (test "longer list"
+        '(the force is strong with this one)
+        (rempick 4 '(the force is very strong with this one))))
+
