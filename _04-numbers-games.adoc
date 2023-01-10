@@ -375,7 +375,7 @@ In `pick`, `(car lat)` is always in sync with `n`.
 === About PRIMITIVES
 
 
-Can you write `number?` which is true if its argument is a numeric atom and false if it is anthing else?
+Can you write `number?` which is true if its argument is a numeric atom and false if it is anything else?
 
 No: `number?`, like `add1`, `sub1`, `zero?`, `car`, `cdr`, `cons`, `null?`, `eq?`, and `atom?`, is a primitive function.
 
@@ -383,12 +383,23 @@ No: `number?`, like `add1`, `sub1`, `zero?`, `car`, `cdr`, `cons`, `null?`, `eq?
 link:https://groups.google.com/forum/#!topic/comp.lang.scheme/1owCrv0H3lk[My question on comp.lang.scheme about primitives.]
 
 
-=== `no-nums'
+=== no-nums
 
-.`no-nums' function definition
+.no-nums function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=no-nums]
+;;;;
+;; no-nums :: [Atom] -> [Atom]
+;;
+;; Returns `lat` with all numbers removed.
+;;
+(define no-nums
+  (lambda (lat)
+    (cond
+     ((null? lat) '())
+     ((number? (car lat)) (no-nums (cdr lat)))
+     (else (cons (car lat)
+                 (no-nums (cdr lat)))))))
 ----
 
 === `all-nums'

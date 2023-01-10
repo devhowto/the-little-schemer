@@ -407,3 +407,18 @@
      (else (cons
             (car lat)
             (rempick (sub1 n) (cdr lat)))))))
+
+
+;;;;
+;; no-nums :: [Atom] -> [Atom]
+;;
+;; Returns `lat` with all numbers removed.
+;;
+(define no-nums
+  (lambda (lat)
+    (cond
+     ((null? lat) '())
+     ((number? (car lat)) (no-nums (cdr lat)))
+     (else (cons (car lat)
+                 (no-nums (cdr lat)))))))
+

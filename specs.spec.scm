@@ -452,3 +452,21 @@
         '(the force is strong with this one)
         (rempick 4 '(the force is very strong with this one))))
 
+
+(test-group "no-nums"
+  (test "empty list"
+        '()
+        (no-nums '()))
+
+  (test "list of nums only"
+        '()
+        (no-nums '(1 3 5 7 9)))
+
+  (test "list not containing nums"
+        '(use the source luke)
+        (no-nums '(use the source luke)))
+
+  (test "mixed list"
+        '(one two three)
+        (no-nums' (1 one 2 two 3 three))))
+
