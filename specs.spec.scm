@@ -511,3 +511,29 @@
         #t
         (eqan? 'scheme 'scheme)))
 
+
+(test-group "occur"
+  (test "empty list"
+        0
+        (occur 'qux '()))
+
+  (test "single-element list, not present"
+        0
+        (occur 'qux '(foo)))
+
+  (test "single-element list, present"
+        1
+        (occur 'qux '(qux)))
+
+  (test "multiple-element list, not present"
+        0
+        (occur 'qux '(foo bar baz tux mux)))
+
+  (test "multiple-element list, present once"
+        1
+        (occur 'qux '(foo bar baz qux tux mux)))
+
+  (test "multiple-element list, present thrice"
+        3
+        (occur 'qux '(qux foo bar tux qux mux qux))))
+

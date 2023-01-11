@@ -454,3 +454,16 @@
      ((or (number? a1) (number? a2)) #f)
      (else (eq? a1 a2)))))
 
+
+;;;;
+;; occur :: a lat -> Int
+;;
+;; Counts the number of occurrences of `a` in `lat`.
+;;
+(define occur
+  (lambda (a lat)
+    (cond
+     ((null? lat) 0)
+     ((eq? (car lat) a) (add1 (occur a (cdr lat))))
+     (else (occur a (cdr lat))))))
+

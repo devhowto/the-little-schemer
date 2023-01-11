@@ -449,12 +449,22 @@ Still, we use `=` for numbers and `eq?' for all other atoms.
      (else (eq? a1 a2)))))
 ----
 
-=== `occur'
+=== occur
 
-.`occur' function definition
-[source,scheme,lineos]
+.occur function definition
+[source,scheme]
 ----
-include::./definitions.scm[tag=occur]
+;;;;
+;; occur :: a lat -> Int
+;;
+;; Counts the number of occurrences of `a` in `lat`.
+;;
+(define occur
+  (lambda (a lat)
+    (cond
+     ((null? lat) 0)
+     ((eq? (car lat) a) (add1 (occur a (cdr lat))))
+     (else (occur a (cdr lat))))))
 ----
 
 
