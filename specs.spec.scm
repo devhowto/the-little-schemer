@@ -537,3 +537,13 @@
         3
         (occur 'qux '(qux foo bar tux qux mux qux))))
 
+
+(test-group "one?"
+  (test "not 1"
+        #f
+        (one? 0))
+
+  (test "1 :)"
+        #t
+        (one? 1)))
+

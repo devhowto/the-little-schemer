@@ -468,14 +468,41 @@ Still, we use `=` for numbers and `eq?' for all other atoms.
 ----
 
 
-=== `one?'
+=== one?
 
-.`one?' function definition
-[source,scheme,lineos]
+.one? function definition
+[source,scheme]
 ----
-include::./definitions.scm[tag=one?]
+;;;;
+;; one? :: Atom -> Bool
+;;
+;; Checks whether `n` is the number 1.
+;;
+(define one?
+  (lambda (n)
+    (cond
+     ((and (number? n) (= n 1)) #t)
+     (else #f))))
 ----
 
+Versions from the book:
+
+[source,scheme]
+----
+(define one?
+  (lambda (n)
+    (cond
+     ((zero? n) #f)
+     (else (zero? (sub1 n))))))
+----
+
+[source,scheme]
+----
+(define one?
+  (lambda (n)
+    (cond
+     (else (= n 1)))))
+----
 
 === `rempick-v2'
 

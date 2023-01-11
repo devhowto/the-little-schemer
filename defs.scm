@@ -467,3 +467,27 @@
      ((eq? (car lat) a) (add1 (occur a (cdr lat))))
      (else (occur a (cdr lat))))))
 
+
+;;;;
+;; one? :: Atom -> Bool
+;;
+;; Checks whether `n` is the number 1.
+;;
+(define one?
+  (lambda (n)
+    (cond
+     ((and (number? n) (= n 1)) #t)
+     (else #f))))
+
+(define one?
+  (lambda (n)
+    (cond
+     ((zero? n) #f)
+     (else (zero? (sub1 n))))))
+
+(define one?
+  (lambda (n)
+    (cond
+     (else (= n 1)))))
+
+
