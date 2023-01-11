@@ -436,3 +436,21 @@
             (all-nums (cdr lat))))
      (else (all-nums (cdr lat))))))
 
+
+;;;;
+;; eqan? :: Atom Atom -> Bool
+;;
+;; Checks whether `a1` and `a2` are the same numeric or
+;; non-numeric atom.
+;;
+;; We don't necessarily need the `or` check because `eq?`
+;; can take a number and a non-number atom. Still, the code
+;; on the book uses it so I'm leaving it be.
+;;
+(define eqan?
+  (lambda (a1 a2)
+    (cond
+     ((and (number? a1) (number? a2) (= a1 a2)) #t)
+     ((or (number? a1) (number? a2)) #f)
+     (else (eq? a1 a2)))))
+

@@ -486,5 +486,28 @@
 
   (test "mixed list"
         '(1 2 3)
+
         (all-nums '(1 one 2 two 3 three))))
+
+
+(test-group "eqan?"
+  (test "number and non-number atom"
+        #f
+        (eqan? 1 'one))
+
+  (test "different number and number"
+        #f
+        (eqan? 3 7))
+
+  (test "same number"
+        #t
+        (eqan? 3 3))
+
+  (test "different non-number atom"
+      #f
+      (eqan? 'scheme 'lisp))
+
+  (test "same non-number atom"
+        #t
+        (eqan? 'scheme 'scheme)))
 
