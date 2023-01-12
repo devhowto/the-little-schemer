@@ -1,15 +1,26 @@
 == 5. \*Oh My Gawd*:, It's Full of Stars
 
-=== function: `rember*'
+=== rember*
 
-.`rember*' function definition
-[source,scheme,lineos]
+.rember* function definition
+[source,scheme]
 ----
-include::./definitions.scm[tag=rember*]
+;;;;
+;; rember* :: Atom [Atom] -> [Atom]
+;;
+;; Returns `lat` with all occurrences of `a` removed.
+;;
+(define rember*
+  (lambda (a lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) a) (rember* a (cdr lat)))
+     (else (cons (car lat)
+                 (rember* a (cdr lat)))))))
 ----
 
 
-=== function: `insertR*'
+=== `insertR*'
 
 .`insertR*' function definition
 [source,scheme,lineos]
@@ -30,7 +41,7 @@ All `*-functions' work on lists that are either:
 See <<fourth-commandment-final-version>>.
 
 
-=== function: `occur*'
+=== `occur*'
 
 .`occur*' function definition
 [source,scheme,lineos]
@@ -40,7 +51,7 @@ include::./definitions.scm[tag=occur*]
 
 1. Note the use of `+` to combine the result of the two recursive invocations.
 
-=== function: `subst*'
+=== `subst*'
 
 .`subst*' function definition
 [source,scheme,lineos]
@@ -53,7 +64,7 @@ include::./definitions.scm[tag=subst*]
 Besides that, we keep recurring with both `car` and `cdr` in these _star_ functions.
 
 
-=== function: `insertL*'
+=== `insertL*'
 
 .`insertL*' function definition
 [source,scheme,lineos]
@@ -62,7 +73,7 @@ include::./definitions.scm[tag=insertL*]
 ----
 
 
-=== function: `member*'
+=== `member*'
 
 .`member*' function definition
 [source,scheme,lineos]
@@ -73,7 +84,7 @@ include::./definitions.scm[tag=member*]
 Pay attention the use of `or` in the combination part of the `atom?` an `else` questions.
 
 
-=== function: `leftmost'
+=== `leftmost'
 
 .`leftmost' function definition
 [source,scheme,lineos]
@@ -84,7 +95,7 @@ include::./definitions.scm[tag=leftmost]
 1. Since it is assumed `l' is not empty, it is not necessary to ask `(null? l)`.
 
 
-=== function: `eqlist?'
+=== `eqlist?'
 
 Each argument may be either
 
@@ -102,7 +113,7 @@ include::./definitions.scm[tag=eqlist?]
 2. If we get to this question, then at least one of the above was not null (we used `and`) and if now one happens to be null (we are using `or`) then we know the lists are not equal.
 
 
-=== function: `my-equal?'
+=== `my-equal?'
 
 .`my-equal?' function definition
 [source,scheme,lineos]
@@ -113,7 +124,7 @@ include::./definitions.scm[tag=my-equal?]
 Note that we used `eqlist?` to define `my-equal?`.
 
 
-=== function: `eqlist? (v2)'
+=== `eqlist? (v2)'
 
 .`eqlist? (v2)' function definition
 [source,scheme,lineos]
@@ -124,7 +135,7 @@ include::./definitions.scm[tag=eqlist?-v2]
 See <<sixth-commandment>>.
 
 
-=== function: `rember (v2)'
+=== `rember (v2)'
 
 .`rember (v2)' function definition
 [source,scheme,lineos]

@@ -497,3 +497,22 @@
      (else (cons (car lat)
                  (rempick (sub1 n) (cdr lat)))))))
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Chapter 5 :: Stars
+;; ==================
+
+;;;;
+;; rember* :: Atom [Atom] -> [Atom]
+;;
+;; Returns `lat` with all occurrences of `a` removed.
+;;
+(define rember*
+  (lambda (a lat)
+    (cond
+     ((null? lat) '())
+     ((eq? (car lat) a) (rember* a (cdr lat)))
+     (else (cons (car lat)
+                 (rember* a (cdr lat)))))))
+

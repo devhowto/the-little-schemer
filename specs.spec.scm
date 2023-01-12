@@ -547,3 +547,21 @@
         #t
         (one? 1)))
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Chapter 5 :: Starts
+;; ===================
+
+(test-group "rember*"
+  (test "empty list"
+        '()
+        (rember* 'qux '()))
+
+  (test "single occurrence"
+        '(foo bar)
+        (rember* 'qux '(foo qux bar)))
+
+  (test "multiple occurrences"
+        '(foo bar baz)
+        (rember* 'qux '(foo qux qux bar qux baz qux qux))))
