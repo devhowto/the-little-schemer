@@ -400,7 +400,7 @@
 ;;
 ;; ASSUME: The element at index `n` is a member of the `lat`.
 ;;
-(define rempick
+(define rempick-v1
   (lambda (n lat)
     (cond
      ((zero? (sub1 n)) (cdr lat))
@@ -479,15 +479,21 @@
      ((and (number? n) (= n 1)) #t)
      (else #f))))
 
-(define one?
-  (lambda (n)
-    (cond
-     ((zero? n) #f)
-     (else (zero? (sub1 n))))))
 
-(define one?
-  (lambda (n)
+;;;;
+;; rempick :: Int [Atom] -> [Atom]
+;;
+;; Returns the `lat` with element at `n` removed.
+;;
+;; NOTE: `rempick` is defined only for non-empty lists and for
+;; non-zero indexes.
+;;
+;; ASSUME: The element at index `n` is a member of the `lat`.
+;;
+(define rempick
+  (lambda (n lat)
     (cond
-     (else (= n 1)))))
-
+     ((one? n) (cdr lat))
+     (else (cons (car lat)
+                 (rempick (sub1 n) (cdr lat)))))))
 

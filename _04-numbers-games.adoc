@@ -504,12 +504,28 @@ Versions from the book:
      (else (= n 1)))))
 ----
 
-=== `rempick-v2'
+=== rempick v2
 
-.`rempick-v2' function definition
+This version uses `one?`.
+
+.rempick v2 function definition
 [source,scheme,lineos]
 ----
-include::./definitions.scm[tag=rempick-v2]
+;;;;
+;; rempick :: Int [Atom] -> [Atom]
+;;
+;; Returns the `lat` with element at `n` removed.
+;;
+;; NOTE: `rempick` is defined only for non-empty lists and for
+;; non-zero indexes.
+;;
+;; ASSUME: The element at index `n` is a member of the `lat`.
+;;
+(define rempick
+  (lambda (n lat)
+    (cond
+     ((one? n) (cdr lat))
+     (else (cons (car lat)
+                 (rempick (sub1 n) (cdr lat)))))))
 ----
-
 
