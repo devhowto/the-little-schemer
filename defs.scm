@@ -504,15 +504,22 @@
 ;; ==================
 
 ;;;;
-;; rember* :: Atom [Atom] -> [Atom]
+;; rember* :: Atom [a] -> [a]
 ;;
-;; Returns `lat` with all occurrences of `a` removed.
+;; Returns `l` with all occurrences of `a` removed.
 ;;
 (define rember*
-  (lambda (a lat)
+  (lambda (a l)
     (cond
-     ((null? lat) '())
-     ((eq? (car lat) a) (rember* a (cdr lat)))
-     (else (cons (car lat)
-                 (rember* a (cdr lat)))))))
+     ((null? l) '())
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) a)
+        (rember* a (cdr l)))
+       (else
+        (cons (car l)
+              (rember* a (cdr l))))))
+     (else
+      (cons (rember* a (car l))
+            (rember* a (cdr l)))))))
 

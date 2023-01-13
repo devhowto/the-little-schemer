@@ -564,4 +564,18 @@
 
   (test "multiple occurrences"
         '(foo bar baz)
-        (rember* 'qux '(foo qux qux bar qux baz qux qux))))
+        (rember* 'qux '(foo qux qux bar qux baz qux qux)))
+
+  (test "nested empty lists"
+        '(() (()))
+        (rember* 'qux '(() (()))))
+
+  (test "nested only qux list"
+        '((()) ())
+        (rember* 'qux '(qux (qux (qux)) (qux) qux)))
+
+  (test "nested mixed lists"
+        '((foo) (bar (baz (mux ((())))) yoda))
+        (rember* 'qux
+                 '((foo qux) qux (bar (baz (qux mux (((qux))))) yoda) qux))))
+
