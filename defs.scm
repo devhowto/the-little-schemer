@@ -523,3 +523,28 @@
       (cons (rember* a (car l))
             (rember* a (cdr l)))))))
 
+
+;;;;
+;; insertR* :: Atom [a] -> [a]
+;;
+;; Returns `lst` with `new` inserted to the right of all occurrences
+;; of `old`.
+;;
+(define insertR*
+  (lambda (new old lst)
+    (cond
+     ((null? lst) '())
+     ((atom? (car lst))
+      (cond
+       ((eq? (car lst) old)
+        (cons old
+              (cons new
+                    (insertR* new old (cdr lst)))))
+       (else
+        (cons (car lst)
+              (insertR* new old (cdr lst))))))
+     (else
+      (cons (insertR* new old (car lst))
+            (insertR* new old (cdr lst)))))))
+
+

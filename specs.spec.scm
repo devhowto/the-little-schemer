@@ -579,3 +579,28 @@
         (rember* 'qux
                  '((foo qux) qux (bar (baz (qux mux (((qux))))) yoda) qux))))
 
+
+(test-group "insertR*"
+  (test "empty list"
+        '()
+        (insertR* 'NEW 'qux '()))
+
+  (test "non-empty lat not containing qux"
+        '(foo bar baz)
+        (insertR* 'NEW 'qux '(foo bar baz)))
+
+  (test "non-empty lat containing qux"
+        '(qux NEW foo qux NEW)
+        (insertR* 'NEW 'qux '(qux foo qux)))
+
+  (test "empty nested lists"
+        '(() (()))
+        (insertR* 'NEW 'qux '(() (()))))
+
+  (test "nested lists not containing qux"
+        '(foo (bar (baz) miyagi))
+        (insertR* 'NEW 'qux '(foo (bar (baz) miyagi))))
+
+  (test "nested lists containing qux"
+        '(foo qux NEW (bar qux NEW (baz qux NEW) miyagi qux NEW))
+        (insertR* 'NEW 'qux '(foo qux (bar qux (baz qux) miyagi qux)))))
