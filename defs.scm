@@ -509,19 +509,19 @@
 ;; Returns `l` with all occurrences of `a` removed.
 ;;
 (define rember*
-  (lambda (a l)
+  (lambda (a lst)
     (cond
-     ((null? l) '())
-     ((atom? (car l))
+     ((null? lst) '())
+     ((atom? (car lst))
       (cond
-       ((eq? (car l) a)
-        (rember* a (cdr l)))
+       ((eq? (car lst) a)
+        (rember* a (cdr lst)))
        (else
-        (cons (car l)
-              (rember* a (cdr l))))))
+        (cons (car lst)
+              (rember* a (cdr lst))))))
      (else
-      (cons (rember* a (car l))
-            (rember* a (cdr l)))))))
+      (cons (rember* a (car lst))
+            (rember* a (cdr lst)))))))
 
 
 ;;;;
